@@ -1,11 +1,62 @@
-<!DOCTYPE html>
-<!-- This file is the sign up page -->
+<!doctype html>
 <html>
-  <head>
-    <title>eway</title>
-    <link rel="stylesheet" href="/styelsheets/bootstrap.min.css">
-  </head>
-  <body>
-  
-  </body>
+<head>
+<link href="css1.css" rel="stylesheet" type="text/css">
+<meta charset="utf-8">
+<title>Sign Up</title>
+</head>
+
+<body>
+<table width="100%" border="0">
+  <tbody>
+    <tr>
+      <td width="73%">
+      	<div class="formfont" style="font:Arial Rounded MT Bold; font-size: 30px;">
+      		<img src="../images/logo.png" width="217" height="88"/>
+      	Get started with eWay</div>
+        <br>
+      <div class="formfont">
+      Create your personal account or <a href="businessacc.ejs">start a busiess account</a>.
+      </div>
+      </td>
+      <td width="27%">&nbsp;</td>
+    </tr>
+    <tr>
+      <td rowspan="2"><form id="form1" name="form1" method="post" action="register" >
+      <div class="formfont">
+        First Name<br>
+        <input type="text" name="txtfname" id="txtfname" style="font:Arial Rounded MT Bold; font-size: 20px;"><br>
+        Last Name<br>
+        <input type="text" name="txtlname" id="txtlname" style="font:Arial Rounded MT Bold; font-size: 20px;"><br>
+        Email<br>
+        <input type="text" name="txtemail" id="txtemail" style="font:Arial Rounded MT Bold; font-size: 20px;"><br>
+        Main address<br>
+        <input type="text" name="txtmaddress" id="txtmaddress" style="font:Arial Rounded MT Bold; font-size: 20px;"><br>
+        City<br>
+        <input type="text" name="txtcity" id="txtcity" style="font:Arial Rounded MT Bold; font-size: 20px;"><br>
+        State<br>
+        <input type="text" name="txtstate" id="txtstate" style="font:Arial Rounded MT Bold; font-size: 20px;"><br>
+        Zip Code<br>
+        <input type="text" name="txtzip" id="txtzip" style="font:Arial Rounded MT Bold; font-size: 20px;"><br>
+        Create your password<br>
+        <input type="password" name="txtpwd" id="txtpwd" style="font:Arial Rounded MT Bold; font-size: 20px;"><br>
+        Confirm password<br>
+        <input type="password" name="txtpwd2" id="txtpwd2" style="font:Arial Rounded MT Bold; font-size: 20px;"><br>
+        <br><br>
+        <input name="signup" type="submit" id="signup" value="Submit" style="font:Arial Rounded MT Bold; font-size: 20px;">
+        </div>
+      </form>
+      </td>
+      
+      <td><div style="font:Arial Rounded MT Bold; font-size: 20px;">Already have an account?</div>
+      <br><br>
+      <input name="signin" type="submit" id="signin" value="Sign In" style="font:Arial Rounded MT Bold; font-size: 20px;">
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+</body>
 </html>

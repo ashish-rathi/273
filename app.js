@@ -31,6 +31,43 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 
+//var signupData = {
+//		email:'akshay.mhatre@sjsu.edu',
+//		password:'password',
+//		firstName:'Akshay',
+//		lastName:'M',
+//		addressMain:'123',
+//		city:'SJ',
+//		state:'CA',
+//		zip:110101,
+//}
+//mysql.signup(signupData, function(err, user){
+//	if(err){
+//		console.log(err);
+//	}else{
+//		console.log(user);
+//	}
+//});
+//var signinData = {
+//		email:'akshay.mhatre@sjsu.edu',
+//		password:'password'
+//};
+//mysql.signin(signinData, function(err, user){
+//	if(err){
+//		console.log(err);
+//	}else{
+//		console.log(user);
+//	}
+//});
+
+//mysql.user_profile(6,function(err, user){
+//	if(err){
+//		console.log(err);
+//	}else{
+//		console.log(user);
+//	}
+//});
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });

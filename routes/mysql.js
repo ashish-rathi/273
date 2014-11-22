@@ -13,19 +13,10 @@ var pool  = mysql.createPool({
 	database: 'Ebay'
 });
 
-exports.signup = function (req, res, callback){
-	var signupData = {
-		email:req.body.email,
-		password:req.body.password,
-		firstName:req.body.firstname,
-		lastName:req.body.lastname,
-		addressMain:req.body.address,
-		city:req.body.city,
-		state:req.body.state,
-		zip:req.body.zip,
-		isSeller:req.body.isSeller
-	};
-	
+/* 
+ * API - /signup
+ */
+exports.signup = function (signupData, callback){
 	pool.getConnection(function(err, connection) {
 		if(err){
 			console.log('error');
@@ -34,47 +25,37 @@ exports.signup = function (req, res, callback){
 		connection.query('INSERT INTO User SET	?', signupData,
 				function(err, result) {
 			connection.release();
-			if(err) {
-				callback(err);
-				return;
-			}
-			callback(false, result);
+			callback(err, result);
 		});
 	});
 };
 
-exports.signin = function(req, res, callback){
-	console.log(req.body.email);
-	console.log(req.body.password);
-	var signinData = {
-			email:req.body.email,
-			password:req.body.password
-		};
-	
+/* 
+ * API - /signin
+ */
+exports.signin = function(signinData, callback){
 	pool.getConnection(function(err, connection) {
 		if(err){
 			console.log('error');
 			console.log(err);
 		}
-		connection.query('SELECT * FROM User WHERE email = ? limit 1',[req.body.email],function(err, user){
-			var userObject = user[0];
+		connection.query('SELECT * FROM User WHERE email = ? AND password = ? limit 1',[signinData.email,signinData.password],function(err, user){
 			connection.release();
-			if(err){
-				console.log(err);
-				callback(err);
-			}else{
-				if(!userObject){
-					console.log('No user with email '+req.body.email+' found!');
-					return;
-				}
-				if(userObject.password === req.body.password){
-					console.log('logged in');
-					callback(false, user);
-				}else{
-					console.log(user);
-					console.log('Invalid credentials');
-				}
-			}
+			callback(err, user);
+				
+		});
+	});
+};
+
+/* 
+ * API - /user/:user_id
+ */
+exports.user_profile = function(user_id, callback){
+	pool.getConnection(function(err, connection) {
+		connection.query('SELECT * FROM User WHERE membershipNo = ? limit 1',[user_id],function(err, user){
+			connection.release();
+			callback(err, user);
+			
 		});
 	});
 };

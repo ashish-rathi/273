@@ -43,3 +43,38 @@ exports.signup = function (req, res, callback){
 	});
 };
 
+exports.signin = function(req, res, callback){
+	console.log(req.body.email);
+	console.log(req.body.password);
+	var signinData = {
+			email:req.body.email,
+			password:req.body.password
+		};
+	
+	pool.getConnection(function(err, connection) {
+		if(err){
+			console.log('error');
+			console.log(err);
+		}
+		connection.query('SELECT * FROM User WHERE email = ? limit 1',[req.body.email],function(err, user){
+			var userObject = user[0];
+			connection.release();
+			if(err){
+				console.log(err);
+				callback(err);
+			}else{
+				if(!userObject){
+					console.log('No user with email '+req.body.email+' found!');
+					return;
+				}
+				if(userObject.password === req.body.password){
+					console.log('logged in');
+					callback(false, user);
+				}else{
+					console.log(user);
+					console.log('Invalid credentials');
+				}
+			}
+		});
+	});
+};

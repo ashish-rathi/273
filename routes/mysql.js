@@ -17,18 +17,6 @@ var pool  = mysql.createPool({
  * API - /signup
  */
 exports.signup = function (signupData, callback){
-	/*var signupData = {
-		email:req.body.email,
-		password:req.body.password,
-		firstName:req.body.firstname,
-		lastName:req.body.lastname,
-		addressMain:req.body.address,
-		city:req.body.city,
-		state:req.body.state,
-		zip:req.body.zip,
-		isSeller:req.body.isSeller
-	};*/
-	
 	pool.getConnection(function(err, connection) {
 		if(err){
 			console.log('error');
@@ -67,7 +55,6 @@ exports.user_profile = function(user_id, callback){
 		connection.query('SELECT * FROM User WHERE membershipNo = ? limit 1',[user_id],function(err, user){
 			connection.release();
 			callback(err, user);
-			
 		});
 	});
 };

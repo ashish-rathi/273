@@ -13,8 +13,8 @@ var pool  = mysql.createPool({
 	database: 'Ebay'
 });
 
-exports.signup = function (req, res, callback){
-	var signupData = {
+exports.signup = function (signupData, callback){
+	/*var signupData = {
 		email:req.body.email,
 		password:req.body.password,
 		firstName:req.body.firstname,
@@ -24,13 +24,14 @@ exports.signup = function (req, res, callback){
 		state:req.body.state,
 		zip:req.body.zip,
 		isSeller:req.body.isSeller
-	};
+	};*/
 	
 	pool.getConnection(function(err, connection) {
 		if(err){
 			console.log('error');
 			console.log(err);
 		}
+		console.log( signupData);
 		connection.query('INSERT INTO User SET	?', signupData,
 				function(err, result) {
 			connection.release();

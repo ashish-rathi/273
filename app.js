@@ -36,14 +36,15 @@ app.get('/users', user.list);
 app.get('/signup',routes.signup);
 app.post('/register',routes.register)
 
-var new_profile = {
-	firstName:'Akshay'
+var signinData = {
+	email:'akshay.mhatre@sjsu.edu',
+	password:'password'
 }
-
-mysql.edit_user_profile(6, new_profile, function(err, result){
+mysql.signin(signinData, function(err, result){
 	if(err){
-		console.log(err);
+		console.log('signin err'+err);
 	}else{
+		console.log('signed in');
 		console.log(result);
 	}
 });

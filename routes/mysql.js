@@ -14,7 +14,7 @@ var pool  = mysql.createPool({
 });
 
 /* 
- * API - /signup
+ * API POST - /signup
  */
 exports.signup = function (signupData, callback){
 	pool.getConnection(function(err, connection) {
@@ -31,7 +31,7 @@ exports.signup = function (signupData, callback){
 };
 
 /* 
- * API - /signin
+ * API GET - /signin
  */
 exports.signin = function(signinData, callback){
 	pool.getConnection(function(err, connection) {
@@ -48,13 +48,29 @@ exports.signin = function(signinData, callback){
 };
 
 /* 
- * API - /user/:user_id
+ * API GET - /user/:user_id
  */
 exports.user_profile = function(user_id, callback){
 	pool.getConnection(function(err, connection) {
 		connection.query('SELECT * FROM User WHERE membershipNo = ? limit 1',[user_id],function(err, user){
 			connection.release();
 			callback(err, user);
+		});
+	});
+};
+
+/* 
+ * API PUT - /user/:user_id
+ */
+exports.edit_user_profile = function(user_id, newData, callback){
+	pool.getConnection(function(err, connection) {
+		if(err){
+			console.log('error');
+			console.log(err);
+		}
+		connection.query('UPDATE User SET ? WHERE membershipNo = ?',[newData, user_id], function(err, result){
+			connection.release();
+			callback(err, result);
 		});
 	});
 };

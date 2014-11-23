@@ -36,6 +36,18 @@ app.get('/users', user.list);
 app.get('/signup',routes.signup);
 app.post('/register',routes.register)
 
+var new_profile = {
+	firstName:'Akshay'
+}
+
+mysql.edit_user_profile(6, new_profile, function(err, result){
+	if(err){
+		console.log(err);
+	}else{
+		console.log(result);
+	}
+});
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });

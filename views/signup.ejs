@@ -1,82 +1,52 @@
 <!doctype html>
 <html>
 <head>
-<link href="css1.css" rel="stylesheet" type="text/css">
-<link href="/stylesheets/style.css" rel="stylesheet" type="text/css">
+<link href="css1.css" rel="stylesheet" type="text/css" >
 <meta charset="utf-8">
 <title>Sign Up</title>
-<script src="/jquery-ui-1.11.1/external/jquery/jquery.js"></script>
-<script src="/jquery-ui-1.11.1/jquery-ui.js"></script>
-<script src="/validator/jquery.validate.js"></script>
-<script>
-$(document).ready(function(){
-	var x = $("#message").html(); 
-        if(x!='')
-        {
-        	$('#notification').slideToggle(500).delay(2000).slideToggle(500);
-        }
-   $("#form1").validate()
-})
-</script>
-<style>
-.error{color:red}
-</style>
-
 </head>
 
 <body>
-<div id="notification">
-	<div id="message"><%=error%></div>
-</div>
 <table width="100%" border="0">
   <tbody>
     <tr>
-      <td width="73%">
-      	<div class="formfont" style="font:Arial Rounded MT Bold; font-size: 30px;">
-      		<img src="../images/logo.png" width="217" height="88"/>
+      <td width="62%">
+      	<div class="formfont" style="font-size: 30px;">
+      		<img src="images/mylogo.png" width="217" height="88"/>
       	Get started with eWay</div>
         <br>
-      <div class="formfont">
+      <div class="txtboxes" style="font-weight: bold; margin-left:2em">
       Create your personal account or <a href="businessacc.ejs">start a busiess account</a>.
       </div>
       </td>
-      <td width="27%">&nbsp;</td>
+      <td width="38%">&nbsp;</td>
     </tr>
     <tr>
-      <td rowspan="2"><form id="form1" name="form1" method="post" action="register" >
+      <td rowspan="2"><form id="form1" name="form1" method="post" >
       <div class="formfont">
         First Name<br>
-        <input type="text" name="txtfname" id="txtfname" class="required" style="font:Arial Rounded MT Bold; font-size: 20px;"><br>
+        <input type="text" name="txtfname" id="txtfname" class="txtboxes"><br>
         Last Name<br>
-        <input type="text" name="txtlname" id="txtlname" class="required" style="font:Arial Rounded MT Bold; font-size: 20px;"><br>
+        <input type="text" name="txtlname" id="txtlname" class="txtboxes"><br>
         Email<br>
-        <input type="email" name="txtemail" id="txtemail" class="required" style="font:Arial Rounded MT Bold; font-size: 20px;"><br>
-        Main address<br>
-        <input type="text" name="txtmaddress" id="txtmaddress" class="required" style="font:Arial Rounded MT Bold; font-size: 20px;"><br>
-        City<br>
-        <input type="text" name="txtcity" id="txtcity" class="required" style="font:Arial Rounded MT Bold; font-size: 20px;"><br>
-        State<br>
-        <input type="text" name="txtstate" id="txtstate" class="required" style="font:Arial Rounded MT Bold; font-size: 20px;"><br>
-        Zip Code<br>
-        <input type="text" name="txtzip" id="txtzip" class="required" style="font:Arial Rounded MT Bold; font-size: 20px;"><br>
+        <input type="text" name="txtemail" id="txtemail" class="txtboxes"><br>
         Create your password<br>
-        <input type="password" name="txtpwd" id="txtpwd" class="required" style="font:Arial Rounded MT Bold; font-size: 20px;"><br>
+        <input type="password" name="txtpwd" id="txtpwd" class="txtboxes"><br>
         Confirm password<br>
-        <input type="password" name="txtpwd2" id="txtpwd2" class="required" style="font:Arial Rounded MT Bold; font-size: 20px;"><br>
+        <input type="password" name="txtpwd2" id="txtpwd2" class="txtboxes"><br>
         <br><br>
-        <input name="signup" type="submit" id="signup" value="Submit" style="font:Arial Rounded MT Bold; font-size: 20px;">
+        <button class="ButtonBuss" name="signup" type="submit" id="signup" >Submit</button>
         </div>
       </form>
       </td>
       
-      <td><div style="font:Arial Rounded MT Bold; font-size: 20px;">Already have an account?</div>
+      <td><div class="formfont">Already have an account?</div>
       <br><br>
-      <form id="form2" name="form2" method="get" action="signin" >
-      <input name="signin" type="submit" id="signin" formvalue="Sign In" style="font:Arial Rounded MT Bold; font-size: 20px;">
-      </form>
+      <button style="margin-left:1em" class="ButtonBuss" name="signin" type="submit" id="signin">Sign In</button>
       </td>
     </tr>
     <tr>
+      
       <td>&nbsp;</td>
     </tr>
   </tbody>

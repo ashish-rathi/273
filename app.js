@@ -37,19 +37,6 @@ app.post('/login',routes.login); // signs in a by performing db read and update
 app.get('/signup',routes.signup); //redirects to signup page
 app.post('/register',routes.register) //signs up a new user by performing db update
 
-var signinData = {
-	email:'akshay.mhatre@sjsu.edu',
-	password:'password'
-}
-mysql.signin(signinData, function(err, result){
-	if(err){
-		console.log('signin err'+err);
-	}else{
-		console.log('signed in');
-		console.log(result);
-	}
-});
-
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });

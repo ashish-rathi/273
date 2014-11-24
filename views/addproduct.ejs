@@ -1,0 +1,89 @@
+<html>
+<head>
+<link href="css1.css" rel="stylesheet" type="text/css" >
+<script>
+function show_menu()
+{
+if(document.getElementById('gh-eb-My-o').style.display=="none")
+document.getElementById('gh-eb-My-o').style.display="block";
+else
+document.getElementById('gh-eb-My-o').style.display="none";
+}
+</script>
+<meta charset="utf-8">
+<title>Add Product</title>
+</head>
+
+<body>
+<table width="100%" border="0">
+<form id="form1" name="form1" method="post" >
+  <tbody>
+    <tr>
+      <td width="62%">
+      	<div class="formfont" style="font-size: 28px;">
+      		<img src="images/mylogo.png" width="217" height="88"/>
+      	Hi! Ready to add new product to eWay?</div>
+        <br>
+      <div class="txtboxes" style="font-weight: bold; margin-left:2em">
+      Enter the product details.</div>
+      </td>
+      <td width="38%">&nbsp;</td>
+    </tr>
+    <tr>
+      <td rowspan="2">
+      <div class="formfont">
+        <p>Product Name<br>
+          <input type="text" name="txtpname" id="txtpname" class="txtboxes"><br><br>
+          Select Category
+          <div id="gh-cat-box">
+            <select id="gh-cat" class="gh-sb gh-sprRetina" title="Select a category" size="1" class="txtboxes">
+            
+            <option value="mobiles">Mobiles</option>
+            <option value="laptops">Laptops</option>
+            <option value="accessories">Accessories</option>
+            <option value="cameras">Camera</option>
+            <option value="tablets">Tablets</option>
+            <option value="tv">TV</option>
+            <option value="video_games">Video Games</option>
+            </select>
+            </div><br>
+          Quantity<br>
+          <input type="number" name="txtqty" id="txtqty" min="1" max="10" class="txtboxes"><br><br>
+          Condition<br>
+          <input type="radio" name="group1" value="new" class="txtboxes" checked> New
+<input type="radio" name="group1" value="used"> Used<br><br>
+            
+            Type<br>
+          <input type="radio" name="group2" value="fixedprice" class="txtboxes" checked> Fixed Price
+<input type="radio" name="group2" value="bid"> Bid<br><br>
+
+			Price<br>
+          $ <input type="number" name="txtqty" id="txtqty" min="0.99" class="txtboxes"><br>
+          
+          </div>
+          <br><h4 style="margin-left:2em"><input type="checkbox" name="acceptq1" value="1" id="acceptq1">
+          I agree to the following:</p>
+        <ul style="padding-left:40px;margin:0px"><li>I accept the user-agreement.</li>
+<li>I am at least 18 years old.</li>
+</ul></h4>
+          <br>
+        </p>
+        <button class="ButtonBuss" name="addprod" type="submit" id="addprod" >Add Product</button>
+        
+      
+      </td>
+      
+      <td><div class="formfont">Upload an image of product<br><br>
+        <input type="file" name="img" id="img" class="txtboxes"><br></div>
+      <br><br>
+      <img src="images/blankimg.bmp" alt=""/></td>
+    </tr>
+    <tr>
+      
+      <td>&nbsp;</td>
+    </tr>
+  </tbody>
+  </form>
+</table>
+</body>
+</html>

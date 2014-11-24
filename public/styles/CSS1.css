@@ -1,0 +1,35 @@
+.formfont {font-size: 20px; font-family: "Arial Rounded MT Bold", Times, serif; font-weight: bold; margin: 1em}
+
+.txtboxes {font:Arial Rounded MT Bold; font-size: 20px;}
+
+.headerlinks a:visited, a:link, a:active {font:Arial Rounded MT Bold; font-size: 16px; color: #808080; font-weight: bold; text-decoration:none; text-align:center; }
+
+.headerlinks a:hover {font-size: 18px; color: #696969;}
+
+img .logostyle {margin-left:3em; margin-top:3em;}
+
+
+button {
+padding: 0;
+border: 0;
+background: none;
+text-indent: inherit;
+vertical-align: middle;
+height:200%;
+}
+
+.ButtonBuss{
+
+color: #fff;
+font-family: Arial Rounded MT Bold;
+font-weight: bold;
+cursor: hand;
+cursor: pointer;
+font-size: 22px;
+display: block;
+white-space: nowrap;
+background-color: #0000FF;
+background-position: 100% 0;
+padding: 10px 14px 10px 8px;
+border-radius: 15px;
+}

@@ -13,6 +13,8 @@ var pool  = mysql.createPool({
 	database: 'Ebay'
 });
 
+//TODO:Error handling module for various errors
+
 /* 
  * API POST - /signup
  */
@@ -109,11 +111,142 @@ exports.get_seller_profile = function(user_id, callback){
  */
 exports.get_products_for_category = function(idCategory, callback){
 	pool.getConnection(function(err, connection) {
-		connection.query('SELECT * FROM Product WHERE idCategory = ?',[idCategory],function(err, user){
+		connection.query('SELECT * FROM Product WHERE idCategory = ?',[idCategory],function(err, result){
 			connection.release();
-			callback(err, user);
+			callback(err, result);
 		});
 	});
 };
+
+/* 
+ * API GET - /:product_category/:product_id
+ */
+exports.get_product = function(idProduct, idCategory, callback){
+	pool.getConnection(function(err, connection) {
+		connection.query('SELECT * FROM Product WHERE idProduct = ? AND idCategory = ? limit 1',[idProduct, idCategory],function(err, result){
+			connection.release();
+			callback(err, result);
+		});
+	});
+};
+
+/*
+ * API GET - /mycart 
+ */
+
+/*
+ * API PUT - /mycart 
+ */
+exports.add_to_cart = function(membershipNo, idProduct, callback){
+	var cart_product = {
+			membershipNo:membershipNo,
+			idProduct:idProduct
+	};
+	pool.getConnection(function(err, connection) {
+		connection.query('INSERT INTO BuyerCart SET ?',cart_product,function(err, result){
+			connection.release();
+			callback(err, result);
+		});
+	});
+};
+
+/*
+ * API DELETE - /mycart 
+ */
+exports.delete_from_cart = function(membershipNo, idProduct, callback){
+	pool.getConnection(function(err, connection) {
+		connection.query('DELETE FROM BuyerCart WHERE membershipNo = ? AND idProduct = ?',[membershipNo, idProduct],function(err, result){
+			connection.release();
+			callback(err, result);
+		});
+	});
+};
+
+/*
+ * API GET - /search?query=search_string 
+ */
+exports.search_products = function(search_string, callback){
+	pool.getConnection(function(err, connection) {
+		connection.query('SELECT * FROM Product WHERE productName LIKE ? OR productDesc LIKE ?',['%'+search_string+'%','%'+search_string+'%'],function(err, result){
+			connection.release();
+			callback(err, result);
+		});
+	});
+};
+
+/*
+ * API POST - /addnewproduct 
+ */
+/*
+  	var product = {
+	productName:'MacBook Pro',
+	productCondition:'new',
+	productDesc:'Apple MacBook Pro is the best portable computer ever',
+	amount:1200.00,
+	idCategory:1,
+	quantity:1,
+	sellerId:6
+};
+ */
+exports.add_product = function(product_data, callback){
+	pool.getConnection(function(err, connection) {
+		connection.query('INSERT INTO Product SET ?',[product_data],function(err, result){
+			connection.release();
+			callback(err, result);
+		});
+	});
+};
+
+/*
+ * API GET - /checkout
+ */
+exports.checkout = function(){
+	
+};
+
+/*
+ * API GET - /auction
+ */
+exports.get_all_auctions = function(callback){
+	pool.getConnection(function(err, connection) {
+		connection.query('SELECT * FROM Product WHERE sellType = ?',['auction'],function(err, result){
+			connection.release();
+			callback(err, result);
+		});
+	});
+};
+
+/*
+ * API GET - /auction/category
+ */
+exports.get_auctions_for_category = function(idCategory, callback){
+	pool.getConnection(function(err, connection) {
+		connection.query('SELECT * FROM Product WHERE sellType = ? AND idCategory = ?',['auction',idCategory],function(err, result){
+			connection.release();
+			callback(err, result);
+		});
+	});
+};
+
+/*
+ * API POST - /auction/bid/:product_id
+ */
+/*
+var bid = {
+		membershipNo:7,
+		idProduct:2,
+		bidAmount:1270.00
+	};
+ */
+exports.place_bid = function(bid, callback){
+	pool.getConnection(function(err, connection) {
+		connection.query('INSERT INTO Bid SET ?',[bid],function(err, result){
+			connection.release();
+			callback(err, result);
+		});
+	});
+};
+
+//TODO get bid on a product
 
 exports.edit_user_profile = edit_user_profile;

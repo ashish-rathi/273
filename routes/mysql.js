@@ -13,7 +13,7 @@ var pool  = mysql.createPool({
 	database: 'Ebay'
 });
 
-//TODO:Error handling module for variuos errors
+//TODO:Error handling module for various errors
 
 /* 
  * API POST - /signup
@@ -162,5 +162,73 @@ exports.delete_from_cart = function(membershipNo, idProduct, callback){
 	});
 };
 
+/*
+ * API GET - /search?query=search_string 
+ */
+exports.search_products = function(search_string, callback){
+	pool.getConnection(function(err, connection) {
+		connection.query('SELECT * FROM Product WHERE productName LIKE ? OR productDesc LIKE ?',['%'+search_string+'%','%'+search_string+'%'],function(err, result){
+			connection.release();
+			callback(err, result);
+		});
+	});
+};
+
+/*
+ * API POST - /addnewproduct 
+ */
+exports.add_product = function(product_data, callback){
+	pool.getConnection(function(err, connection) {
+		connection.query('INSERT INTO Product SET ?',[product_data],function(err, result){
+			connection.release();
+			callback(err, result);
+		});
+	});
+};
+
+/*
+ * API GET - /checkout
+ */
+exports.checkout = function(){
+	
+};
+
+/*
+ * API GET - /auction
+ */
+exports.get_all_auctions = function(callback){
+	pool.getConnection(function(err, connection) {
+		connection.query('SELECT * FROM Product WHERE sellType = ?',['auction'],function(err, result){
+			connection.release();
+			callback(err, result);
+		});
+	});
+};
+
+/*
+ * API GET - /auction/category
+ */
+exports.get_auctions_for_category = function(idCategory, callback){
+	pool.getConnection(function(err, connection) {
+		connection.query('SELECT * FROM Product WHERE sellType = ? AND idCategory = ?',['auction',idCategory],function(err, result){
+			connection.release();
+			callback(err, result);
+		});
+	});
+};
+
+/*
+ * API POST - /auction/bid/:product_id
+ */
+exports.place_bid = function(bid, callback){
+	pool.getConnection(function(err, connection) {
+		connection.query('INSERT INTO Bid SET ?',[bid],function(err, result){
+			connection.release();
+			callback(err, result);
+		});
+	});
+};
+
+//TODO get bid on a product
 
 exports.edit_user_profile = edit_user_profile;

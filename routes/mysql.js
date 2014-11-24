@@ -13,6 +13,8 @@ var pool  = mysql.createPool({
 	database: 'Ebay'
 });
 
+//TODO:Error handling module for variuos errors
+
 /* 
  * API POST - /signup
  */
@@ -109,11 +111,56 @@ exports.get_seller_profile = function(user_id, callback){
  */
 exports.get_products_for_category = function(idCategory, callback){
 	pool.getConnection(function(err, connection) {
-		connection.query('SELECT * FROM Product WHERE idCategory = ?',[idCategory],function(err, user){
+		connection.query('SELECT * FROM Product WHERE idCategory = ?',[idCategory],function(err, result){
 			connection.release();
-			callback(err, user);
+			callback(err, result);
 		});
 	});
 };
+
+/* 
+ * API GET - /:product_category/:product_id
+ */
+exports.get_product = function(idProduct, idCategory, callback){
+	pool.getConnection(function(err, connection) {
+		connection.query('SELECT * FROM Product WHERE idProduct = ? AND idCategory = ? limit 1',[idProduct, idCategory],function(err, result){
+			connection.release();
+			callback(err, result);
+		});
+	});
+};
+
+/*
+ * API GET - /mycart 
+ */
+
+/*
+ * API PUT - /mycart 
+ */
+exports.add_to_cart = function(membershipNo, idProduct, callback){
+	var cart_product = {
+			membershipNo:membershipNo,
+			idProduct:idProduct
+	};
+	pool.getConnection(function(err, connection) {
+		connection.query('INSERT INTO BuyerCart SET ?',cart_product,function(err, result){
+			connection.release();
+			callback(err, result);
+		});
+	});
+};
+
+/*
+ * API DELETE - /mycart 
+ */
+exports.delete_from_cart = function(membershipNo, idProduct, callback){
+	pool.getConnection(function(err, connection) {
+		connection.query('DELETE FROM BuyerCart WHERE membershipNo = ? AND idProduct = ?',[membershipNo, idProduct],function(err, result){
+			connection.release();
+			callback(err, result);
+		});
+	});
+};
+
 
 exports.edit_user_profile = edit_user_profile;

@@ -15,7 +15,7 @@ $(document).ready(function(){
         {
         	$('#notification').slideToggle(500).delay(2000).slideToggle(500);
         }
-   $("form").validate()
+   $("#form1").validate()
 })
 </script>
 <style>
@@ -71,7 +71,9 @@ $(document).ready(function(){
       
       <td><div style="font:Arial Rounded MT Bold; font-size: 20px;">Already have an account?</div>
       <br><br>
-      <input name="signin" type="submit" id="signin" value="Sign In" style="font:Arial Rounded MT Bold; font-size: 20px;">
+      <form id="form2" name="form2" method="get" action="signin" >
+      <input name="signin" type="submit" id="signin" formvalue="Sign In" style="font:Arial Rounded MT Bold; font-size: 20px;">
+      </form>
       </td>
     </tr>
     <tr>

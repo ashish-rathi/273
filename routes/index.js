@@ -2,6 +2,23 @@ var ejs = require("ejs");
 var customMysql = require("./mysql");
 
 /*
+ * GET signin page.
+ */
+
+exports.signin = function(req, res){
+	ejs.renderFile('./views/sigin.ejs',function(err, result){
+		  if (!err) {
+	          res.end(result);
+	      }
+	      else {
+	          res.end('An error occurred');
+	          console.log(err);
+	      }
+	  });
+};
+
+
+/*
  * GET home page.
  */
 
@@ -23,7 +40,7 @@ exports.index = function(req, res){
  */
 
 exports.signup = function(req,res){ 
-	ejs.renderFile('./views/signup.ejs',function(err, result) {
+	ejs.renderFile('./views/signup.ejs',{error:''},function(err, result) {
         // render on success
         if (!err) {
             res.end(result);
@@ -54,8 +71,26 @@ exports.register = function(req, res) {
 	};
 	customMysql.signup(signupData, function(err, result) {
 		// render on success
+		var errorType;
 		if (err) {
-			res.end(err.toString());
+			if(err.toString().search("ER_DUP_ENTRY"))
+				{
+					console.log("error message "+err.toString());
+			console.log("message "+err.message);
+			console.log("name "+err.name);
+			errorType = "User with email id already exist";
+				}
+			ejs.renderFile('./views/signup.ejs',{error:errorType}, function(err, result) {
+				// render on success
+				if (!err) {
+		            res.end(result);
+				}
+				// render or error
+				else {
+					res.end('There is some error');
+					console.log(err);
+				}
+			});
 		} 
 		else if(result.affectedRows > 0){
 				console.log("signup successful");

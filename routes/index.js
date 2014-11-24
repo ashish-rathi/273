@@ -23,15 +23,21 @@ exports.signin = function(req, res){
  */
 
 exports.index = function(req, res){
-	ejs.renderFile('./views/index.ejs',{name:'Guest'},function(err, result){
-		  if (!err) {
-	          res.end(result);
-	      }
-	      else {
-	          res.end('An error occurred');
-	          console.log(err);
-	      }
-	  });
+	customMysql.get_products_for_category(324, function(err, products) {
+		if(products.length > 0){
+			var jsonString = JSON.stringify(products);
+			var productCatalogs = JSON.parse(jsonString);
+			ejs.renderFile('./views/index.ejs',{name:'Guest',productCatalog:productCatalogs},function(err, result){
+				  if (!err) {
+			          res.end(result);
+			      }
+			      else {
+			          res.end('An error occurred');
+			          console.log(err);
+			      }
+			  });
+		}
+	});
 };
 
 
@@ -76,9 +82,9 @@ exports.register = function(req, res) {
 			if(err.toString().search("ER_DUP_ENTRY"))
 				{
 					console.log("error message "+err.toString());
-			console.log("message "+err.message);
-			console.log("name "+err.name);
-			errorType = "User with email id already exist";
+					console.log("message "+err.message);
+					console.log("name "+err.name);
+					errorType = "User with email id already exist";
 				}
 			ejs.renderFile('./views/signup.ejs',{error:errorType}, function(err, result) {
 				// render on success
@@ -109,3 +115,21 @@ exports.register = function(req, res) {
 		}
 	});
 }
+
+
+/*
+ * GET home page.
+ */
+
+exports.login = function(req, res){
+	
+	ejs.renderFile('./views/index.ejs',{name:'Guest'},function(err, result){
+		  if (!err) {
+	          res.end(result);
+	      }
+	      else {
+	          res.end('An error occurred');
+	          console.log(err);
+	      }
+	  });
+};

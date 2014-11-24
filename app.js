@@ -33,7 +33,7 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', user.list); 
 app.get('/signin',routes.signin); // redirects to signin page
-//app.post('/login',routes.login); // signs in a by performing db read and update
+app.post('/login',routes.login); // signs in a by performing db read and update
 app.get('/signup',routes.signup); //redirects to signup page
 app.post('/register',routes.register) //signs up a new user by performing db update
 

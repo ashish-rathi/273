@@ -3,6 +3,16 @@
 <head>
 <meta charset="utf-8">
 <title>My eWay</title>
+
+<script src="/validator/jquery.validate.js"></script>
+<script>
+$(document).ready(function(){
+   $("form").validate()
+})
+</script>
+<style>
+.error{color:red}
+</style>
 </head>
 
 <body>
@@ -32,11 +42,11 @@
       <td width="50%">
       	<form id="frmlogin" name="frmlogin" method="post" action="login.ejs">
            <label for="textfield">Email or User ID:</label>
-           <br> <input type="text" name="textfield" id="textfield">
+           <br> <input type="text" name="textfield" id="textfield" class="required">
             <br><br>
             
             <label for="textfield2">Password:</label>
-           	<br> <input type="text" name="textfield2" id="textfield2">
+           	<br> <input type="text" name="textfield2" id="textfield2" class="required">
           
               <br>
               <a href="forgotpassword.ejs">Forgot your password?</a><br>

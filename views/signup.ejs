@@ -2,6 +2,7 @@
 <html>
 <head>
 <link href="css1.css" rel="stylesheet" type="text/css">
+<link href="/stylesheets/style.css" rel="stylesheet" type="text/css">
 <meta charset="utf-8">
 <title>Sign Up</title>
 <script src="/jquery-ui-1.11.1/external/jquery/jquery.js"></script>
@@ -9,6 +10,11 @@
 <script src="/validator/jquery.validate.js"></script>
 <script>
 $(document).ready(function(){
+	var x = $("#message").html(); 
+        if(x!='')
+        {
+        	$('#notification').slideToggle(500).delay(2000).slideToggle(500);
+        }
    $("form").validate()
 })
 </script>
@@ -19,6 +25,9 @@ $(document).ready(function(){
 </head>
 
 <body>
+<div id="notification">
+	<div id="message"><%=error%></div>
+</div>
 <table width="100%" border="0">
   <tbody>
     <tr>

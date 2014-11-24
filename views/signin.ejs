@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+<link href="css1.css" rel="stylesheet" type="text/css" >
+<meta charset="utf-8">
+<title>My eWay</title>
+</head>
+
+<body>
+<div class="logostyle">
+<img src="images/mylogo.png" width="165" height="77" alt=""/>
+</div>
+<div style="margin-left:5em;  margin-top:3em;">
+<table width="100%" border="0">
+  <tbody>
+    <tr>
+      <td><div style="font-size:30px; ">Sign In</div><br><br></td>
+      <div>
+      	<td rowspan="2"><div style="font-size:30px; font:Arial Rounded MT; text-align:center">New to eWay?</div>
+      	<br><br>   
+         <div class="formfont" align="center">
+      	Get started naw. It's fast and easy!
+     	<br><br><br>
+        	<form id="frmregister" name="frmregister" method="post" action="register.ejs">
+      			<button class="ButtonBuss" type="submit" name="register" id="register">Register</button>
+             </form>
+        </div>
+      </td>
+      </div>
+    </tr>
+    <tr>
+    <div style="margin:15px" class="formfont">
+      <td width="50%">
+      	<form class="formfont" id="frmlogin" name="frmlogin" method="post" action="login.ejs">
+           <label for="textfield">Email or User ID:</label>
+           <br> <input class="txtboxes" type="text" name="textfield" id="textfield">
+            <br><br>
+            
+            <label for="textfield2">Password:</label>
+           	<br> <input class="txtboxes" type="text" name="textfield2" id="textfield2">
+          
+              <br>
+              <a href="forgotpassword.ejs">Forgot your password?</a><br>
+              <br><br>
+              <button class="ButtonBuss" class="txtboxes" name="signin" type="submit" id="signin">Sign In</button>
+         </form> 
+      </td>  
+      </div>    
+    </tr>
+  </tbody>
+</table>
+</div>
+</body>
+</html>

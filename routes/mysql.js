@@ -177,6 +177,17 @@ exports.search_products = function(search_string, callback){
 /*
  * API POST - /addnewproduct 
  */
+/*
+  	var product = {
+	productName:'MacBook Pro',
+	productCondition:'new',
+	productDesc:'Apple MacBook Pro is the best portable computer ever',
+	amount:1200.00,
+	idCategory:1,
+	quantity:1,
+	sellerId:6
+};
+ */
 exports.add_product = function(product_data, callback){
 	pool.getConnection(function(err, connection) {
 		connection.query('INSERT INTO Product SET ?',[product_data],function(err, result){
@@ -219,6 +230,13 @@ exports.get_auctions_for_category = function(idCategory, callback){
 
 /*
  * API POST - /auction/bid/:product_id
+ */
+/*
+var bid = {
+		membershipNo:7,
+		idProduct:2,
+		bidAmount:1270.00
+	};
  */
 exports.place_bid = function(bid, callback){
 	pool.getConnection(function(err, connection) {

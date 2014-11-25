@@ -40,15 +40,15 @@ $(document).ready(function(){
       <td rowspan="2"><form id="form1" name="form1" method="post" action="register" >
       <div class="formfont">
         First Name<br>
-        <input type="text" name="txtfname" id="txtfname" class="txtboxes" class="required"><br>
+        <input type="text" name="txtfname" id="txtfname" class="txtboxes required"><br>
         Last Name<br>
-        <input type="text" name="txtlname" id="txtlname" class="txtboxes" class="required"><br>
+        <input type="text" name="txtlname" id="txtlname" class="txtboxes required"><br>
         Email<br>
-        <input type="text" name="txtemail" id="txtemail" class="txtboxes" class="required"><br>
+        <input type="text" name="txtemail" id="txtemail" class="txtboxes required"><br>
         Create your password<br>
-        <input type="password" name="txtpwd" id="txtpwd" class="txtboxes" class="required"><br>
+        <input type="password" name="txtpwd" id="txtpwd" class="txtboxes required"><br>
         Confirm password<br>
-        <input type="password" name="txtpwd2" id="txtpwd2" class="txtboxes" class="required"><br>
+        <input type="password" name="txtpwd2" id="txtpwd2" class="txtboxes required"><br>
         <br><br>
         <button class="ButtonBuss" name="signup" type="submit" id="signup">Submit</button>
         </div>
@@ -57,7 +57,9 @@ $(document).ready(function(){
       
       <td><div class="formfont">Already have an account?</div>
       <br><br>
-      <button style="margin-left:1em" class="ButtonBuss" name="signin" type="submit" id="signin">Sign In</button>
+      <form id="frmregister" name="frmregister" method="get" action="signin">
+      			<button class="ButtonBuss" type="submit" name="register" id="register">Sign In</button>
+      </form>
       </td>
     </tr>
     <tr>

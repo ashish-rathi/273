@@ -34,23 +34,16 @@ padding: 10px 14px 10px 8px;
 border-radius: 15px;
 }
 
-<<<<<<< HEAD:public/styles/CSS1.css
 #notification{
 	width:100%;
 	position:absolute;
-	top:0;
+	top:100;
 	left:0;
-	height: 50px;
+	height: 0px;
 	background: #FF0000;
 	opacity:0.9px;
 	display:none;
 }
-
-#message{
-	width:100%;
-	text-align:center;
-	padding-top:15px;
-=======
 
 #notification{
        width:100%;
@@ -63,16 +56,20 @@ border-radius: 15px;
        display:none;
 }
 
-#message,error{
+#message{
        width:100%;
        text-align:center;
        padding-top:15px;
->>>>>>> d24b48107e2fc1e24fd7f74b7842a95711e0e76f:public/styles/customstyle.css
+}
+
+#error{
+	width:100%;
+    text-align:center;
+    padding-top:15px;
 }
 
 
 #notification1{
-<<<<<<< HEAD:public/styles/CSS1.css
 	width:100%;
 	position:absolute;
 	top:0;
@@ -82,15 +79,3 @@ border-radius: 15px;
 	opacity:0.9px;
 	display:none;
 }
-=======
-       width:100%;
-       position:absolute;
-       top:0;
-       left:0;
-       height: 50px;
-       background: #92D108;
-       opacity:0.9px;
-       display:none;
-}
- 
->>>>>>> d24b48107e2fc1e24fd7f74b7842a95711e0e76f:public/styles/customstyle.css

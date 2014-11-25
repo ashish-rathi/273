@@ -1,11 +1,26 @@
 <!doctype html>
 <html>
 <head>
-<link href="css1.css" rel="stylesheet" type="text/css" >
+<link href="/styles/customstyle.css" rel="stylesheet" type="text/css" >
 <meta charset="utf-8">
 <title>Sign Up</title>
 </head>
-
+<script src="/jquery-ui-1.11.1/external/jquery/jquery.js"></script>
+<script src="/jquery-ui-1.11.1/jquery-ui.js"></script>
+<script src="/validator/jquery.validate.js"></script>
+<script>
+$(document).ready(function(){
+       var x = $("#message").html();
+       if(x!='')
+       {
+               $('#notification').slideToggle(500).delay(2000).slideToggle(500);
+       }
+  $("#form1").validate()
+})
+</script>
+<style>
+.error{color:red}
+</style>
 <body>
 <table width="100%" border="0">
   <tbody>
@@ -16,26 +31,26 @@
       	Get started with eWay</div>
         <br>
       <div class="txtboxes" style="font-weight: bold; margin-left:2em">
-      Create your personal account or <a href="businessacc.ejs">start a busiess account</a>.
+      Create your personal account or <a href="businessacc.ejs">start a business account</a>.
       </div>
       </td>
       <td width="38%">&nbsp;</td>
     </tr>
     <tr>
-      <td rowspan="2"><form id="form1" name="form1" method="post" >
+      <td rowspan="2"><form id="form1" name="form1" method="post" action="register" >
       <div class="formfont">
         First Name<br>
-        <input type="text" name="txtfname" id="txtfname" class="txtboxes"><br>
+        <input type="text" name="txtfname" id="txtfname" class="txtboxes" class="required"><br>
         Last Name<br>
-        <input type="text" name="txtlname" id="txtlname" class="txtboxes"><br>
+        <input type="text" name="txtlname" id="txtlname" class="txtboxes" class="required"><br>
         Email<br>
-        <input type="text" name="txtemail" id="txtemail" class="txtboxes"><br>
+        <input type="text" name="txtemail" id="txtemail" class="txtboxes" class="required"><br>
         Create your password<br>
-        <input type="password" name="txtpwd" id="txtpwd" class="txtboxes"><br>
+        <input type="password" name="txtpwd" id="txtpwd" class="txtboxes" class="required"><br>
         Confirm password<br>
-        <input type="password" name="txtpwd2" id="txtpwd2" class="txtboxes"><br>
+        <input type="password" name="txtpwd2" id="txtpwd2" class="txtboxes" class="required"><br>
         <br><br>
-        <button class="ButtonBuss" name="signup" type="submit" id="signup" >Submit</button>
+        <button class="ButtonBuss" name="signup" type="submit" id="signup">Submit</button>
         </div>
       </form>
       </td>

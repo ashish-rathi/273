@@ -51,7 +51,7 @@ $(document).ready(function(){
          <div class="formfont" align="center">
       	Get started now. It's fast and easy!
      	<br><br><br>
-        	<form id="frmregister" name="frmregister" method="post" action="register.ejs">
+        	<form id="frmregister" name="frmregister" method="get" action="signup">
       			<button class="ButtonBuss" type="submit" name="register" id="register">Register</button>
              </form>
         </div>
@@ -63,11 +63,11 @@ $(document).ready(function(){
       <td width="50%">
       	<form class="formfont" id="frmlogin" name="frmlogin" method="post" action="login">
            <label for="textfield">Email or User ID:</label>
-           <br> <input class="txtboxes" type="email" name="txtemail" id="textfield" class="required">
+           <br> <input class="required txtboxes" type="email" name="txtemail" id="textfield" >
             <br>
             <br>
             <label for="textfield2">Password:</label>
-           	<br> <input class="txtboxes" type="password" name="txtpwd" id="textfield2" class="required">
+           	<br> <input class="required txtboxes" type="password" name="txtpwd" id="textfield2">
             <br>
             	<a href="forgotpassword.ejs">Forgot your password?</a><br>
               <br>

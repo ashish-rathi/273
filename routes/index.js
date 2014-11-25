@@ -172,6 +172,58 @@ exports.login = function(req, res) {
   });
 };
 
+
+exports.profile = function(req, res) {
+	var userId= req.session.membershipNo;
+	console.log(req.session.membershipNo);
+	customMysql.user_profile(userId, function(err, result) {
+		// render on success
+		var errorType;
+		if (err) {
+			if(err.toString().search("ER_DUP_ENTRY"))
+				{
+					console.log("error message "+err.toString());
+					console.log("message "+err.message);
+					console.log("name "+err.name);
+					errorType = "MembershipNo does not exist";
+				}
+			ejs.renderFile('./views/index.ejs',{error:errorType,message:'',session:req.session}, function(err, result) {
+				// render on success
+				if (!err) {
+		            res.end(result);
+				}
+				// render or error
+				else {
+					res.end('There is some error');
+					console.log(err);
+				}
+			});
+		} 
+		else if(result.length > 0){
+			var rows = result;
+			var jsonString = JSON.stringify(result);
+			var jsonParse = JSON.parse(jsonString);
+			console.log("Results Type: "+(typeof results));
+			console.log("Result Element Type:"+(typeof rows[0].firstName));
+			console.log(rows[0].element);
+			console.log("User info fetched");
+			var msg="User information successfully fetched";
+			ejs.renderFile('./views/profile.ejs',{error:'',message:msg,session:req.session,data:jsonParse},function(err, result) {
+					// render on success
+					if (!err) {
+			            res.end(result);
+					}
+					// render or error
+					else {
+						res.end('There is some error');
+						console.log(err);
+					}
+			});
+		}
+	});
+}
+
+
 function initializeSession(request){
 	request.session.name = 'Guest';
 }

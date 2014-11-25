@@ -6,6 +6,23 @@
     <link rel="stylesheet" href="/styelsheets/bootstrap.min.css">
   </head>
   <body>
+  <% for(var i in data) { %>
+   <div>
+   <p style="font-weight: bold;"> <%=data[i].firstName%> </p>
+   <%=data[i].lastName%>
+   <%=data[i].addressMain%>
+   <%=data[i].city%>
+   <%=data[i].state%>
+   <%=data[i].membershipNo%>
+   <%=data[i].isSeller%>
+   <%=data[i].sellerRating%>
+   <%=data[i].password%>
+   <%=data[i].email%>
+   <%=data[i].last_login%>
+   <hr>
+   </div>
+    <% } %>
+  </body>
   
   </body>
 </html>

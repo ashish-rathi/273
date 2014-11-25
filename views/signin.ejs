@@ -1,12 +1,42 @@
 <!doctype html>
 <html>
 <head>
-<link href="css1.css" rel="stylesheet" type="text/css" >
+<link href="/styles/customstyle.css" rel="stylesheet" type="text/css" >
 <meta charset="utf-8">
 <title>My eWay</title>
+
+<script src="/jquery-ui-1.11.1/external/jquery/jquery.js"></script>
+<script src="/jquery-ui-1.11.1/jquery-ui.js"></script>
+<script src="/validator/jquery.validate.js"></script>
+<script>
+$(document).ready(function(){
+	var x = $("#message").html();
+	var x1 = $("#error").html();
+    if(x1!='')
+    {
+            $('#notification').slideToggle(500).delay(2000).slideToggle(500);
+    }
+    if(x!='')
+    {
+            $('#notification1').slideToggle(500).delay(2000).slideToggle(500);
+    }
+   $("#frmlogin").validate()
+})
+
+</script>
+<style>
+.error{color:red}
+</style>
+
 </head>
 
 <body>
+<div id="notification">
+       <div id="error"><%=error%></div>
+</div>
+ <div id="notification1">
+       <div id="message"><%=message%></div>
+</div>
 <div class="logostyle">
 <img src="images/mylogo.png" width="165" height="77" alt=""/>
 </div>
@@ -19,7 +49,7 @@
       	<td rowspan="2"><div style="font-size:30px; font:Arial Rounded MT; text-align:center">New to eWay?</div>
       	<br><br>   
          <div class="formfont" align="center">
-      	Get started naw. It's fast and easy!
+      	Get started now. It's fast and easy!
      	<br><br><br>
         	<form id="frmregister" name="frmregister" method="post" action="register.ejs">
       			<button class="ButtonBuss" type="submit" name="register" id="register">Register</button>
@@ -31,17 +61,17 @@
     <tr>
     <div style="margin:15px" class="formfont">
       <td width="50%">
-      	<form class="formfont" id="frmlogin" name="frmlogin" method="post" action="login.ejs">
+      	<form class="formfont" id="frmlogin" name="frmlogin" method="post" action="login">
            <label for="textfield">Email or User ID:</label>
-           <br> <input class="txtboxes" type="text" name="textfield" id="textfield">
-            <br><br>
-            
+           <br> <input class="txtboxes" type="email" name="txtemail" id="textfield" class="required">
+            <br>
+            <br>
             <label for="textfield2">Password:</label>
-           	<br> <input class="txtboxes" type="text" name="textfield2" id="textfield2">
-          
+           	<br> <input class="txtboxes" type="password" name="txtpwd" id="textfield2" class="required">
+            <br>
+            	<a href="forgotpassword.ejs">Forgot your password?</a><br>
               <br>
-              <a href="forgotpassword.ejs">Forgot your password?</a><br>
-              <br><br>
+              <br>
               <button class="ButtonBuss" class="txtboxes" name="signin" type="submit" id="signin">Sign In</button>
          </form> 
       </td>  

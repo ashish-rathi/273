@@ -3,6 +3,15 @@
 <head>
 <link href="/styles/style.css" type="text/css" rel="stylesheet">
 <script>
+// 	function getSession()
+// 	{
+//   	if(name != null)
+//     	name = name;
+//  	else
+//     	name = "Hi Guest"
+//   	document.getElementById("demo").innerHTML = name;
+// 	}
+	
 	function show_menu() {
 		if (document.getElementById('gh-eb-My-o').style.display == "none")
 			document.getElementById('gh-eb-My-o').style.display = "block";
@@ -80,7 +89,7 @@
 			<div id="gh-top">
 				<ul id="gh-topl">
 					<li id="gh-eb-u" class="gh-t gh-spr"><span id="gh-ug"
-						class="gh-ug-guest">Hi ()</span></li>
+						class="gh-ug-guest">Hi <%=session.name%></span></li>
 					<li id="gh-p-1" class="gh-t gh-spr "><a class="gh-p"
 						href="sellers">View Sellers</a></li>
 					<li id="gh-p-2" class="gh-t gh-spr "><a class="gh-p"
@@ -92,7 +101,7 @@
 					<li id="gh-eb-My" class="gh-eb-li gh-dd" data-imp="10">
 						<div class="gh-menu" onMouseOver="show_menu()"
 							onMouseOut="show_menu()">
-							<%if(name!='Guest'){%>
+							<%if(session.name!='Guest'){%>
 							<a class="gh-eb-li-a" href="profile">My eWay</a>
 							<%}else{%>
 							<a class="gh-eb-li-a" href="">My eWay</a>
@@ -102,7 +111,7 @@
 							style="display: none;" onMouseOver="show_menu()"
 							onMouseOut="show_menu()">
 							<ul role="navigation">
-							<%if(name=='Guest'){%>
+							<%if(session.name=='Guest'){%>
 								<li><a class="gh-eb-oa thrd" href="/signin">Sign in</a></li>
 								<li><a class="gh-eb-oa thrd" href="/signup">Sign up</a></li>
 							<%}else{%>

@@ -6,7 +6,7 @@ var customMysql = require("./mysql");
  */
 
 exports.signin = function(req, res){
-	ejs.renderFile('./views/sigin.ejs',function(err, result){
+	ejs.renderFile('./views/signin.ejs',{error:'',message:''},function(err, result){
 		  if (!err) {
 	          res.end(result);
 	      }
@@ -27,7 +27,8 @@ exports.index = function(req, res){
 		//if(products.length > 0){
 			//var jsonString = JSON.stringify(products);
 			//var productCatalogs = JSON.parse(jsonString);
-			ejs.renderFile('./views/index.ejs',{name:'Guest'}/*,productCatalog:productCatalogs}*/,function(err, result){
+	initializeSession(req);
+			ejs.renderFile('./views/index.ejs',{session:req.session}/*,productCatalog:productCatalogs}*/,function(err, result){
 				  if (!err) {
 			          res.end(result);
 			      }
@@ -86,7 +87,7 @@ exports.register = function(req, res) {
 					console.log("name "+err.name);
 					errorType = "User with email id already exist";
 				}
-			ejs.renderFile('./views/signup.ejs',{error:errorType}, function(err, result) {
+			ejs.renderFile('./views/signup.ejs',{error:errorType,message:''}, function(err, result) {
 				// render on success
 				if (!err) {
 		            res.end(result);
@@ -100,10 +101,10 @@ exports.register = function(req, res) {
 		} 
 		else if(result.affectedRows > 0){
 				console.log("signup successful");
-				ejs.renderFile('./views/index.ejs',{name:signupData.firstName}, function(err, result) {
+				var msg="You have successfully registered";
+				ejs.renderFile('./views/signin.ejs',{error:'',message:msg},function(err, result) {
 					// render on success
 					if (!err) {
-						req.session.name = signupData.firstName;
 			            res.end(result);
 					}
 					// render or error
@@ -126,6 +127,7 @@ exports.login = function(req, res) {
     email : req.body.txtemail,
     password : req.body.txtpwd,
     };
+   console.log(signinData);
   customMysql.signin(signinData, function(err, result) {
     // render on success
     if (err) {
@@ -150,9 +152,41 @@ exports.login = function(req, res) {
           }
       });
     }
+    else{
+    	var errorType="Invalid userName/password";
+	ejs.renderFile('./views/signin.ejs',{error:errorType,message:''},function(err, result) {
+		// render on success
+		if (!err) {
+			//req.session.name = signupData.firstName;
+            res.end(result);
+		}
+		// render or error
+		else {
+			res.end('There is some error');
+			console.log(err);
+		}
+	});
+
+    	
+    }
   });
 };
 
+function initializeSession(request){
+	request.session.name = 'Guest';
+}
+
+function setupSessionSignIn(request, userResult){
+	var date = new Date();
+	request.session.name = userResult[0].firstName;
+	request.session.membershipNo = userResult[0].membershipNo;
+	if(userResult[0].last_login!=null)
+		request.session.lastlogin= userResult[0].last_login;
+	else
+		request.session.lastlogin= date;
+	request.session.email= userResult[0].email;
+	
+}
 
 function setupSession(request, userResult){
 	var date = new Date();

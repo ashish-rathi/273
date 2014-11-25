@@ -33,3 +33,32 @@ background-position: 100% 0;
 padding: 10px 14px 10px 8px;
 border-radius: 15px;
 }
+
+#notification{
+	width:100%;
+	position:absolute;
+	top:0;
+	left:0;
+	height: 50px;
+	background: #FF0000;
+	opacity:0.9px;
+	display:none;
+}
+
+#message{
+	width:100%;
+	text-align:center;
+	padding-top:15px;
+}
+
+
+#notification1{
+	width:100%;
+	position:absolute;
+	top:0;
+	left:0;
+	height: 50px;
+	background: #92D108;
+	opacity:0.9px;
+	display:none;
+}

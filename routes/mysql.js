@@ -133,6 +133,14 @@ exports.get_product = function(idProduct, idCategory, callback){
 /*
  * API GET - /mycart 
  */
+exports.get_cart_for_user = function(membershipNo, callback){
+	pool.getConnection(function(err, connection) {
+		connection.query('SELECT * FROM Product p INNER JOIN BuyerCart cart ON cart.idProduct = p.idProduct WHERE cart.membershipNo = ? AND isPurchased = ?',[membershipNo, false],function(err, result){
+			connection.release();
+			callback(err, result);
+		});
+	});
+};
 
 /*
  * API PUT - /mycart 
@@ -168,6 +176,16 @@ exports.delete_from_cart = function(membershipNo, idProduct, callback){
 exports.search_products = function(search_string, callback){
 	pool.getConnection(function(err, connection) {
 		connection.query('SELECT * FROM Product WHERE productName LIKE ? OR productDesc LIKE ?',['%'+search_string+'%','%'+search_string+'%'],function(err, result){
+			connection.release();
+			callback(err, result);
+		});
+	});
+};
+
+//for category specific search
+exports.search_products_in_category = function(search_string, idCategory, callback){
+	pool.getConnection(function(err, connection) {
+		connection.query('SELECT * FROM Product WHERE idCategory = ? AND (productName LIKE ? OR productDesc LIKE ?)',[idCategory,'%'+search_string+'%','%'+search_string+'%'],function(err, result){
 			connection.release();
 			callback(err, result);
 		});

@@ -3,124 +3,139 @@
 <head>
 <link href="/styles/style.css" type="text/css" rel="stylesheet">
 <script>
-function show_menu()
-{
-if(document.getElementById('gh-eb-My-o').style.display=="none")
-document.getElementById('gh-eb-My-o').style.display="block";
-else
-document.getElementById('gh-eb-My-o').style.display="none";
-}
+	function show_menu() {
+		if (document.getElementById('gh-eb-My-o').style.display == "none")
+			document.getElementById('gh-eb-My-o').style.display = "block";
+		else
+			document.getElementById('gh-eb-My-o').style.display = "none";
+	}
 </script>
 </head>
 <body class="sz1200">
-<div id="gh-gb" tabindex="-1"></div>
-<div class="header">
-<div id="gh" class="gh-w gh-simpleH no-touch gh-flex">
-<table class="gh-tbl">
-<tbody>
-<tr>
-<td class="gh-td">
-<h1 id="gh-l-h1">
-<a id="gh-la" class="iclg" href="index">
-eWay
-<img id="gh-logo" width="250" height="200" style="clip:rect(47px, 118px, 95px, 0px); position:absolute; top:-47px;left:0" alt="" src="/images/logo.png">
-</a>
-</h1>
-</td>
-<td class="gh-td-s">
-<form id="gh-f" method="get" action="search">
-<table class="gh-tbl2">
-<tbody>
-<tr>
-<td class="gh-td-s">
-<div id="gh-ac-box" class="">
-<div id="gh-ac-box2">
-<input id="gh-ac" class="gh-tb ui-autocomplete-input" type="text" aria-haspopup="false" size="50" maxlength="300" placeholder="Search..." name="_nkw" autocapitalize="off" autocorrect="off" spellcheck="false" autocomplete="off">
-<span class="ui-helper-hidden-accessible" aria-live="polite" role="status"></span>
-</div>
-</div>
-<div id="gAC">
-<ul id="ui-id-1" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content ui-corner-all" style="display: none; width: 796px;" tabindex="-1"></ul>
-</div>
-</td>
-<td id="gh-cat-td" class="gh-td">
-<div id="gh-cat-box">
-<select id="gh-cat" class="gh-sb gh-sprRetina" title="Select a category for search" size="1">
-<option selected="selected" value="0">All Categories</option>
-<option value="mobiles">Mobiles</option>
-<option value="laptops">Laptops</option>
-<option value="accessories">Accessories</option>
-<option value="cameras">Camera</option>
-<option value="tablets">Tablets</option>
-<option value="tv">TV</option>
-<option value="video_games">Video Games</option>
-</select>
-</div>
-</td>
-<td class="gh-td">
-<input id="gh-btn" class="btn btn-prim gh-spr" type="submit" value="Search">
-</td>
-</tr>
-</tbody>
-</table>
-</form>
-</td>
-</tr>
-</tbody>
-</table>
-<div id="gh-top">
-<ul id="gh-topl">
-<li id="gh-eb-u" class="gh-t gh-spr">
-<span id="gh-ug" class="gh-ug-guest">Hi ()</span>
-</li>
-<li id="gh-p-1" class="gh-t gh-spr ">
-<a class="gh-p" href="sellers">View Sellers</a>
-</li>
-<li id="gh-p-2" class="gh-t gh-spr ">
-<a class="gh-p" href="add_product">Sell</a>
-</li>
-<li id="gh-p-3" class="gh-t gh-spr ">
-<a class="gh-p" href="contact">Help & Contact</a>
-</li>
-</ul>
-<ul id="gh-eb">
-<li id="gh-eb-My" class="gh-eb-li gh-dd" data-imp="10">
-<div class="gh-menu" onMouseOver="show_menu()" onMouseOut="show_menu()">
-<a class="gh-eb-li-a" href="profile">My eBay</a>
-</div>
-<div id="gh-eb-My-o" class="gh-submenu gh-eb-o" style="display: none;" onMouseOver="show_menu()" onMouseOut="show_menu()">
-<ul role="navigation">
-<li>
-<a class="gh-eb-oa thrd" href="">Login/Profile</a>
-</li>
-<li>
-<a class="gh-eb-oa thrd" href="">Signup/Logout</a>
-</li>
-</ul>
-</div>
+	<div id="gh-gb" tabindex="-1"></div>
+	<div class="header">
+		<div id="gh" class="gh-w gh-simpleH no-touch gh-flex">
+			<table class="gh-tbl">
+				<tbody>
+					<tr>
+						<td class="gh-td">
+							<h1 id="gh-l-h1">
+								<a id="gh-la" class="iclg" href="index"> eWay <img
+									id="gh-logo" width="250" height="200"
+									style="clip: rect(47px, 118px, 95px, 0px); position: absolute; top: -47px; left: 0"
+									alt="" src="/images/logo.png">
+								</a>
+							</h1>
+						</td>
+						<td class="gh-td-s">
+							<form id="gh-f" method="get" action="search">
+								<table class="gh-tbl2">
+									<tbody>
+										<tr>
+											<td class="gh-td-s">
+												<div id="gh-ac-box" class="">
+													<div id="gh-ac-box2">
+														<input id="gh-ac" class="gh-tb ui-autocomplete-input"
+															type="text" aria-haspopup="false" size="50"
+															maxlength="300" placeholder="Search..." name="_nkw"
+															autocapitalize="off" autocorrect="off" spellcheck="false"
+															autocomplete="off"> <span
+															class="ui-helper-hidden-accessible" aria-live="polite"
+															role="status"></span>
+													</div>
+												</div>
+												<div id="gAC">
+													<ul id="ui-id-1"
+														class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content ui-corner-all"
+														style="display: none; width: 796px;" tabindex="-1"></ul>
+												</div>
+											</td>
+											<td id="gh-cat-td" class="gh-td">
+												<div id="gh-cat-box">
+													<select id="gh-cat" class="gh-sb gh-sprRetina"
+														title="Select a category for search" size="1">
+														<option selected="selected" value="0">All
+															Categories</option>
+														<option value="mobiles">Mobiles</option>
+														<option value="laptops">Laptops</option>
+														<option value="accessories">Accessories</option>
+														<option value="cameras">Camera</option>
+														<option value="tablets">Tablets</option>
+														<option value="tv">TV</option>
+														<option value="video_games">Video Games</option>
+													</select>
+												</div>
+											</td>
+											<td class="gh-td"><input id="gh-btn"
+												class="btn btn-prim gh-spr" type="submit" value="Search">
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</form>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div id="gh-top">
+				<ul id="gh-topl">
+					<li id="gh-eb-u" class="gh-t gh-spr"><span id="gh-ug"
+						class="gh-ug-guest">Hi ()</span></li>
+					<li id="gh-p-1" class="gh-t gh-spr "><a class="gh-p"
+						href="sellers">View Sellers</a></li>
+					<li id="gh-p-2" class="gh-t gh-spr "><a class="gh-p"
+						href="add_product">Sell</a></li>
+					<li id="gh-p-3" class="gh-t gh-spr "><a class="gh-p"
+						href="contact">Help & Contact</a></li>
+				</ul>
+				<ul id="gh-eb">
+					<li id="gh-eb-My" class="gh-eb-li gh-dd" data-imp="10">
+						<div class="gh-menu" onMouseOver="show_menu()"
+							onMouseOut="show_menu()">
+							<%if(name!='Guest'){%>
+							<a class="gh-eb-li-a" href="profile">My eWay</a>
+							<%}else{%>
+							<a class="gh-eb-li-a" href="">My eWay</a>
+							<%}%>
+						</div>
+						<div id="gh-eb-My-o" class="gh-submenu gh-eb-o"
+							style="display: none;" onMouseOver="show_menu()"
+							onMouseOut="show_menu()">
+							<ul role="navigation">
+							<%if(name=='Guest'){%>
+								<li><a class="gh-eb-oa thrd" href="/signin">Sign in</a></li>
+								<li><a class="gh-eb-oa thrd" href="/signup">Sign up</a></li>
+							<%}else{%>
+								<li><a class="gh-eb-oa thrd" href="">Profile</a></li>
+								<li><a class="gh-eb-oa thrd">Logout</a></li>
+							<%}%>
+							</ul>
+						</div>
 
-</li>
-<li id="gh-cart" class="gh-eb-li rt">
-<a class="gh-eb-li-a" alt="Your shopping cart is empty" href="http://cart.payments.ebay.com/sc/view" title="Your shopping cart is empty">
-<i id="gh-cart-i" class="gh-sprRetina"></i>
-</a>
-</li>
-</ul>
-</div>
-</div>
-</div>
+					</li>
+					<li id="gh-cart" class="gh-eb-li rt"><a class="gh-eb-li-a"
+						alt="Your shopping cart is empty"
+						href="http://cart.payments.ebay.com/sc/view"
+						title="Your shopping cart is empty"> <i id="gh-cart-i"
+							class="gh-sprRetina"></i>
+					</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
 
-<div class="horizontal headerlinks" align="center" style="background-color: #98BF21;">
+	<div class="horizontal headerlinks" align="center"
+		style="background-color: #98BF21;">
 
-<ul>
-<li><a href="#">Mobiles/Tablets</a></li>
-<li><a href="#">Computers/Laptops</a></li>
-<li><a href="#">TV</a></li>
-<li><a href="#">Cameras</a></li>
-<li><a href="#">CDs/DVDs</a></li>
-<li><a href="#">Accessories</a></li>
-</ul>
-</div>
+		<ul>
+			<li><a href="#">Mobiles/Tablets</a></li>
+			<li><a href="#">Computers/Laptops</a></li>
+			<li><a href="#">TV</a></li>
+			<li><a href="#">Cameras</a></li>
+			<li><a href="#">CDs/DVDs</a></li>
+			<li><a href="#">Accessories</a></li>
+		</ul>
+	</div>
 
 </body>
 </html>

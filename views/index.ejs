@@ -96,11 +96,7 @@ function show_menu() {
 					<li id="gh-eb-My" class="gh-eb-li gh-dd" data-imp="10">
 						<div class="gh-menu" onMouseOver="show_menu()"
 							onMouseOut="show_menu()">
-							<%if(session.name!='Guest'){%>
-							<a class="gh-eb-li-a" href="profile">My eWay</a>
-							<%}else{%>
 							<a class="gh-eb-li-a" href="">My eWay</a>
-							<%}%>
 						</div>
 						<div id="gh-eb-My-o" class="gh-submenu gh-eb-o"
 							style="display: none;" onMouseOver="show_menu()"
@@ -110,7 +106,7 @@ function show_menu() {
 								<li><a class="gh-eb-oa thrd" href="/signin">Sign in</a></li>
 								<li><a class="gh-eb-oa thrd" href="/signup">Sign up</a></li>
 							<%}else{%>
-								<li><a class="gh-eb-oa thrd" href="">Profile</a></li>
+								<li><a class="gh-eb-oa thrd" href="/profile">Profile</a></li>
 								<li><a class="gh-eb-oa thrd">Logout</a></li>
 							<%}%>
 							</ul>

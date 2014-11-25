@@ -140,26 +140,68 @@ function show_menu() {
 <!-- Products part --> 
 <br>
 <br>
-<div class="main"><div class="content ">
+<div class="main">
+<div class="content ">
 <div class="widget top-category-deals">
 <h2 class="title">FEATURED DEALS</h2>
+<% 
+for(var i=0;i<productCatalog.length;i+=4){%>
 <div class="widget-wrapper">
 	<div class="widget item-widget">
 		<a href="http://www.ebay.com/itm/Apple-iPad-Mini-64GB-7-9-Wi-Fi-4G-AT-T-GSM-Unlocked-Tablet-PC-White-or-Black-/251694708350">
 		<div class="image">
-		<img class="absolute-center" src="http://i.ebayimg.com/images/m/mTB9-p9qovXesQsaRcFrP6A/s-l225/p.jpg" alt="Apple iPad Mini 64GB 7.9" ></div>
-		<div class="item-details"><div class="title">Apple iPad Mini 64GB 7.9" Wi-Fi + 4G AT&amp;T GSM Unlocked Tablet PC -White or Black</div>
-		<div class="price-row">
-		<div class="discounted-price">
-		<span class="price"> $319.99</span></div></div></div></a></div>
+			<img class="absolute-center" src="<%=productCatalog[i].productImage%>" alt="<%=productCatalog[i].productName%>" >
+		</div>
+		<div class="item-details">
+			<div class="title"><%=productCatalog[i].productDesc%></div>
+			<div class="price-row">
+			<div class="discounted-price">
+			<span class="price"> $ <%=productCatalog[i].amount%></span>
+			</div>
+			</div>
+			</div>
+		</a>
+	</div>
 </div>
-		<div class="widget-wrapper"><div class="widget item-widget"><a href="http://www.ebay.com/itm/HP-15-D017CL-15-6-750GB-4GB-AMD-A6-5200-2-0GHz-Win8-Laptop-Notebook-PC-RED-/331322757642"><div class="image"><img class="absolute-center" src="http://i.ebayimg.com/images/m/mmISlekDZE2vjQz0st_o9ag/s-l225/p.jpg" alt="HP 15-D017CL 15.6" 750gb="" 4gb="" amd="" a6-5200="" 2.0ghz="" win8="" laptop="" notebook="" pc="" -="" red"=""></div><div class="item-details"><div class="title">HP 15-D017CL 15.6" 750GB 4GB AMD A6-5200 2.0GHz Win8 Laptop Notebook PC - RED</div><div class="price-row"><div class="discounted-price">
-		<span class="price"> $329.99</span></div><div class="original-price"><del class="oprc price">$599.00</del></div><div class="discount green"><b>(44% off)</b></div></div></div></a></div></div><div class="widget-wrapper"><div class="widget item-widget"><a href="http://www.ebay.com/itm/Lenovo-ThinkCentre-E73-10AS002JUS-Intel-Core-i3-4130-4GB-500GB-Win7-Pro-/291147227515"><div class="image"><img class="absolute-center" src="http://i.ebayimg.com/images/m/mQKAlwPPwG_bM6sEv1jOZtg/s-l225/p.jpg" alt="Lenovo ThinkCentre E73 10AS002JUS, Intel Core i3-4130, 4GB, 500GB, Win7 Pro"></div><div class="item-details"><div class="title">Lenovo ThinkCentre E73 10AS002JUS, Intel Core i3-4130, 4GB, 500GB, Win7 Pro</div>
-		<div class="price-row"><div class="discounted-price">
-		<span class="price"> $359.99</span></div>
-		<div class="original-price">
-		<del class="oprc price">$529.00</del></div><div class="discount green"><b>(31% off)</b></div></div></div></a></div></div><div class="widget-wrapper"><div class="widget item-widget"><a href="http://www.ebay.com/itm/LG-29-IPS-LED-HD-21-9-UltraWide-Monitor-/201199897599"><div class="image"><img class="absolute-center" src="http://i.ebayimg.com/images/m/m5eBjTfelIMmvLVRSPt6aXA/s-l225/p.jpg" alt="LG - 29" ips="" led="" hd="" 21:9="" ultrawide="" monitor"=""></div><div class="item-details"><div class="title">LG - 29" IPS LED HD 21:9 UltraWide Monitor</div><div class="price-row"><div class="discounted-price"><span class="price"> 
-		$349.99</span></div><div class="original-price"><del class="oprc price">$399.99</del></div><div class="discount green"><b>(12% off)</b></div></div></div></a></div></div></div></div></div>
+<%if(i<productCatalog.length-1){%>
+<div class="widget-wrapper"><div class="widget item-widget">
+	<a href="http://www.ebay.com/itm/HP-15-D017CL-15-6-750GB-4GB-AMD-A6-5200-2-0GHz-Win8-Laptop-Notebook-PC-RED-/331322757642">
+	<div class="image">
+	<img class="absolute-center" src="<%=productCatalog[i+1].productImage%>" alt="<%=productCatalog[i+1].productName%>"></div>
+	<div class="item-details">
+	<div class="title"><%=productCatalog[i+1].productDesc%></div>
+	<div class="price-row">
+	<div class="discounted-price">
+	<span class="price"> $<%=productCatalog[i+1].amount%></span></div></div></div></a></div>
+</div>
+<%}%>		
+<%if(i<productCatalog.length-2){%>
+<div class="widget-wrapper"><div class="widget item-widget">
+	<a href="http://www.ebay.com/itm/Lenovo-ThinkCentre-E73-10AS002JUS-Intel-Core-i3-4130-4GB-500GB-Win7-Pro-/291147227515">
+	<div class="image">
+	<img class="absolute-center" src="<%=productCatalog[i+2].productImage%>" alt="Lenovo ThinkCentre E73 10AS002JUS, Intel Core i3-4130, 4GB, 500GB, Win7 Pro"></div><div class="item-details">
+	<div class="title"><%=productCatalog[i+2].productDesc%></div>
+	<div class="price-row"><div class="discounted-price">
+	<span class="price"> $<%=productCatalog[i+2].amount%></span></div>
+	</div></div></div></a></div>
+</div>
+<%}%>
+<%if(i<productCatalog.length-3){%>
+<div class="widget-wrapper">
+	<div class="widget item-widget">
+	<a href="http://www.ebay.com/itm/LG-29-IPS-LED-HD-21-9-UltraWide-Monitor-/201199897599">
+	<div class="image">
+	<img class="absolute-center" src="<%=productCatalog[i+3].productImage%>" alt="LG - 29" ips="" led="" hd="" 21:9="" ultrawide="" monitor"=""></div>
+	<div class="item-details">
+	<div class="title"><%=productCatalog[i+3].productDesc%></div>
+	<div class="price-row">
+	<div class="discounted-price">
+	<span class="price"> $<%=productCatalog[i+3].amount%></span></div>
+	</div></div></a></div>
+	<%}%>
+</div>
+<%}%>
+	</div></div></div>
 
 </body>
 </html>

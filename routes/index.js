@@ -22,13 +22,14 @@ exports.signin = function(req, res){
  * GET home page.
  */
 
-exports.index = function(req, res){
-	//customMysql.get_products_for_category(324, function(err, products) {
-		//if(products.length > 0){
-			//var jsonString = JSON.stringify(products);
-			//var productCatalogs = JSON.parse(jsonString);
-	initializeSession(req);
-			ejs.renderFile('./views/index.ejs',{session:req.session}/*,productCatalog:productCatalogs}*/,function(err, result){
+function index(req, res){
+	customMysql.get_products_for_category(324, function(err, products) {
+		if(products.length > 0){
+			var jsonString = JSON.stringify(products);
+			var productCatalogs = JSON.parse(jsonString);
+			if(req.session.name==null)
+				initializeSession(req);
+			ejs.renderFile('./views/index.ejs',{session:req.session,productCatalog:productCatalogs},function(err, result){
 				  if (!err) {
 			          res.end(result);
 			      }
@@ -37,8 +38,9 @@ exports.index = function(req, res){
 			          console.log(err);
 			      }
 			  });
-		//});
-};
+		}
+		});
+}
 
 
 /*signup page
@@ -140,17 +142,7 @@ exports.login = function(req, res) {
         console.log(jsonString);
         var jsonParse = JSON.parse(jsonString);
         setupSession(req,result);
-        ejs.renderFile('./views/index.ejs',{session:req.session}, function(err, result) {
-          // render on success
-          if (!err) {
-                  res.end(result);
-          }
-          // render or error
-          else {
-            res.end('There is some error');
-            console.log(err);
-          }
-      });
+        index(req,res);
     }
     else{
     	var errorType="Invalid userName/password";
@@ -170,7 +162,7 @@ exports.login = function(req, res) {
     	
     }
   });
-};
+}
 
 
 exports.profile = function(req, res) {
@@ -251,3 +243,5 @@ function setupSession(request, userResult){
 	request.session.email= userResult[0].email;
 	
 }
+
+exports.index = index;

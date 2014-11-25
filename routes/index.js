@@ -23,11 +23,11 @@ exports.signin = function(req, res){
  */
 
 exports.index = function(req, res){
-	customMysql.get_products_for_category(324, function(err, products) {
-		if(products.length > 0){
-			var jsonString = JSON.stringify(products);
-			var productCatalogs = JSON.parse(jsonString);
-			ejs.renderFile('./views/index.ejs',{name:'Guest',productCatalog:productCatalogs},function(err, result){
+	//customMysql.get_products_for_category(324, function(err, products) {
+		//if(products.length > 0){
+			//var jsonString = JSON.stringify(products);
+			//var productCatalogs = JSON.parse(jsonString);
+			ejs.renderFile('./views/index.ejs',{name:'Guest'}/*,productCatalog:productCatalogs}*/,function(err, result){
 				  if (!err) {
 			          res.end(result);
 			      }
@@ -36,8 +36,7 @@ exports.index = function(req, res){
 			          console.log(err);
 			      }
 			  });
-		}
-	});
+		//});
 };
 
 
@@ -75,6 +74,7 @@ exports.register = function(req, res) {
 		zip : req.body.txtzip,
 		//isSeller : false
 	};
+	console.log(signupData);
 	customMysql.signup(signupData, function(err, result) {
 		// render on success
 		var errorType;
@@ -117,19 +117,51 @@ exports.register = function(req, res) {
 }
 
 
-/*
- * GET home page.
+/*Login
+ *  Makes call to myql.signIn to validate user and update lastLoginTime of User into the databse.
+ *  Renders the index page after User session object is instantiated.
  */
-
-exports.login = function(req, res){
-	
-	ejs.renderFile('./views/index.ejs',{name:'Guest'},function(err, result){
-		  if (!err) {
-	          res.end(result);
-	      }
-	      else {
-	          res.end('An error occurred');
-	          console.log(err);
-	      }
-	  });
+exports.login = function(req, res) {
+  var signinData = {
+    email : req.body.txtemail,
+    password : req.body.txtpwd,
+    };
+  customMysql.signin(signinData, function(err, result) {
+    // render on success
+    if (err) {
+      res.end(err.toString());
+    } 
+    else if(result.length > 0){
+        console.log("Login successful"+result);
+        var rows = result;
+        var jsonString = JSON.stringify(result);
+        console.log(jsonString);
+        var jsonParse = JSON.parse(jsonString);
+        setupSession(req,result);
+        ejs.renderFile('./views/index.ejs',{session:req.session}, function(err, result) {
+          // render on success
+          if (!err) {
+                  res.end(result);
+          }
+          // render or error
+          else {
+            res.end('There is some error');
+            console.log(err);
+          }
+      });
+    }
+  });
 };
+
+
+function setupSession(request, userResult){
+	var date = new Date();
+	request.session.name = userResult[0].firstName;
+	request.session.membershipNo = userResult[0].membershipNo;
+	if(userResult[0].last_login!=null)
+		request.session.lastlogin= userResult[0].last_login;
+	else
+		request.session.lastlogin= date;
+	request.session.email= userResult[0].email;
+	
+}

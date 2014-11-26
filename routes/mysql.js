@@ -265,6 +265,19 @@ exports.place_bid = function(bid, callback){
 	});
 };
 
+//get all bids on a product ordered by highest first
+exports.get_all_bids_on_product = function(idProduct, callback){
+	pool.getConnection(function(err, connection) {
+		connection.query('SELECT * FROM Bid WHERE idProduct = ? GROUP BY bidAmount DESC',[idProduct],function(err, result){
+			connection.release();
+			callback(err, result);
+		});
+	});
+};
+
 //TODO get bid on a product
+exports.get_highest_bid = function(idProduct, callback){
+	
+};
 
 exports.edit_user_profile = edit_user_profile;

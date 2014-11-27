@@ -146,6 +146,7 @@ function show_menu() {
 <h2 class="title">FEATURED DEALS</h2>
 <% 
 for(var i=0;i<productCatalog.length;i+=4){%>
+<%if(i<productCatalog.length){%>
 <div class="widget-wrapper">
 	<div class="widget item-widget">
 		<a href="http://www.ebay.com/itm/Apple-iPad-Mini-64GB-7-9-Wi-Fi-4G-AT-T-GSM-Unlocked-Tablet-PC-White-or-Black-/251694708350">
@@ -155,53 +156,73 @@ for(var i=0;i<productCatalog.length;i+=4){%>
 		<div class="item-details">
 			<div class="title"><%=productCatalog[i].productDesc%></div>
 			<div class="price-row">
-			<div class="discounted-price">
-			<span class="price"> $ <%=productCatalog[i].amount%></span>
+				<div class="discounted-price">
+				<span class="price"> $ <%=productCatalog[i].amount%></span>
+				</div>
 			</div>
-			</div>
-			</div>
+		</div>
 		</a>
 	</div>
 </div>
-<%if(i<productCatalog.length-1){%>
-<div class="widget-wrapper"><div class="widget item-widget">
-	<a href="http://www.ebay.com/itm/HP-15-D017CL-15-6-750GB-4GB-AMD-A6-5200-2-0GHz-Win8-Laptop-Notebook-PC-RED-/331322757642">
-	<div class="image">
-	<img class="absolute-center" src="<%=productCatalog[i+1].productImage%>" alt="<%=productCatalog[i+1].productName%>"></div>
-	<div class="item-details">
-	<div class="title"><%=productCatalog[i+1].productDesc%></div>
-	<div class="price-row">
-	<div class="discounted-price">
-	<span class="price"> $<%=productCatalog[i+1].amount%></span></div></div></div></a></div>
-</div>
-<%}%>		
-<%if(i<productCatalog.length-2){%>
-<div class="widget-wrapper"><div class="widget item-widget">
-	<a href="http://www.ebay.com/itm/Lenovo-ThinkCentre-E73-10AS002JUS-Intel-Core-i3-4130-4GB-500GB-Win7-Pro-/291147227515">
-	<div class="image">
-	<img class="absolute-center" src="<%=productCatalog[i+2].productImage%>" alt="Lenovo ThinkCentre E73 10AS002JUS, Intel Core i3-4130, 4GB, 500GB, Win7 Pro"></div><div class="item-details">
-	<div class="title"><%=productCatalog[i+2].productDesc%></div>
-	<div class="price-row"><div class="discounted-price">
-	<span class="price"> $<%=productCatalog[i+2].amount%></span></div>
-	</div></div></div></a></div>
-</div>
-<%}%>
-<%if(i<productCatalog.length-3){%>
+<%}
+if(i<productCatalog.length-1){%>
 <div class="widget-wrapper">
 	<div class="widget item-widget">
-	<a href="http://www.ebay.com/itm/LG-29-IPS-LED-HD-21-9-UltraWide-Monitor-/201199897599">
-	<div class="image">
-	<img class="absolute-center" src="<%=productCatalog[i+3].productImage%>" alt="LG - 29" ips="" led="" hd="" 21:9="" ultrawide="" monitor"=""></div>
-	<div class="item-details">
-	<div class="title"><%=productCatalog[i+3].productDesc%></div>
-	<div class="price-row">
-	<div class="discounted-price">
-	<span class="price"> $<%=productCatalog[i+3].amount%></span></div>
-	</div></div></a></div>
-	<%}%>
+		<a href="http://www.ebay.com/itm/HP-15-D017CL-15-6-750GB-4GB-AMD-A6-5200-2-0GHz-Win8-Laptop-Notebook-PC-RED-/331322757642">
+		<div class="image">
+			<img class="absolute-center" src="<%=productCatalog[i+1].productImage%>" alt="<%=productCatalog[i+1].productName%>">
+		</div>
+		<div class="item-details">
+			<div class="title"><%=productCatalog[i+1].productDesc%></div>
+			<div class="price-row">
+				<div class="discounted-price">
+				<span class="price"> $<%=productCatalog[i+1].amount%></span>
+				</div>
+			</div>
+		</div>
+		</a>
+	</div>
 </div>
-<%}%>
-	</div></div></div>
+<%}		
+if(i<productCatalog.length-2){%>
+<div class="widget-wrapper">
+	<div class="widget item-widget">
+		<a href="http://www.ebay.com/itm/Lenovo-ThinkCentre-E73-10AS002JUS-Intel-Core-i3-4130-4GB-500GB-Win7-Pro-/291147227515">
+		<div class="image">
+			<img class="absolute-center" src="<%=productCatalog[i+2].productImage%>" alt="Lenovo ThinkCentre E73 10AS002JUS, Intel Core i3-4130, 4GB, 500GB, Win7 Pro">
+		</div>
+		<div class="item-details">
+			<div class="title"><%=productCatalog[i+2].productDesc%></div>
+			<div class="price-row">
+				<div class="discounted-price">
+					<span class="price"> $<%=productCatalog[i+2].amount%></span>
+				</div>
+			</div>
+		</div>
+		</a>
+	</div>
+</div>
+<%}
+if(i<productCatalog.length-3){%>
+<div class="widget-wrapper">
+	<div class="widget item-widget">
+		<a href="http://www.ebay.com/itm/LG-29-IPS-LED-HD-21-9-UltraWide-Monitor-/201199897599">
+		<div class="image">
+			<img class="absolute-center" src="<%=productCatalog[i+3].productImage%>" alt="LG - 29" ips="" led="" hd="" 21:9="" ultrawide="" monitor"="">
+		</div>
+		<div class="item-details">
+			<div class="title"><%=productCatalog[i+3].productDesc%></div>
+			<div class="price-row">
+				<div class="discounted-price">
+					<span class="price"> $<%=productCatalog[i+3].amount%></span>
+				</div>
+			</div>
+		</div>
+		</a>
+	</div>
+</div>
+<%}}%>
+</div></div></div>
 
 </body>
 </html>

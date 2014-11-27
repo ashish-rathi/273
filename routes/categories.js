@@ -3,9 +3,9 @@
  */
 var ejs = require("ejs");
 
-exports.demo = function(req,res)
+exports.product = function(req,res)
 {
-	ejs.renderFile('./views/signin.ejs',{error:'',message:''},function(err, result){
+	ejs.renderFile('./views/product.ejs',{session:req.session},function(err, result){
 		  if (!err) {
 	          res.end(result);
 	      }

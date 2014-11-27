@@ -8,7 +8,8 @@ var express = require('express')
   , user = require('./routes/user')
   , http = require('http')
   , mysql = require('./routes/mysql')
-  , path = require('path');
+  , path = require('path')
+  , categories = require('./routes/categories');
 
 var app = express();
 
@@ -37,7 +38,7 @@ app.post('/login', routes.login); // signs in by performing db read and update
 app.get('/signup',routes.signup); //redirects to signup page
 app.post('/register',routes.register) //signs up a new user by performing db update
 app.get('/profile',routes.profile) //signs up a new user by performing db update
-
+app.get('/product/:id',categories.product) //handles and displays particular product
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

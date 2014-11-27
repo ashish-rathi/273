@@ -180,6 +180,7 @@ exports.login = function(req, res) {
 }
 
 
+//get the user profile
 exports.profile = function(req, res) {
 	var userId= req.session.membershipNo;
 	console.log(req.session.membershipNo);

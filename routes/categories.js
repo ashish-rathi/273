@@ -1,8 +1,6 @@
-/**
- * New node file
- */
 var ejs = require("ejs");
 var customMysql = require("./mysql");
+var url = require('url');
 
 exports.product = function(req,res)
 {
@@ -43,6 +41,27 @@ exports.category = function(req,res)
 			var jsonString = JSON.stringify(products);
 			var productCatalogs = JSON.parse(jsonString);
 			ejs.renderFile('./views/categories.ejs',{session:req.session,category:categoryType,productCatalog:productCatalogs},function(err, result){
+			if (!err) {
+	          res.end(result);
+			}
+			else {
+	          res.end('An error occurred');
+	          console.log(err);
+			}
+			});
+		}
+	});
+}
+
+
+//get the products searched by user
+exports.search = function(req,res){
+	var queryData = url.parse(req.url, true).query;
+	customMysql.search_products(queryData._nkw,function(err,products){
+		if(products.length > 0){
+			var jsonString = JSON.stringify(products);
+			var productCatalogs = JSON.parse(jsonString);
+			ejs.renderFile('./views/search.ejs',{session:req.session,productCatalog:productCatalogs,searchString:queryData._nkw},function(err, result){
 			if (!err) {
 	          res.end(result);
 			}

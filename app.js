@@ -41,7 +41,7 @@ app.post('/register',routes.register) //signs up a new user by performing db upd
 app.get('/profile',routes.profile) //signs up a new user by performing db update
 app.get('/product/:id',categories.product) //handles and displays particular product
 app.get('/categories/:id',categories.category) //handles and displays products related to give category id
-
+app.get('/sellers',user.seller) //get all sellers of the system
 
 
 http.createServer(app).listen(app.get('port'), function(){

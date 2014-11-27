@@ -8,7 +8,7 @@ var mysql = require('mysql');
 var pool  = mysql.createPool({
 	host     : 'localhost',
 	user     : 'root',
-	password : '',
+	password : 'deven',
 	port: '3306',
 	database: 'Ebay'
 });
@@ -280,4 +280,14 @@ exports.get_highest_bid = function(idProduct, callback){
 	
 };
 
+
+//get all sellers
+exports.get_all_sellers = function(callback){
+	pool.getConnection(function(err, connection) {
+		connection.query('SELECT * FROM User WHERE isSeller = 1',function(err, result){
+			connection.release();
+			callback(err, result);
+		});
+	});
+};
 exports.edit_user_profile = edit_user_profile;

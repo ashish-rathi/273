@@ -17,6 +17,21 @@ exports.signin = function(req, res){
 	  });
 };
 
+/*
+ * Log's out and destroy user session
+ */
+exports.logout = function(req, res){
+	req.session.destroy();
+	ejs.renderFile('./views/logout.ejs',function(err, result){
+		  if (!err) {
+	          res.end(result);
+	      }
+	      else {
+	          res.end('An error occurred');
+	          console.log(err);
+	      }
+	  });
+};
 
 /*
  * GET home page.

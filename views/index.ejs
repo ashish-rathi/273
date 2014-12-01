@@ -1,6 +1,14 @@
 <!DOCTYPE html> 
 <html lang="en">
 <head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <link href="/styles/style.css" type="text/css" rel="stylesheet">
 <script>
 function show_menu() {
@@ -145,6 +153,7 @@ function show_menu() {
 <div class="widget top-category-deals">
 <h2 class="title">FEATURED DEALS</h2>
 <% 
+if(productCatalog !=null){
 for(var i=0;i<productCatalog.length;i+=4){%>
 <%if(i<productCatalog.length){%>
 <div class="widget-wrapper">
@@ -222,6 +231,9 @@ if(i<productCatalog.length-3){%>
 	</div>
 </div>
 <%}}%>
+<% } else {%>
+No Products Available
+<%}%>
 </div></div></div>
 
 </body>

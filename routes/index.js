@@ -38,6 +38,7 @@ exports.logout = function(req, res){
  */
 
 function index(req, res){
+	console.log("In index ");
 	customMysql.get_products_for_category(324, function(err, products) {
 		if(products.length > 0){
 			var jsonString = JSON.stringify(products);
@@ -53,6 +54,16 @@ function index(req, res){
 			          console.log(err);
 			      }
 			  });
+		}else{
+			ejs.renderFile('./views/index.ejs',{session:req.session,productCatalog:productCatalogs},function(err, result){
+				  if (!err) {
+			          res.end(result);
+			      }
+			      else {
+			          res.end('An error occurred');
+			          console.log(err);
+			      }
+			});
 		}
 		});
 }
@@ -97,7 +108,7 @@ exports.register = function(req, res) {
 		// render on success
 		var errorType;
 		if (err) {
-			if(err.toString().search("ER_DUP_ENTRY"))
+			if(err.toString().search("ER_DUdP_ENTRY"))
 				{
 					console.log("error message "+err.toString());
 					console.log("message "+err.message);

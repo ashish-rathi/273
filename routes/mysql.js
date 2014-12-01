@@ -8,9 +8,9 @@ var mysql = require('mysql');
 var pool  = mysql.createPool({
 	host     : 'localhost',
 	user     : 'root',
-	password : 'deven',
+	password : 'password',
 	port: '3306',
-	database: 'Ebay'
+	database: 'ebay'
 });
 
 //TODO:Error handling module for various errors
@@ -111,9 +111,16 @@ exports.get_seller_profile = function(user_id, callback){
  */
 exports.get_products_for_category = function(idCategory, callback){
 	pool.getConnection(function(err, connection) {
+		console.log("In mysql get products for category");
 		connection.query('SELECT * FROM Product WHERE idCategory = ?',[idCategory],function(err, result){
 			connection.release();
+			if(result){
+				err=null;
 			callback(err, result);
+			}else{
+				err="No Products available";
+				callback(err, null);
+			}
 		});
 	});
 };

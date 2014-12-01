@@ -4,6 +4,9 @@ var url = require('url');
 
 exports.product = function(req,res)
 {
+	var catId = req.params.catId;
+	var prodId = req.params.prodId;
+	console.log(catId + " " + prodId);
 	ejs.renderFile('./views/product.ejs',{session:req.session},function(err, result){
 		  if (!err) {
 	          res.end(result);
@@ -37,7 +40,8 @@ exports.category = function(req,res)
 	
 	console.log("id is "+id);
 	customMysql.get_products_for_category(id, function(err, products) {
-		if(products.length > 0){
+		console.log("length " +products.length);
+		if(products.length >= 0){
 			var jsonString = JSON.stringify(products);
 			var productCatalogs = JSON.parse(jsonString);
 			ejs.renderFile('./views/categories.ejs',{session:req.session,category:categoryType,productCatalog:productCatalogs},function(err, result){

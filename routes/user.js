@@ -11,6 +11,7 @@ exports.list = function(req, res){
 
 exports.seller = function(req,res){
 	customMysql.get_all_sellers(function(err, sellers) {
+		console.log(sellers.length);
 		if(sellers.length > 0){
 			console.log(sellers);
 			var jsonString = JSON.stringify(sellers);

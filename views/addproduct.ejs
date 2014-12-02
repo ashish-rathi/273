@@ -1,6 +1,8 @@
 <html>
 <head>
-<link href="css1.css" rel="stylesheet" type="text/css" >
+<link href="styles/customstyle.css" rel="stylesheet" type="text/css" >
+<link href="styles/style.css" type="text/css" rel="stylesheet">
+
 <script>
 function show_menu()
 {
@@ -29,60 +31,70 @@ document.getElementById('gh-eb-My-o').style.display="none";
       </td>
       <td width="38%">&nbsp;</td>
     </tr>
+    
     <tr>
-      <td rowspan="2">
-      <div class="formfont">
-        <p>Product Name<br>
-          <input type="text" name="txtpname" id="txtpname" class="txtboxes"><br><br>
-          Select Category
-          <div id="gh-cat-box">
-            <select id="gh-cat" class="gh-sb gh-sprRetina" title="Select a category" size="1" class="txtboxes">
+      <td>
+        <div class="formfont" style="margin-left:4em">
+          <p>Product Name<br>
+            <input type="text" name="txtpname" id="txtpname" class="txtboxes"><br><br>
+            Select Category<br>
             
-            <option value="mobiles">Mobiles</option>
-            <option value="laptops">Laptops</option>
-            <option value="accessories">Accessories</option>
-            <option value="cameras">Camera</option>
-            <option value="tablets">Tablets</option>
-            <option value="tv">TV</option>
-            <option value="video_games">Video Games</option>
-            </select>
-            </div><br>
-          Quantity<br>
-          <input type="number" name="txtqty" id="txtqty" min="1" max="10" class="txtboxes"><br><br>
-          Condition<br>
-          <input type="radio" name="group1" value="new" class="txtboxes" checked> New
-<input type="radio" name="group1" value="used"> Used<br><br>
+            <select title="Select a category" size="1" class="txtboxes">
+              
+              <option value="mobiles">Mobiles</option>
+              <option value="laptops">Laptops</option>
+              <option value="accessories">Accessories</option>
+              <option value="cameras">Camera</option>
+              <option value="tablets">Tablets</option>
+              <option value="tv">TV</option>
+              <option value="video_games">Video Games</option>
+              </select>
+            <br><br>
+            Quantity<br>
+            <input type="number" name="txtqty" id="txtqty" min="1" max="10" class="txtboxes"><br><br>
+            
+            
+            Price<br>
+            $ <input type="number" name="txtqty" id="txtqty" min="0.99" class="txtboxes"><br>
+            
+          </div>
+        <br><h4 style="margin-left:2em"><input type="checkbox" name="acceptq1" value="1" id="acceptq1">
+          I agree to the following:</p>
+          <ul style="padding-left:40px;margin:0px"><li>I accept the user-agreement.</li>
+  <li>I am at least 18 years old.</li>
+  </ul></h4>
+        <br>
+        </p>
+        
+        
+        
+        </td>
+      
+      <td><div class="txtboxes">
+      Upload an image of product<br><br>
+        <input type="file" accept="image/*" name="img" id="img" class="txtboxes"><br>
+        <br><br>
+        
+        Condition<br>
+            <input type="radio" name="group1" value="new" class="txtboxes" checked> New
+  <input type="radio" name="group1" value="used"> Used<br><br>
             
             Type<br>
-          <input type="radio" name="group2" value="fixedprice" class="txtboxes" checked> Fixed Price
-<input type="radio" name="group2" value="bid"> Bid<br><br>
-
-			Price<br>
-          $ <input type="number" name="txtqty" id="txtqty" min="0.99" class="txtboxes"><br>
-          
-          </div>
-          <br><h4 style="margin-left:2em"><input type="checkbox" name="acceptq1" value="1" id="acceptq1">
-          I agree to the following:</p>
-        <ul style="padding-left:40px;margin:0px"><li>I accept the user-agreement.</li>
-<li>I am at least 18 years old.</li>
-</ul></h4>
-          <br>
-        </p>
-        <button class="ButtonBuss" name="addprod" type="submit" id="addprod" >Add Product</button>
-        
-      
-      </td>
-      
-      <td><div class="formfont">Upload an image of product<br><br>
-        <input type="file" name="img" id="img" class="txtboxes"><br></div>
-      <br><br>
-      <img src="images/blankimg.bmp" alt=""/></td>
+            <input type="radio" name="group2" value="fixedprice" class="txtboxes" checked> Fixed Price
+  <input type="radio" name="group2" value="bid"> Bid<br><br>
+  </div>
+        </td>
     </tr>
+    
     <tr>
-      
-      <td>&nbsp;</td>
+      <td colspan="2">
+      <div align="center">
+      <br>
+      <button class="ButtonBuss" name="addprod" type="submit" id="addprod" >Add Product</button></td>
+      </div>
     </tr>
-  </tbody>
+    
+    </tbody>
   </form>
 </table>
 </body>

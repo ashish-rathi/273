@@ -125,11 +125,11 @@ exports.get_products_for_category = function(idCategory, callback){
 };
 
 /* 
- * API GET - /:product_category/:product_id
+ * API GET - /:product_id
  */
-exports.get_product = function(idProduct, idCategory, callback){
+exports.get_product = function(idProduct, callback){
 	pool.getConnection(function(err, connection) {
-		connection.query('SELECT * FROM Product WHERE idProduct = ? AND idCategory = ? limit 1',[idProduct, idCategory],function(err, result){
+		connection.query('SELECT * FROM Product WHERE idProduct = ? limit 1',[idProduct],function(err, result){
 			connection.release();
 			callback(err, result);
 		});

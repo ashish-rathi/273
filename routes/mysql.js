@@ -2,13 +2,12 @@
  * mysql related functions
  * 
  */
-
 var mysql = require('mysql');
 
 var pool  = mysql.createPool({
 	host     : 'localhost',
 	user     : 'root',
-	password : 'password',
+	password : '',
 	port: '3306',
 	database: 'ebay'
 });

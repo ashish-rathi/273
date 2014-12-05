@@ -336,4 +336,42 @@ function setupSession(request, userResult){
 	
 }
 
+/*
+* GET All Auction page.
+*/
+
+function auction(req, res){
+console.log("In auction ");
+customMysql.get_products_for_auction("auction", function(err, products) {
+if(products.length > 0){
+var jsonString = JSON.stringify(products);
+var productCatalogs = JSON.parse(jsonString);
+if(req.session.name==null || req.session.name=="undefined")
+initializeSession(req);
+ejs.renderFile('./views/auction.ejs',{session:req.session,productCatalog:productCatalogs},function(err, result){
+if (!err) {
+res.end(result);
+}
+else {
+res.end('An error occurred');
+console.log(err);
+}
+});
+}else{
+if(req.session.name==null || req.session.name=="undefined")
+initializeSession(req);
+ejs.renderFile('./views/index.ejs',{session:req.session,productCatalog:productCatalogs},function(err, result){
+if (!err) {
+res.end(result);
+}
+else {
+res.end('An error occurred');
+console.log(err);
+}
+});
+}
+});
+}
+
 exports.index = index;
+exports.auction =auction;

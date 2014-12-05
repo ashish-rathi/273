@@ -7,7 +7,7 @@ var mysql = require('mysql');
 var pool  = mysql.createPool({
 	host     : 'localhost',
 	user     : 'root',
-	password : '',
+	password : 'password',
 	port: '3306',
 	database: 'ebay'
 });
@@ -332,5 +332,26 @@ exports.get_productid=function(callback){
 		});
 	});
 }
+
+/* 
+* API GET - /auction
+*/
+exports.get_products_for_auction = function(sellType, callback){
+pool.getConnection(function(err, connection) {
+console.log("In mysql get products for auction");
+connection.query('SELECT * FROM Product WHERE sellType = ?',[sellType],function(err, result){
+connection.release();
+if(result){
+err=null;
+callback(err, result);
+}else{
+err="No Products available";
+callback(err, null);
+}
+});
+});
+};
+
+
 
 exports.edit_user_profile = edit_user_profile;

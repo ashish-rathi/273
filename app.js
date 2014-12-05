@@ -44,6 +44,9 @@ app.get('/categories/:catId/:prodId',categories.product) //handles and displays 
 app.get('/categories/:id',categories.category) //handles and displays products related to give category id
 app.get('/sellers',user.seller) //get all sellers of the system
 app.get('/search',categories.search) //get the product searched by user
+app.get('/add_product',routes.addproduct);
+app.post('/add_products',routes.addproducts);
+app.get('/products/:prodId',categories.product) //handles and displays particular product
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

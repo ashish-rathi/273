@@ -221,6 +221,7 @@ exports.add_product = function(product_data, callback){
 	});
 };
 
+
 /*
  * API GET - /checkout
  */
@@ -296,4 +297,40 @@ exports.get_all_sellers = function(callback){
 		});
 	});
 };
+
+//get categoryid
+exports.get_category_id = function(category,id,err,callback){
+	console.log("Category is "+category);
+	pool.getConnection(function(err, connection) {
+		connection.query('SELECT idCategory FROM category WHERE categoryName like % ? %  ',[category],function(err, result){
+			if(err){
+				err="Database Select failed";
+				console.log("INside err");
+				callback(id,err,null);
+			}else if(result==null){
+				err="No such Category";
+				console.log("INside else if");
+				callback(id,err,result);
+			}else{
+			connection.release();
+			console.log("INside else");
+			callback(id,err, result);
+		}
+		});
+	});
+};
+
+exports.get_productid=function(callback){
+	console.log("Inside get productid");
+	pool.getConnection(function(err,connection){
+		connection.query('select max(imageid) id from imageid',function(err,result){
+			console.log(result);
+			connection.query('update imageid set imageid=imageid+1',function(err,result1){
+				console.log(result1);
+			});
+			callback(err,result);
+		});
+	});
+}
+
 exports.edit_user_profile = edit_user_profile;

@@ -1,5 +1,7 @@
 var ejs = require("ejs");
 var customMysql = require("./mysql");
+var fs = require('fs-extra');
+
 
 /*
  * GET signin page.
@@ -40,10 +42,10 @@ exports.logout = function(req, res){
 function index(req, res){
 	console.log("In index ");
 	customMysql.get_products_for_category(324, function(err, products) {
-		if(products.length > 0){
+		if(products !=null){
 			var jsonString = JSON.stringify(products);
 			var productCatalogs = JSON.parse(jsonString);
-			if(req.session.name==null)
+			if(req.session.name==null || req.session.name=='undefined')
 				initializeSession(req);
 			ejs.renderFile('./views/index.ejs',{session:req.session,productCatalog:productCatalogs},function(err, result){
 				  if (!err) {
@@ -86,6 +88,68 @@ exports.signup = function(req,res){
         }
     });
 }
+
+
+exports.addproduct=function(req,res){
+	ejs.renderFile('./views/addproduct.ejs',{error:''},function(err, result) {
+        // render on success
+        if (!err) {
+            res.end(result);
+        }
+        // render or error
+        else {
+            res.end('There is some error');
+            console.log(err);
+        }
+    });
+}
+
+exports.addproducts=function(req,res){
+	console.log(req.files.img.path);
+	console.log(req.files.img.name);
+	var productid;
+	
+	customMysql.get_productid(function(err,result){
+		if(err){
+			console.log(err);
+		}else{
+			console.log(result[0].id);
+		productid=result[0].id+1;
+		console.log("The productid is: "+productid);
+		var path="/Users/Sambugopan/eclipsejeeluna/workspace/eway/public/images/products/"+productid+".jpg";
+		console.log(path);
+		fs.move(req.files.img.path, path, function(err){
+			  if (err) return console.error(err);
+			  console.log("success!")
+			});
+		var productdata={
+				productName:req.body.txtpname,
+				productCondition:req.body.group1,
+				productDesc:req.body.description,
+				amount:req.body.txtamt,
+				idCategory:req.body.category,
+				quantity:req.body.txtqty,
+			    endDateOfSale:new Date(+2),
+				sellType:req.body.group2,
+				sellerId:1,
+				productImage:path
+		};
+		console.log(productdata);
+		customMysql.add_product(productdata,function(err,result){
+			if(err){
+				console.log(err);
+				index(req,res);
+			}else{
+				console.log(result);
+				index(req,res);
+			}
+		})
+		}
+	});
+	
+	
+}
+
 
 /*Register
  *  Makes call to myql.signup to insert User into the databse.
@@ -247,6 +311,7 @@ function initializeSession(request){
 	request.session.name = 'Guest';
 }
 
+/*
 function setupSessionSignIn(request, userResult){
 	var date = new Date();
 	request.session.name = userResult[0].firstName;
@@ -258,7 +323,7 @@ function setupSessionSignIn(request, userResult){
 	request.session.email= userResult[0].email;
 	
 }
-
+*/
 function setupSession(request, userResult){
 	var date = new Date();
 	request.session.name = userResult[0].firstName;

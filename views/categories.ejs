@@ -150,7 +150,7 @@ for(var i=0;i<productCatalog.length;i+=4){%>
 <%if(i<productCatalog.length){%>
 <div class="widget-wrapper">
 	<div class="widget item-widget">
-		<a href="/categories/<%=productCatalog[i].idCategory%>/<%=productCatalog[i].idProduct%>">
+		<a href="/product/<%=productCatalog[i].idProduct%>">
 		<div class="image">
 			<img class="absolute-center" src="<%=productCatalog[i].productImage%>" alt="<%=productCatalog[i].productName%>" >
 		</div>
@@ -169,7 +169,7 @@ for(var i=0;i<productCatalog.length;i+=4){%>
 if(i<productCatalog.length-1){%>
 <div class="widget-wrapper">
 	<div class="widget item-widget">
-		<a href="/categories/<%=productCatalog[i].idCategory%>/<%=productCatalog[i+1].idProduct%>">
+		<a href="/product/<%=productCatalog[i+1].idProduct%>">
 		<div class="image">
 			<img class="absolute-center" src="<%=productCatalog[i+1].productImage%>" alt="<%=productCatalog[i+1].productName%>">
 		</div>
@@ -188,7 +188,7 @@ if(i<productCatalog.length-1){%>
 if(i<productCatalog.length-2){%>
 <div class="widget-wrapper">
 	<div class="widget item-widget">
-		<a href="/categories/<%=productCatalog[i].idCategory%>/<%=productCatalog[i+2].idProduct%>">
+		<a href="/product/<%=productCatalog[i+2].idProduct%>">
 		<div class="image">
 			<img class="absolute-center" src="<%=productCatalog[i+2].productImage%>" alt="Lenovo ThinkCentre E73 10AS002JUS, Intel Core i3-4130, 4GB, 500GB, Win7 Pro">
 		</div>
@@ -207,7 +207,7 @@ if(i<productCatalog.length-2){%>
 if(i<productCatalog.length-3){%>
 <div class="widget-wrapper">
 	<div class="widget item-widget">
-		<a href="/categories/<%=productCatalog[i].idCategory%>/<%=productCatalog[i+3].idProduct%>">
+		<a href="/product/<%=productCatalog[i+3].idProduct%>">
 		<div class="image">
 			<img class="absolute-center" src="<%=productCatalog[i+3].productImage%>" alt="LG - 29" ips="" led="" hd="" 21:9="" ultrawide="" monitor"="">
 		</div>

@@ -28,3 +28,48 @@ exports.seller = function(req,res){
 		}
 		});
 }
+
+exports.getcart = function(req,res)
+{
+	console.log(req.session.membershipNo);
+	customMysql.get_cart_for_user(req.session.membershipNo,function(err, usercart) {
+		//console.log(usercart.length);
+		console.log(usercart);
+		if(usercart.length >= 0){
+			//console.log(sellers);
+			var jsonString = JSON.stringify(usercart);
+			var cartItems = JSON.parse(jsonString);
+			ejs.renderFile('./views/displaycart.ejs',{session:req.session,cartItem:cartItems},function(err, result){
+				  if (!err) {
+			          res.end(result);
+			      }
+			      else {
+			          res.end('An error occurred');
+			          console.log(err);
+			      }
+			  });
+		}
+		});
+}
+
+exports.checkout = function(req,res)
+{
+	customMysql.get_cart_for_user(req.session.membershipNo,function(err, usercart) {
+		//console.log(usercart.length);
+		console.log(usercart);
+		if(usercart.length >= 0){
+			//console.log(sellers);
+			var jsonString = JSON.stringify(usercart);
+			var cartItems = JSON.parse(jsonString);
+			ejs.renderFile('./views/displaycart.ejs',{session:req.session,cartItem:cartItems},function(err, result){
+				  if (!err) {
+			          res.end(result);
+			      }
+			      else {
+			          res.end('An error occurred');
+			          console.log(err);
+			      }
+			  });
+		}
+		});
+}

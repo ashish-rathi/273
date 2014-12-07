@@ -135,9 +135,10 @@ exports.getbid = function(req,res){
 		if(!err) {
 			console.log("Inside not error");
 			if(products.length > 0){
+				console.log('data recieved');
 				var jsonString = JSON.stringify(products);
 				var productCatalogs = JSON.parse(jsonString);
-				//console.log(productCatalogs[0].bidAmount);
+				console.log(productCatalogs[0].bidAmount);
 				amount = parseFloat(productCatalogs[0].bidAmount) + 0.5;
 				data = 'Enter US $'+amount+' or more';
 				res.end(data);

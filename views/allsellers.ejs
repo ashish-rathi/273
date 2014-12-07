@@ -142,6 +142,7 @@ function show_menu() {
 
 <table class="reference" style="width:100%">
 <tbody><tr>
+<%if(sellersList.length > 0){%>
 	<th>Name</th>
 	<th>Email Id</th>
 	<th>City</th>		
@@ -157,6 +158,11 @@ function show_menu() {
 	<td><%=sellersList[i].zip %></td>
 	<td><%=sellersList[i].sellerRating %></td>
 </tr>
+<%}}
+else{
+%>
+<h1>No Sellers Registered Yet</h1>
+
 <%}%>
 
 </tbody></table>

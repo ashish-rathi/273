@@ -408,3 +408,4 @@ console.log(err);
 
 exports.index = index;
 exports.auction =auction;
+exports.initializeSession = initializeSession; 

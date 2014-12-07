@@ -1,6 +1,6 @@
 var ejs = require("ejs");
 var customMysql = require("./mysql");
-
+var ourIndex = require("./index");
 /*
  * GET users listing.
  */
@@ -12,10 +12,12 @@ exports.list = function(req, res){
 exports.seller = function(req,res){
 	customMysql.get_all_sellers(function(err, sellers) {
 		console.log(sellers.length);
-		if(sellers.length > 0){
+		if(sellers != null){
 			console.log(sellers);
 			var jsonString = JSON.stringify(sellers);
 			var sellersLists = JSON.parse(jsonString);
+			if(req.session.name==null || req.session.name=='undefined')
+				ourIndex.initializeSession(req);
 			ejs.renderFile('./views/allsellers.ejs',{session:req.session,sellersList:sellersLists},function(err, result){
 				  if (!err) {
 			          res.end(result);

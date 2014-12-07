@@ -1,6 +1,10 @@
 var ejs = require("ejs");
-var customMysql = require("./mysql");
+var customMysql = require("./mysql"),
+	routes = require('./index');
 var fs = require('fs-extra');
+
+var path = require('path');
+var appDir = path.dirname(require.main.filename);
 
 
 /*
@@ -105,10 +109,27 @@ exports.addproduct=function(req,res){
 }
 
 exports.addproducts=function(req,res){
-	console.log(req.files.img.path);
-	console.log(req.files.img.name);
 	var productid;
+	if(!req.session.loggedin){
+		req.session.lastpage='/add_products';
+		routes.login(req,res);
+	}
+	else{
+	console.log("accept: "+req.body.accept);
 	
+	if(!req.body.accept){
+		ejs.renderFile('./views/addproduct.ejs',{error:'You need to be 18years old to sell a product'},function(err, result) {
+	        // render on success
+	        if (!err) {
+	            res.end(result);
+	        }
+	        // render or error
+	        else {
+	            res.end('There is some error');
+	            console.log(err);
+	        }
+	    });
+	}else{
 	customMysql.get_productid(function(err,result){
 		if(err){
 			console.log(err);
@@ -116,18 +137,18 @@ exports.addproducts=function(req,res){
 			console.log(result[0].id);
 		productid=result[0].id+1;
 		console.log("The productid is: "+productid);
-		var path="/Users/Sambugopan/eclipsejeeluna/workspace/eway/public/images/products/"+productid+".jpg";
+		var path=appDir+"/public/images/products/"+productid+".jpg";
 		console.log(path);
-		fs.move(req.files.img.path, path, function(err){
+		fs.move(req.files.displayImage.path,path, function(err){
 			  if (err) return console.error(err);
-			  console.log("success!")
+			  console.log("success!"+req.files.displayImage.path);
 			});
 		var productdata={
 				productName:req.body.txtpname,
-				productCondition:req.body.group1,
-				productDesc:req.body.description,
+				productCondition:req.body.txtcond,
+				productDesc:req.body.txtdesc,
 				amount:req.body.txtamt,
-				idCategory:req.body.category,
+				idCategory:req.body.txtcat,
 				quantity:req.body.txtqty,
 			    endDateOfSale:new Date(+2),
 				sellType:req.body.group2,
@@ -146,8 +167,8 @@ exports.addproducts=function(req,res){
 		})
 		}
 	});
-	
-	
+	}
+	}
 }
 
 

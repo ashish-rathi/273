@@ -10,6 +10,7 @@
     "ejs": "*",
     "nodemon":"*",
     "mysql":"*",
-    "redis":"*"
+    "redis":"*",
+    "fs-extra":"*"
   }
 }

@@ -2,17 +2,11 @@
 <html lang="en">
 <head>
 <link href="/styles/style.css" type="text/css" rel="stylesheet">
-<script>
-function show_menu() {
-	if (document.getElementById('gh-eb-My-o').style.display == "none")
-		document.getElementById('gh-eb-My-o').style.display = "block";
-	else
-		document.getElementById('gh-eb-My-o').style.display = "none";
-}
-</script>
+
+ <script src="/jscript/common.js"></script> 
 
 <!-- style for products -->
-<link href="http://ir.ebaystatic.com/rs/v/jjyrcn3jf25kbh4surkixuwjaan.css" type="text/css" rel="stylesheet">
+<link href="http://ir.ebaystatic.com/rs/v/sloo4mqb0a02pktiedfzz24n5yr.css" type="text/css" rel="stylesheet" slotid="common-css">
  
 </head>
 <body class="sz1200">
@@ -140,93 +134,89 @@ function show_menu() {
 <!-- Products part --> 
 <br>
 <br>
-<div class="main">
-<div class="content " style="margin: 0;">
-<div class="widget top-category-deals">
-<h2 class="title"><%=category%></h2>
+	<div id="Body">
+		<div id="LeftCenterBottomPanelDF">
+			<div id="CenterWrapper">
+				<div id="Center" class="rr_present">
+<h1><%=category%></h1>
+					<div id="CenterPanel" class="full-width left c-std">
+						<div id="CenterPanelInner">
+
+		<div class="cbrt" id="cbrt"> 
+		<div id="cbelm" class="cb clearfix">
+		<div class="asp pnl left">
+	
+	<div class="pnl-b frmt">
+				<button id="all" onclick="show_all()" class="small cbx btn btn-s btn-ter tab tgl_button center_b" title="Auction" disabled="true">All Listings</button>
+				<button id="bid" onclick="show_bid()" class="small cbx btn btn-s btn-ter tab tgl_button center_b" title="Auction">Auction</button>
+				<button id="bin" onclick="show_direct_buy()" class="small cbx btn btn-s btn-ter tab tgl_button last_b" title="Buy It Now">Buy It Now</button>
+					
+</div>
+</div>	          
+</div>
+</div>
+
+<div id="Results" class="">
+
+			<div class="rst" id="rsTabs">
+	<div class="t225">
+
+			
+			<div id="e1-137" class="rs rsw" >
+	
+	
+	
+	<div id="ResultSetItems" class="clearfix">
+		
+<ul id="ListViewInner">
+
 <%
 if(productCatalog !=null){ 
-for(var i=0;i<productCatalog.length;i+=4){%>
-<%if(i<productCatalog.length){%>
-<div class="widget-wrapper">
-	<div class="widget item-widget">
-		<a href="/categories/<%=productCatalog[i].idCategory%>/<%=productCatalog[i].idProduct%>">
-		<div class="image">
-			<img class="absolute-center" src="<%=productCatalog[i].productImage%>" alt="<%=productCatalog[i].productName%>" >
-		</div>
-		<div class="item-details">
-			<div class="title"><%=productCatalog[i].productDesc%></div>
-			<div class="price-row">
-				<div class="discounted-price">
-				<span class="price"> $ <%=productCatalog[i].amount%></span>
-				</div>
-			</div>
-		</div>
-		</a>
+for(var i=0;i<productCatalog.length;i++){%>
+<li name="<%=productCatalog[i].sellType%>" class="sresult lvresult clearfix li" r="1">
+	
+	<div class="lvpic pic p225 img left" iid="251723277090">
+			<div class="lvpicinner full-width picW s225">
+
+	<a href="/product/<%=productCatalog[i].idProduct%>" class="img imgWr2">
+				     <img src="<%=productCatalog[i].productImage%>" class="img" alt="<%=productCatalog[i].productName%>" height="225" width="168">
+				</a>
+			</div></div>
+	<h3 class="lvtitle"><a href="/product/<%=productCatalog[i].idProduct%>" class="vip" style="display:block;"><%=productCatalog[i].productDesc%></a>
+		</h3>
+	<ul class="lvprices left space-zero">
+
+	<li class="lvprice prc">
+			<span class="g-b">$ <%=productCatalog[i].amount%></span>
+</li>
+		<li class="lvformat bids">
+			<span><%=productCatalog[i].sellType%></span>
+		</li>
+	
+	<li class="lvextras">
+		<div class="hotness bold">
+
 	</div>
-</div>
-<%}
-if(i<productCatalog.length-1){%>
-<div class="widget-wrapper">
-	<div class="widget item-widget">
-		<a href="/categories/<%=productCatalog[i].idCategory%>/<%=productCatalog[i+1].idProduct%>">
-		<div class="image">
-			<img class="absolute-center" src="<%=productCatalog[i+1].productImage%>" alt="<%=productCatalog[i+1].productName%>">
-		</div>
-		<div class="item-details">
-			<div class="title"><%=productCatalog[i+1].productDesc%></div>
-			<div class="price-row">
-				<div class="discounted-price">
-				<span class="price"> $<%=productCatalog[i+1].amount%></span>
-				</div>
-			</div>
-		</div>
-		</a>
-	</div>
-</div>
-<%}		
-if(i<productCatalog.length-2){%>
-<div class="widget-wrapper">
-	<div class="widget item-widget">
-		<a href="/categories/<%=productCatalog[i].idCategory%>/<%=productCatalog[i+2].idProduct%>">
-		<div class="image">
-			<img class="absolute-center" src="<%=productCatalog[i+2].productImage%>" alt="Lenovo ThinkCentre E73 10AS002JUS, Intel Core i3-4130, 4GB, 500GB, Win7 Pro">
-		</div>
-		<div class="item-details">
-			<div class="title"><%=productCatalog[i+2].productDesc%></div>
-			<div class="price-row">
-				<div class="discounted-price">
-					<span class="price"> $<%=productCatalog[i+2].amount%></span>
-				</div>
-			</div>
-		</div>
-		</a>
-	</div>
-</div>
-<%}
-if(i<productCatalog.length-3){%>
-<div class="widget-wrapper">
-	<div class="widget item-widget">
-		<a href="/categories/<%=productCatalog[i].idCategory%>/<%=productCatalog[i+3].idProduct%>">
-		<div class="image">
-			<img class="absolute-center" src="<%=productCatalog[i+3].productImage%>" alt="LG - 29" ips="" led="" hd="" 21:9="" ultrawide="" monitor"="">
-		</div>
-		<div class="item-details">
-			<div class="title"><%=productCatalog[i+3].productDesc%></div>
-			<div class="price-row">
-				<div class="discounted-price">
-					<span class="price"> $<%=productCatalog[i+3].amount%></span>
-				</div>
-			</div>
-		</div>
-		</a>
-	</div>
-</div>
-<%}}%>
-<% } else {%>
+
+</li>
+    </ul>
+	</li>
+<% }} else {%>
 No Products Available
 <%}%>
-</div></div></div>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 </body>
 </html>

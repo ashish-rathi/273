@@ -663,5 +663,25 @@ exports.delete_product = function(idProduct, callback){
 	});
 };
 
+/*
+ * API DELETE - /checkout
+ */
+exports.checkout = function checkout(membershipNo, callback){
+	var sqlQueryString = 'UPDATE BuyerCart SET isPurchased = ? WHERE membershipNo = ?';
+	var inserts = [true, membershipNo];
+	sqlQueryString = mysql.format(sqlQueryString, inserts);
+	
+	pool.getConnection(function(err, connection) {
+		connection.query(sqlQueryString,function(err, result){
+			connection.release();
+			if(result ){
+				//invalidate buyer cart related cache
+				invalidateBuyerCartCache();
+			}
+			callback(err, result);
+		});
+	});
+}
+
 //TODO buy_product
 //check quantity first and then confirm

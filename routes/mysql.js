@@ -352,6 +352,36 @@ callback(err, null);
 });
 };
 
+/*
+ * API DELETE - /:product_id
+ */
+exports.delete_product = function(idProduct, callback){
+	var sqlQueryString = 'DELETE FROM Product WHERE idProduct= ?';
+	var inserts = [idProduct];
+	sqlQueryString = mysql.format(sqlQueryString, inserts);
+	
+	pool.getConnection(function(err, connection) {
+		connection.query(sqlQueryString,function(err, result){
+			connection.release();
+			callback(err, result);
+		});
+	});
+};
 
+/*
+ * API DELETE - /checkout
+ */
+exports.checkout = function checkout(membershipNo, callback){
+	var sqlQueryString = 'UPDATE BuyerCart SET isPurchased = ? WHERE membershipNo = ?';
+	var inserts = [true, membershipNo];
+	sqlQueryString = mysql.format(sqlQueryString, inserts);
+	
+	pool.getConnection(function(err, connection) {
+		connection.query(sqlQueryString,function(err, result){
+			connection.release();
+			callback(err, result);
+		});
+	});
+}
 
 exports.edit_user_profile = edit_user_profile;

@@ -40,7 +40,7 @@ exports.logout = function(req, res){
 
 function index(req, res){
 	console.log("In index ");
-	customMysql.get_products_for_category(324, function(err, products) {
+	customMysql.get_all_products(function(err, products) {
 		if(products !=null){
 			var jsonString = JSON.stringify(products);
 			var productCatalogs = JSON.parse(jsonString);

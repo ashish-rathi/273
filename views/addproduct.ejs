@@ -1,3 +1,4 @@
+<!DOCTYPE html> 
 <html>
 <head>
 <link href="styles/customstyle.css" rel="stylesheet" type="text/css" >
@@ -17,8 +18,13 @@ document.getElementById('gh-eb-My-o').style.display="none";
 </head>
 
 <body>
+<<<<<<< HEAD
 <table width="100%" border="0">
-<form id="form1" name="form1" method="post" action="/add_products" >
+<form id="form1" name="form1" method="post" >
+=======
+
+<form action="/add_products", method="post", enctype="multipart/form-data">
+>>>>>>> origin/master
   <tbody>
     <tr>
       <td width="62%">
@@ -37,17 +43,19 @@ document.getElementById('gh-eb-My-o').style.display="none";
         <div class="formfont" style="margin-left:4em">
           <p>Product Name<br>
             <input type="text" name="txtpname" id="txtpname" class="txtboxes"><br><br>
+            <p>Product Desc<br>
+            <input type="text" name="txtdesc" id="txtpname" class="txtboxes"><br><br>
             Select Category<br>
             
-            <select title="Select a category" size="1" class="txtboxes">
+            <select name="txtcat" title="Select a category" size="1" class="txtboxes">
               
-              <option value="mobiles">Mobiles</option>
-              <option value="laptops">Laptops</option>
-              <option value="accessories">Accessories</option>
-              <option value="cameras">Camera</option>
-              <option value="tablets">Tablets</option>
-              <option value="tv">TV</option>
-              <option value="video_games">Video Games</option>
+              <option value="324">Mobiles</option>
+              <option value="325">Laptops</option>
+              <option value="326">Accessories</option>
+              <option value="327">Camera</option>
+              <option value="328">Tablets</option>
+              <option value="329">TV</option>
+              <option value="330">Video Games</option>
               </select>
             <br><br>
             Quantity<br>
@@ -55,11 +63,11 @@ document.getElementById('gh-eb-My-o').style.display="none";
             
             
             Price<br>
-            $ <input type="number" name="txtqty" id="txtqty" min="0.99" class="txtboxes"><br>
+            $ <input type="number" name="txtamt" id="txtamt" min="0.99" class="txtboxes"><br>
             
           </div>
-        <br><h4 style="margin-left:2em"><input type="checkbox" name="acceptq1" value="1" id="acceptq1">
-          I agree to the following:</p>
+        <br><h4 style="margin-left:2em"><input type="checkbox" name="accept" value="1" id="acceptq1">
+          I agree to the following:<font size="3" color="red">&nbsp&nbsp<%= error %></font></p>
           <ul style="padding-left:40px;margin:0px"><li>I accept the user-agreement.</li>
   <li>I am at least 18 years old.</li>
   </ul></h4>
@@ -70,13 +78,10 @@ document.getElementById('gh-eb-My-o').style.display="none";
         
         </td>
       
-      <td><div class="txtboxes">
-      Upload an image of product<br><br>
-        <input type="file" accept="image/*" name="img" id="img" class="txtboxes"><br>
-        <br><br>
-        
+      
+        <td>
         Condition<br>
-            <input type="radio" name="group1" value="new" class="txtboxes" checked> New
+            <input type="radio" name="txtcond" value="new" class="txtboxes" checked> New
   <input type="radio" name="group1" value="used"> Used<br><br>
             
             Type<br>
@@ -84,18 +89,26 @@ document.getElementById('gh-eb-My-o').style.display="none";
   <input type="radio" name="group2" value="bid"> Bid<br><br>
   </div>
         </td>
+        <td><div class="txtboxes">
+      Upload an image of product<br><br>
+        <input type="file" name="displayImage"><br>
+        <br><br>
+        </td>
     </tr>
     
     <tr>
       <td colspan="2">
       <div align="center">
       <br>
-      <button class="ButtonBuss" name="addprod" type="submit" id="addprod" >Add Product</button></td>
+      <input type="submit" name="submit">Add Product</td>
       </div>
     </tr>
     
+    
+  
+ </form>
+    
     </tbody>
-  </form>
-</table>
+    </form>
 </body>
 </html>

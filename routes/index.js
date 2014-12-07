@@ -8,7 +8,7 @@ var fs = require('fs-extra');
  */
 
 exports.signin = function(req, res){
-	ejs.renderFile('./views/signin.ejs',{error:'',message:''},function(err, result){
+	ejs.renderFile('./views/signin.ejs',{error:req.session.error,message:req.session.message},function(err, result){
 		  if (!err) {
 	          res.end(result);
 	      }
@@ -16,23 +16,18 @@ exports.signin = function(req, res){
 	          res.end('An error occurred');
 	          console.log(err);
 	      }
+		  req.session.error='';
+		  req.session.message='';
 	  });
+	
 };
 
 /*
  * Log's out and destroy user session
  */
 exports.logout = function(req, res){
-	req.session.destroy();
-	ejs.renderFile('./views/logout.ejs',function(err, result){
-		  if (!err) {
-	          res.end(result);
-	      }
-	      else {
-	          res.end('An error occurred');
-	          console.log(err);
-	      }
-	  });
+	reInitializeSession(req);
+	index(req,res);
 };
 
 /*
@@ -76,7 +71,7 @@ function index(req, res){
  */
 
 exports.signup = function(req,res){ 
-	ejs.renderFile('./views/signup.ejs',{error:''},function(err, result) {
+	ejs.renderFile('./views/signup.ejs',{error:req.session.error},function(err, result) {
         // render on success
         if (!err) {
             res.end(result);
@@ -91,7 +86,7 @@ exports.signup = function(req,res){
 
 
 exports.addproduct=function(req,res){
-	ejs.renderFile('./views/addproduct.ejs',{error:''},function(err, result) {
+	ejs.renderFile('./views/addproduct.ejs',{error:req.session.error},function(err, result) {
         // render on success
         if (!err) {
             res.end(result);
@@ -170,19 +165,19 @@ exports.register = function(req, res) {
 	console.log(signupData);
 	customMysql.signup(signupData, function(err, result) {
 		// render on success
-		var errorType;
 		if (err) {
 			if(err.toString().search("ER_DUdP_ENTRY"))
 				{
 					console.log("error message "+err.toString());
 					console.log("message "+err.message);
 					console.log("name "+err.name);
-					errorType = "User with email id already exist";
+					req.session.error = "User with email id already exist";
 				}
-			ejs.renderFile('./views/signup.ejs',{error:errorType,message:''}, function(err, result) {
+			ejs.renderFile('./views/signup.ejs',{error:req.session.error,message:req.session.message}, function(err, result) {
 				// render on success
 				if (!err) {
 		            res.end(result);
+		            req.session.error='';
 				}
 				// render or error
 				else {
@@ -193,11 +188,13 @@ exports.register = function(req, res) {
 		} 
 		else if(result.affectedRows > 0){
 				console.log("signup successful");
-				var msg="You have successfully registered";
-				ejs.renderFile('./views/signin.ejs',{error:'',message:msg},function(err, result) {
+				req.session.message ="You have successfully registered";
+				ejs.renderFile('./views/signin.ejs',{error:req.session.error,message:req.session.message},function(err, result) {
 					// render on success
 					if (!err) {
 			            res.end(result);
+			            req.session.message = '';
+			            req.session.error='';
 					}
 					// render or error
 					else {
@@ -215,44 +212,44 @@ exports.register = function(req, res) {
  *  Renders the index page after User session object is instantiated.
  */
 exports.login = function(req, res) {
-  var signinData = {
-    email : req.body.txtemail,
-    password : req.body.txtpwd,
-    };
-   console.log(signinData);
-  customMysql.signin(signinData, function(err, result) {
-    // render on success
-    if (err) {
-      res.end(err.toString());
-    } 
-    else if(result.length > 0){
-        console.log("Login successful"+result);
-        var rows = result;
-        var jsonString = JSON.stringify(result);
-        console.log(jsonString);
-        var jsonParse = JSON.parse(jsonString);
-        setupSession(req,result);
-        index(req,res);
-    }
-    else{
-    	var errorType="Invalid userName/password";
-	ejs.renderFile('./views/signin.ejs',{error:errorType,message:''},function(err, result) {
-		// render on success
-		if (!err) {
-			//req.session.name = signupData.firstName;
-            res.end(result);
-		}
-		// render or error
-		else {
-			res.end('There is some error');
-			console.log(err);
-		}
-	});
+	  var signinData = {
+	    email : req.body.txtemail,
+	    password : req.body.txtpwd,
+	    };
+	   console.log(signinData);
+	  customMysql.signin(signinData, function(err, result) {
+	    // render on success
+	    if (err) {
+	      res.end(err.toString());
+	    } 
+	    else if(result.length > 0){
+	        console.log("Login successful"+result);
+	        var rows = result;
+	        var jsonString = JSON.stringify(result);
+	        console.log(jsonString);
+	        var jsonParse = JSON.parse(jsonString);
+	        setupSession(req,result);
+	        res.redirect(req.session.lasturl);
+	    }
+	    else{
+	    	var errorType="Invalid userName/password";
+		ejs.renderFile('./views/signin.ejs',{error:errorType,message:''},function(err, result) {
+			// render on success
+			if (!err) {
+				//req.session.name = signupData.firstName;
+	            res.end(result);
+			}
+			// render or error
+			else {
+				res.end('There is some error');
+				console.log(err);
+			}
+		});
 
-    	
-    }
-  });
-}
+	    	
+	    }
+	  });
+	}
 
 
 //get the user profile
@@ -261,19 +258,19 @@ exports.profile = function(req, res) {
 	console.log(req.session.membershipNo);
 	customMysql.user_profile(userId, function(err, result) {
 		// render on success
-		var errorType;
 		if (err) {
 			if(err.toString().search("ER_DUP_ENTRY"))
 				{
 					console.log("error message "+err.toString());
 					console.log("message "+err.message);
 					console.log("name "+err.name);
-					errorType = "MembershipNo does not exist";
+					req.session.error = "MembershipNo does not exist";
 				}
-			ejs.renderFile('./views/index.ejs',{error:errorType,message:'',session:req.session}, function(err, result) {
+			ejs.renderFile('./views/index.ejs',{error:req.session.error,message:req.session.message,session:req.session}, function(err, result) {
 				// render on success
 				if (!err) {
 		            res.end(result);
+		            req.session.error = '';
 				}
 				// render or error
 				else {
@@ -290,11 +287,12 @@ exports.profile = function(req, res) {
 			console.log("Result Element Type:"+(typeof rows[0].firstName));
 			console.log(rows[0].element);
 			console.log("User info fetched");
-			var msg="User information successfully fetched";
-			ejs.renderFile('./views/profile.ejs',{error:'',message:msg,session:req.session,data:jsonParse},function(err, result) {
+			req.session.message="User information successfully fetched";
+			ejs.renderFile('./views/profile.ejs',{error:req.session.error,message:req.session.message,session:req.session,data:jsonParse},function(err, result) {
 					// render on success
 					if (!err) {
 			            res.end(result);
+			            req.session.message ='';
 					}
 					// render or error
 					else {
@@ -309,8 +307,22 @@ exports.profile = function(req, res) {
 
 function initializeSession(request){
 	request.session.name = 'Guest';
+	request.session.error = '';
+	request.session.message = '';
+	request.session.lasturl = '/';
 }
 
+
+function reInitializeSession(request){
+	request.session.name = 'Guest';
+	request.session.error = '';
+	request.session.message = '';
+	request.session.lasturl = '/';
+	request.session.membershipNo = '';
+	request.session.lastlogin= '';
+	request.session.email= '';
+	
+}
 /*
 function setupSessionSignIn(request, userResult){
 	var date = new Date();

@@ -50,7 +50,7 @@ app.get('/product/:prodId',categories.product) //handles and displays particular
 app.get('/auction',routes.auction)//get all auctions and display on auction page
 app.get('/addtocart/:prodId',categories.addtocart);
 app.get('/getbid/:prodId',categories.getbid);
-
+app.post('/addbid/:prodId',categories.addbid);
 
 
 http.createServer(app).listen(app.get('port'), function(){

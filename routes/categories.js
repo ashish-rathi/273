@@ -21,6 +21,7 @@ exports.product = function(req,res)
 	          res.end('An error occurred');
 	          console.log(err);
 			}
+			console.log('after page rensered');
 			req.session.lasturl = '/product/'+prodId;
 			req.session.error = '';
 			req.session.message = '';
@@ -145,6 +146,43 @@ exports.getbid = function(req,res){
 	});
 }
 
+
+exports.addbid = function(req,res)
+{
+	var bid = {
+			membershipNo:req.session.membershipNo,
+			idProduct:req.params.prodId,
+			bidAmount:req.body.maxbid}
+	
+	console.log(bid);
+	
+	if(req.session.membershipNo!=null)
+	{
+		var membershipNo = req.session.membershipNo;
+			//console.log("id is "+productid);
+			customMysql.place_bid(bid, function(err, results) {
+				console.log("result " +results);
+				if(!err) {
+					if(results.affectedRows > 0){
+						req.session.error = '';
+						req.session.message ='Bid successfull';
+						res.redirect(req.session.lasturl);
+					}
+				}
+			});
+		}
+	else{
+		req.session.lasturl='/product/'+req.params.prodId;
+		req.session.error='Please login before bidding';
+		res.redirect('/signin');
+		
+	}
+
+	
+	
+	res.end("bid added");	
+
+}
 function getCategoryType(id)
 {
 	

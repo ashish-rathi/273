@@ -1,10 +1,10 @@
 <html lang="en">
 <head>
-
+<link href="/styles/customstyle.css" rel="stylesheet" type="text/css" >
 <script src="/jquery-ui-1.11.1/external/jquery/jquery.js"></script>
 <script src="/jquery-ui-1.11.1/jquery-ui.js"></script>
 <link href="/styles/style.css" type="text/css" rel="stylesheet">
-<script type="text/javascript">  	
+<script type="text/javascript"> 
 function show_menu() {
 	if (document.getElementById('gh-eb-My-o').style.display == "none")
 		document.getElementById('gh-eb-My-o').style.display = "block";
@@ -14,32 +14,46 @@ function show_menu() {
 
 function vallidate()
 {
-	var amount = document.getElementById("qtyTextBox").value;
+	alert('function called');
+	var data = document.getElementById("bidvalue").innerHTML.toString();
+	//alert(data);
+	var amount= data.slice(10,13);
 	var bid = 0;
 	bid = document.getElementById("MaxBidId").value;
+	//alert(amount);
+	//alert(parseFloat(bid));
+	//alert(parseFloat(amount));
 	if(parseFloat(bid) >= parseFloat(amount))
 	{
 		return true;
 	}
-	alert('Enter bid value greater than existing bid');
+	//	alert('Enter bid value greater than existing bid');
 	return false;
 }
 	
 $(document).ready(function(){
+	//console.log(<%=productCatalog[0].sellType%>);
+	var sellType = 1;//<%=productCatalog[0].sellType%>;
+	//var type = "Bid";
 	var bidurl = "/getbid/"+<%=productCatalog[0].idProduct%>;
-	$.ajax({url:bidurl,success:function(result)
+	console.log(sellType);
+	if(sellType)// == type)
 		{
-	  		$("#bidvalue").html(result);
-	  	}})
-
-	setInterval(function()
-		    {
-				//alert(bidurl);
-		    	$.ajax({url:bidurl,success:function(result)
-		    	{
-		      		$("#bidvalue").html(result);
-		      	}})
-		    }, 5000);
+		$.ajax({url:bidurl,success:function(result)
+			{
+		  		$("#bidvalue").html(result);
+		  	}})
+	
+		setInterval(function()
+			    {
+					//alert(bidurl);
+			    	$.ajax({url:bidurl,success:function(result)
+			    	{
+			      		$("#bidvalue").html(result);
+			      	}})
+			    }, 5000);
+	
+		}
 	
 	var x = $("#message").html();
 	var x1 = $("#error").html();
@@ -53,9 +67,7 @@ $(document).ready(function(){
             $('#notification1').slideToggle(500).delay(2000).slideToggle(500);
     }
     
-    
-    
-    
+
    $("#frmlogin").validate()
 })
 
@@ -330,10 +342,10 @@ $(document).ready(function(){
 
 						<!-- code ends  -->
   <span>
-  <%if(productCatalog[0].sellType=='directbuy'){%>
+  <%if(productCatalog[0].sellType=='DirectBuy'){%>
 <a id="isCartBtn_btn" class="btn btn-scnd vi-VR-btnWdth-XL" rel="nofollow" vib="vib" href="/addtocart/<%=productCatalog[0].idProduct%>" style="" _sp="p2047675.l1473" role="button"> Add to cart</a>
-<%}else if(productCatalog[0].sellType=='bid'){%>
-<a id="isCartBtn_btn" class="btn btn-scnd vi-VR-btnWdth-XL" onClick="return vallidate();" rel="nofollow" vib="vib" href="/bid" style="" _sp="p2047675.l1473" role="button">Place bid</a>
+<%}else if(productCatalog[0].sellType=='Bid'){%>
+<input type="submit" id="isCartBtn_btn" class="btn btn-scnd vi-VR-btnWdth-XL" onclick="return vallidate();" rel="nofollow" vib="vib" formaction="/addbid/<%=productCatalog[0].idProduct%>" style="" _sp="p2047675.l1473" role="button" value="Place Bid"/>
 <input id="MaxBidId" placeholder="" aria-labelledby="maxbidlabel" class="notranslate MaxBidClass" type="text" autocomplete="off" size="11" maxlength="10" name="maxbid" value="">
 <br><div id="bidvalue"></div> 
 <%}%>

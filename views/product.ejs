@@ -1,14 +1,78 @@
 <html lang="en">
 <head>
+<link href="/styles/customstyle.css" rel="stylesheet" type="text/css" >
+<script src="/jquery-ui-1.11.1/external/jquery/jquery.js"></script>
+<script src="/jquery-ui-1.11.1/jquery-ui.js"></script>
 <link href="/styles/style.css" type="text/css" rel="stylesheet">
-<script>
+<script type="text/javascript"> 
 function show_menu() {
 	if (document.getElementById('gh-eb-My-o').style.display == "none")
 		document.getElementById('gh-eb-My-o').style.display = "block";
 	else
 		document.getElementById('gh-eb-My-o').style.display = "none";
 }
+
+function vallidate()
+{
+	alert('function called');
+	var data = document.getElementById("bidvalue").innerHTML.toString();
+	//alert(data);
+	var amount= data.slice(10,13);
+	var bid = 0;
+	bid = document.getElementById("MaxBidId").value;
+	//alert(amount);
+	//alert(parseFloat(bid));
+	//alert(parseFloat(amount));
+	if(parseFloat(bid) >= parseFloat(amount))
+	{
+		return true;
+	}
+	//	alert('Enter bid value greater than existing bid');
+	return false;
+}
+	
+$(document).ready(function(){
+	//console.log(<%=productCatalog[0].sellType%>);
+	var sellType = 1;//<%=productCatalog[0].sellType%>;
+	//var type = "Bid";
+	var bidurl = "/getbid/"+<%=productCatalog[0].idProduct%>;
+	console.log(sellType);
+	if(sellType)// == type)
+		{
+		$.ajax({url:bidurl,success:function(result)
+			{
+		  		$("#bidvalue").html(result);
+		  	}})
+	
+		setInterval(function()
+			    {
+					//alert(bidurl);
+			    	$.ajax({url:bidurl,success:function(result)
+			    	{
+			      		$("#bidvalue").html(result);
+			      	}})
+			    }, 5000);
+	
+		}
+	
+	var x = $("#message").html();
+	var x1 = $("#error").html();
+	
+    if(x1!='')
+    {
+            $('#notification').slideToggle(500).delay(2000).slideToggle(500);
+    }
+    if(x!='')
+    {
+            $('#notification1').slideToggle(500).delay(2000).slideToggle(500);
+    }
+    
+
+   $("#frmlogin").validate()
+})
+
 </script>
+
 
 <!-- style for single product -->
 
@@ -17,6 +81,13 @@ function show_menu() {
  
 </head>
 <body class="sz1200">
+<div id="notification">
+       <div id="error"><%=error%></div>
+</div>
+ <div id="notification1">
+       <div id="message"><%=message%></div>
+</div>
+
 	<div id="gh-gb" tabindex="-1"></div>
 	<div class="header">
 		<div id="gh" class="gh-w gh-simpleH no-touch gh-flex">
@@ -129,12 +200,12 @@ function show_menu() {
 		style="background-color: #98BF21;">
 
 		<ul>
-			<li><a href="#">Mobiles/Tablets</a></li>
-			<li><a href="#">Computers/Laptops</a></li>
-			<li><a href="#">TV</a></li>
-			<li><a href="#">Cameras</a></li>
-			<li><a href="#">CDs/DVDs</a></li>
-			<li><a href="#">Accessories</a></li>
+			<li><a href="/categories/324">Mobiles/Tablets</a></li>
+			<li><a href="/categories/325">Computers/Laptops</a></li>
+			<li><a href="/categories/326">TV</a></li>
+			<li><a href="/categories/327">Cameras</a></li>
+			<li><a href="/categories/328">CDs/DVDs</a></li>
+			<li><a href="/categories/329">Accessories</a></li>
 		</ul>
 	</div>
 
@@ -157,10 +228,10 @@ function show_menu() {
 						<td class="img img500">
 						
 							<a id="linkMainImg" href="javascript:;" style="display: block; cursor: default; text-decoration: none;">
-									<div id="mainImgHldr" style="width:500px" title="Factory-Unlocked-Apple-iPhone-5-16GB-Black-and-White-Smartphone">
+									<div id="mainImgHldr" style="width:500px" title="<%=productCatalog[0].productName%>">
 					
 											 
-												<img mskuskip="false" id="icImg" class="img img500" itemprop="image" src="http://i.ebayimg.com/00/s/MTE2N1gxMTY3/z/Ws8AAOSwQItT9l5A/$_12.JPG" style="" onload="picTimer=new Date().getTime();" clk="0" alt="Factory-Unlocked-Apple-iPhone-5-16GB-Black-and-White-Smartphone">
+												<img mskuskip="false" id="icImg" class="img img500" itemprop="image" src="<%=productCatalog[0].productImage%>" style="" onload="picTimer=new Date().getTime();" clk="0" alt="Factory-Unlocked-Apple-iPhone-5-16GB-Black-and-White-Smartphone">
 			
 									</div>
 									</a>
@@ -180,14 +251,13 @@ function show_menu() {
 
 
 	<div style="">
-		<h1 class="it-ttl" itemprop="name" id="itemTitle"><span class="g-hdn">Details about  &nbsp;</span>Factory Unlocked Apple iPhone 5 16GB Black and White Smartphone</h1>
+		<h1 class="it-ttl" itemprop="name" id="itemTitle"><span class="g-hdn">Details about  &nbsp;</span><%=productCatalog[0].productName%></h1>
 				<h2 id="subTitle" class="it-sttl">
-				USA Seller - No Contract Required - Fast Shipping!!</h2>
 		
 			</div>
 	<div class="it-rlBr  it-rlBr500 " style="">
 					</div>
-			<span id="vi-lkhdr-itmTitl" class="u-dspn">Factory Unlocked Apple iPhone 5 16GB Black and White Smartphone</span>
+			<span id="vi-lkhdr-itmTitl" class="u-dspn"><%=productCatalog[0].productName%></span>
 <div id="RightSummaryPanel" class="rsp-c">	
 			
 			<div style="clear: both;"></div>
@@ -223,7 +293,7 @@ function show_menu() {
 		<div>
 	<div class="u-flL lable">
 		Item condition:</div>
-	<div class="u-flL condText  " id="vi-itm-cond">Seller refurbished</div>
+	<div class="u-flL condText  " id="vi-itm-cond"><%=productCatalog[0].productCondition%></div>
 		</div>
 
 <div class="u-cb"></div>
@@ -238,16 +308,16 @@ function show_menu() {
 				<img src="http://ir.ebaystatic.com/pictures/aw/pics/s.gif" class="errorimg" alt="Error icon">
 			</div>
 			
-			<input class="qtyInput" autocomplete="off" size="4" value="1" name="quantity" id="qtyTextBox" disabled="disabled" isvalid="false" type="text">
+			<input class="qtyInput" autocomplete="off" size="4" value="<%=productCatalog[0].quantity%>" name="quantity" id="qtyTextBox" disabled="disabled" isvalid="false" type="text">
 			
 			<span class="qtyTxt vi-bboxrev-dsplblk vi-newVpQtyCls" style="">
 				<span id="qtySubTxt">
 						<span class="">
 						Limited quantity available</span>
 					</span>
-				<span class="vi-qty-vert-algn vi-qty-slash"> / </span>
+				<span class="vi-qty-vert-algn vi-qty-slash">  </span>
         <span class="vi-qtyS-hot-red  vi-bboxrev-dsplblk vi-qty-vert-algn vi-qty-pur-lnk">
-			<a href="http://offer.ebay.com/ws/eBayISAPI.dll?ViewBidsLogin&amp;item=361046029881&amp;rt=nc&amp;_trksid=p2047675.l2564">1,018 sold</a></span>
+			</span>
 		</span>
 
 	</div>
@@ -263,15 +333,22 @@ function show_menu() {
 					<div id="prcIsum-lbl" class="vi-bbox-dspn u-flL lable binLable">Price:</div>
 					<div itemtype="http://schema.org/Offer" itemscope="itemscope" itemprop="offers" class="u-flL w29 vi-price" style="" id="vi-mskumap-none">
 			
-	<span style="" itemprop="price" id="prcIsum" class="notranslate">US $254.95</span>
+	<span style="" itemprop="price" id="prcIsum" class="notranslate">US $<%=productCatalog[0].amount%></span>
 	<div class="sh-CostBB" id="isum-shipCostDiv" style="display: none;">Free shipping</div>
 		<span content="http://schema.org/InStock" itemprop="availability"></span>
 	<span content="USD" itemprop="priceCurrency"></span>
 	</div>
 	<!-- inserting code for another button -->
+
 						<!-- code ends  -->
   <span>
-<a id="isCartBtn_btn" class="btn btn-scnd vi-VR-btnWdth-XL" rel="nofollow" vib="vib" href="javascript:;" style="" _sp="p2047675.l1473" role="button"> Add to cart</a>
+  <%if(productCatalog[0].sellType=='DirectBuy'){%>
+<a id="isCartBtn_btn" class="btn btn-scnd vi-VR-btnWdth-XL" rel="nofollow" vib="vib" href="/addtocart/<%=productCatalog[0].idProduct%>" style="" _sp="p2047675.l1473" role="button"> Add to cart</a>
+<%}else if(productCatalog[0].sellType=='Bid'){%>
+<input type="submit" id="isCartBtn_btn" class="btn btn-scnd vi-VR-btnWdth-XL" onclick="return vallidate();" rel="nofollow" vib="vib" formaction="/addbid/<%=productCatalog[0].idProduct%>" style="" _sp="p2047675.l1473" role="button" value="Place Bid"/>
+<input id="MaxBidId" placeholder="" aria-labelledby="maxbidlabel" class="notranslate MaxBidClass" type="text" autocomplete="off" size="11" maxlength="10" name="maxbid" value="">
+<br><div id="bidvalue"></div> 
+<%}%>
 </span>
 						
 					</div>			

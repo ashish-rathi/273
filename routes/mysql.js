@@ -384,4 +384,45 @@ exports.checkout = function checkout(membershipNo, callback){
 	});
 }
 
+/* 
+ * API PUT - /user/:user_id
+ */
+exports.delete_user = function delete_user(membershipNo, callback){
+	pool.getConnection(function(err, connection) {
+		if(err){
+			console.log('error');
+			console.log(err);
+		}
+		connection.query('DELETE FROM User WHERE membershipNo = ?',user_id, function(err, result){
+			connection.release();
+			callback(err, result);
+		});
+	});
+};
+
+/* 
+ * API GET - list all products
+ */
+exports.get_all_products = function(callback){
+	var sqlQueryString = 'SELECT * FROM Product';
+	var inserts = [];
+	sqlQueryString = mysql.format(sqlQueryString, inserts);
+	
+	pool.getConnection(function(err, connection) {
+		console.log("In mysql get products for category");
+		connection.query(sqlQueryString,function(err, result){
+			connection.release();
+			if(result){
+				err = null;
+				callback(err, result);
+			}else if(err){
+				callback(err, null);
+			}else{
+				err = 'There was some problem';
+				callback(err, null);
+			}
+		});
+	});
+};
+
 exports.edit_user_profile = edit_user_profile;

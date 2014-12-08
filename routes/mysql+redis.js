@@ -683,5 +683,63 @@ exports.checkout = function checkout(membershipNo, callback){
 	});
 }
 
+/* 
+ * API DELETE - /user/:user_id
+ */
+exports.delete_user = function delete_user(membershipNo, callback){
+	pool.getConnection(function(err, connection) {
+		if(err){
+			console.log('error');
+			console.log(err);
+		}
+		connection.query('DELETE FROM User WHERE membershipNo = ?',membershipNo, function(err, result){
+			connection.release();
+			if(result){
+				//invalidate buyer cart related cache
+				invalidateUserCache();
+			}
+			callback(err, result);
+		});
+	});
+};
+
+/* 
+ * API GET - list all products
+ */
+exports.get_all_products = function(callback){
+	var sqlQueryString = 'SELECT * FROM Product';
+	var inserts = [];
+	sqlQueryString = mysql.format(sqlQueryString, inserts);
+	
+	redis.retrieve(sqlQueryString,function(err, result){
+		if(err || result === null){
+			pool.getConnection(function(err, connection) {
+				console.log("In mysql get products for category");
+				connection.query(sqlQueryString,function(err, result){
+					connection.release();
+					if(result){
+						err=null;
+						callback(err, result);
+						redis.save(sqlQueryString,result);
+						//add to keys that are affected by the product table
+						keysForProductCache.push(sqlQueryString);
+					}else if(err){
+						callback(err, null);
+					}else{
+						err = 'There was some problem';
+						callback(err, null);
+					}
+				});
+			});
+		}else if(result){
+			callback(err, result);
+		}
+	});
+};
+
+//get_products_bought
+
+//get_products_sold
+
 //TODO buy_product
 //check quantity first and then confirm

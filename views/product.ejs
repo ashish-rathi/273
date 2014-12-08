@@ -4,6 +4,12 @@
 <script src="/jquery-ui-1.11.1/external/jquery/jquery.js"></script>
 <script src="/jquery-ui-1.11.1/jquery-ui.js"></script>
 <link href="/styles/style.css" type="text/css" rel="stylesheet">
+<!-- style for single product -->
+
+<link href="http://ir.ebaystatic.com/rs/v/cakcqsm3fe1djpkblj5vzypxuml.css" type="text/css" rel="stylesheet">
+<link href="http://ir.ebaystatic.com/rs/v/ggwlsognbayulhw3ocfin5z3oq2.css" type="text/css" rel="stylesheet">
+
+
 <script type="text/javascript"> 
 function show_menu() {
 	if (document.getElementById('gh-eb-My-o').style.display == "none")
@@ -16,13 +22,9 @@ function vallidate()
 {
 	alert('function called');
 	var data = document.getElementById("bidvalue").innerHTML.toString();
-	//alert(data);
 	var amount= data.slice(10,13);
 	var bid = 0;
 	bid = document.getElementById("MaxBidId").value;
-	//alert(amount);
-	//alert(parseFloat(bid));
-	//alert(parseFloat(amount));
 	if(parseFloat(bid) >= parseFloat(amount))
 	{
 		return true;
@@ -32,12 +34,10 @@ function vallidate()
 }
 	
 $(document).ready(function(){
-	//console.log(<%=productCatalog[0].sellType%>);
-	var sellType = 1;//<%=productCatalog[0].sellType%>;
-	//var type = "Bid";
+	var sellType = "<%=productCatalog[0].sellType%>";
 	var bidurl = "/getbid/"+<%=productCatalog[0].idProduct%>;
 	console.log(sellType);
-	if(sellType)// == type)
+	if(sellType == "Bid")
 		{
 		$.ajax({url:bidurl,success:function(result)
 			{
@@ -46,7 +46,6 @@ $(document).ready(function(){
 	
 		setInterval(function()
 			    {
-					//alert(bidurl);
 			    	$.ajax({url:bidurl,success:function(result)
 			    	{
 			      		$("#bidvalue").html(result);
@@ -67,8 +66,6 @@ $(document).ready(function(){
             $('#notification1').slideToggle(500).delay(2000).slideToggle(500);
     }
     
-
-   $("#frmlogin").validate()
 })
 
 </script>
@@ -187,7 +184,7 @@ $(document).ready(function(){
 					</li>
 					<li id="gh-cart" class="gh-eb-li rt"><a class="gh-eb-li-a"
 						alt="Your shopping cart is empty"
-						href="http://cart.payments.ebay.com/sc/view"
+						href="/getcart"
 						title="Your shopping cart is empty"> <i id="gh-cart-i"
 							class="gh-sprRetina"></i>
 					</a></li>

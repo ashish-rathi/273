@@ -1,16 +1,13 @@
 <!DOCTYPE html> 
 <html lang="en">
 <head>
-<link href="styles/customstyle.css" rel="stylesheet" type="text/css" >
-<link href="styles/style.css" type="text/css" rel="stylesheet">
-<script>
-function show_menu() {
-	if (document.getElementById('gh-eb-My-o').style.display == "none")
-		document.getElementById('gh-eb-My-o').style.display = "block";
-	else
-		document.getElementById('gh-eb-My-o').style.display = "none";
-}
-</script>
+<link href="/styles/style.css" type="text/css" rel="stylesheet">
+<link href="/styles/customstyle.css" type="text/css" rel="stylesheet">
+ <script src="/jscript/common.js"></script> 
+
+<script src="/jquery-ui-1.11.1/external/jquery/jquery.js"></script>
+<script src="/jquery-ui-1.11.1/jquery-ui.js"></script>
+<script src="/validator/jquery.validate.js"></script>
 
 <!-- style for products -->
 <link href="http://ir.ebaystatic.com/rs/v/jjyrcn3jf25kbh4surkixuwjaan.css" type="text/css" rel="stylesheet">
@@ -140,8 +137,10 @@ function show_menu() {
 	<br><br><br>
 <!-- list user details -->
 
+
   <% for(var i in data) { %>
   <div class="formfont">
+  <form name="user-form" method="post">
   <table width="70%" cellpadding="10" align="center">
   
   <tbody>
@@ -151,33 +150,37 @@ function show_menu() {
       <td><table width="100%" cellpadding="10">
         <tbody> 
           <tr>
-            <td width="48%">Address</td>
+            <td width="48%">&nbsp;&nbsp;Address</td>
             <td width="52%">
-            <input type="text" value="<%=data[i].addressMain%>" class="txtboxes" disabled>
+            <input type="text" value="<%=data[i].addressMain%>" class="required txtboxes" name="txtmaddress" id="txtmaddress" disabled>
             </td>
           </tr>
           <tr>
-            <td>City</td>
+            <td>&nbsp;&nbsp;City</td>
             <td>
-            <input type="text" value="<%=data[i].city%>" class="txtboxes" disabled>
+            <input type="text" value="<%=data[i].city%>" class="txtboxes required" name="txtcity" id="txtcity" disabled>
             </td>
           </tr>
           <tr>
-            <td>State</td>
+            <td>&nbsp;&nbsp;State</td>
             <td>
-            <input type="text" value="<%=data[i].state%>" class="txtboxes" disabled>
+            <input type="text" value="<%=data[i].state%>" class="txtboxes required" name="txtstate" id="txtstate" disabled>
             </td>
           </tr>
           <tr>
-            <td>Zipcode</td>
+            <td>&nbsp;&nbsp;Zipcode</td>
             <td>
-            <input type="text" value="<%=data[i].zipcode%>" class="txtboxes" disabled>
+            <input type="text" value="<%=data[i].zipcode%>" class="txtboxes required" name="txtzip" id="txtzip" disabled>
             </td>
           </tr>
           <tr>
-            <td>User Type</td>
+            <td>&nbsp;&nbsp;User Type</td>
             <td>
-            <input type="text" value="<%=data[i].isSeller%>" class="txtboxes" disabled>
+            <%if(data[i].isSeller=="0") {%>
+            <input type="text" value="Buyer" class="txtboxes required" disabled>
+            <%} else {%>
+            <input type="text" value="Seller" class="txtboxes required" disabled>
+            <%}%>
             </td>
           </tr>
           </tbody>
@@ -187,23 +190,23 @@ function show_menu() {
       <td><table width="100%" cellpadding="10">
         <tbody>
           <tr>
-            <td >Membership No</td>
-            <td><input type="text" value="<%=data[i].membershipNo%>" class="txtboxes" disabled></td>
+            <td >&nbsp;&nbsp;Membership No</td>
+            <td><input type="text" value="<%=data[i].membershipNo%>" class="txtboxes required" disabled></td>
           </tr>
           <tr>
-            <td >First Name</td>
-            <td><input type="text" value="<%=data[i].membershipNo%>" class="txtboxes" disabled></td>
+            <td >&nbsp;&nbsp;First Name</td>
+            <td><input type="text" value="<%=data[i].membershipNo%>" class="txtboxes required" name="txtfname" id="txtfname" disabled></td>
           </tr>
           <tr>
-            <td width="93%" >Last Name</td>
+            <td width="93%">&nbsp;&nbsp;Last Name</td>
             <td width="7%">
-            <input type="text" value="<%=data[i].lastName%>" class="txtboxes" disabled>
+            <input type="text" value="<%=data[i].lastName%>" class="txtboxes required" name="txtlname" id="txtlname" disabled>
             </td>
           </tr>
           <tr>
-            <td >Email ID</td>
+            <td >&nbsp;&nbsp;Email ID</td>
             <td>
-            <input type="text" value="<%=data[i].email%>" class="txtboxes" disabled>
+            <input type="text" value="<%=data[i].email%>" class="txtboxes required" name="txtemail" id="txtemail" disabled>
           </td>
           </tr>
           <tr>
@@ -211,7 +214,7 @@ function show_menu() {
           </tr>
           <tr>
             <td colspan="2" align="center">
-            <button style="margin-left:1em" class="SmallButton" name="edit" type="submit" id="edit">Edit Information</button>
+            <input type="button" style="margin-left:1em" class="SmallButton" name="edit" onclick="show_editable()" id="edit" value="Edit Information"/>
             </td>
             
           </tr>
@@ -221,21 +224,31 @@ function show_menu() {
       <td><table width="100%" cellpadding="10">
         <tbody>
           <tr>
-            <td width="48%">Seller Ratings</td>
+          <% if(data[i].isSeller=="1") {%>
+            <td width="48%">&nbsp;&nbsp;Seller Ratings</td>
             <td width="52%">
-            <input type="text" value="<%=data[i].sellerRating%>" class="txtboxes" disabled>
+            <input type="text" value="<%=data[i].sellerRating%>" class="txtboxes required" disabled>
+            </td>
+            <%} else {%>
+            <td>&nbsp;</td><td>&nbsp;</td>
+            <%}%>
+          </tr>
+          <tr>
+            <td>&nbsp;&nbsp;Password</td>
+            <td>
+            <input type="password" value="<%=data[i].password%>" class="txtboxes required" id="txtpwd" name="txtpwd" disabled>
             </td>
           </tr>
           <tr>
-            <td>Password</td>
+            <td>&nbsp;&nbsp;Confirm Password</td>
             <td>
-            <input type="text" value="<%=data[i].password%>" class="txtboxes" disabled>
+            <input type="password" value="<%=data[i].password%>" class="txtboxes required" id="txtpwd2" name="txtpwd2" disabled>
             </td>
           </tr>
           <tr>
-            <td>Last Login Time</td>
+            <td>&nbsp;&nbsp;Last Login Time</td>
             <td>
-            <input type="text" value="<%=data[i].last_login%>" class="txtboxes" disabled>
+            <input type="text" value="<%=data[i].last_login%>" class="txtboxes required" disabled>
             </td>
           </tr>
           <tr>
@@ -247,7 +260,7 @@ function show_menu() {
           </tr>
           <tr>
             <td colspan="2" align="center">
-            <button style="margin-left:1em" class="SmallButton" name="update" type="submit" id="update" disabled>Update</button>
+            <button style="margin-left:1em; display:none;" class="SmallButton" name="update" type="submit" id="update" formaction="">Update</button>
             </td>
         
           </tr>
@@ -257,7 +270,120 @@ function show_menu() {
   </tbody>
 
 </table>
+</form>
 </div>
   <%}%>
+  
+  
+  <!-- list all products bought -->
+<br>
+<br>
+<h2> Bought Products </h2>
+<%if(bought!=null){%>
+<table class="reference" style="width:100%">
+<tbody><tr>
+	<th>Name</th>
+	<th>Condition</th>
+	<th>Description</th>		
+	<th>Amount</th>
+</tr>
+
+ <%for(var i=0;i<bought.length;i++){%>
+<tr>
+	<td><%=bought[i].productName %></td>
+	<td><%=bought[i].productCondition %></td>
+	<td><%=bought[i].productDesc %></td>		
+	<td><%=bought[i].amount %></td>
+</tr>
+<%}%>
+
+</tbody></table>
+<%}else {%>
+
+<p>No items bought<br><br>
+<%}%>
+ 
+  
+  <!-- list all products sold -->
+<br>
+<br>
+<h2> Sold Products </h2>
+<%if(sold!=null){%>
+<table class="reference" style="width:100%">
+<tbody><tr>
+	<th>Name</th>
+	<th>Condition</th>
+	<th>Description</th>		
+	<th>Amount</th>
+</tr>
+
+ <%for(var i=0;i<sold.length;i++){%>
+<tr>
+	<td><%=sold[i].productName %></td>
+	<td><%=sold[i].productCondition %></td>
+	<td><%=sold[i].productDesc %></td>		
+	<td><%=sold[i].amount %></td>
+</tr>
+<%}%>
+
+</tbody></table> 
+<%}else {%>
+
+<p>No items Sold<br><br>
+<%}%>
+
+ 
+  <!-- list all reviews given -->
+<br>
+<br>
+<h2> Reviews given/h2>
+<%if(given!=null){%>
+<table class="reference" style="width:100%">
+<tbody><tr>
+	<th>Rating</th>
+	<th>Comment</th>
+	<th>Action</th>
+</tr>
+
+ <%for(var i=0;i<given.length;i++){%>
+<tr>
+<form action="" method="post">
+	<td><%=given[i].rating %></td>
+	<td><%=given[i].comment %></td>
+	<td><input type="submit" value="delete" name="delete"><input type="hidden" name="idrating" value="<%=given[i].idrating %>"></td>
+</form>
+	
+</tr>
+<%}%>
+
+</tbody></table>
+<%}else {%>
+
+<p>No reviews given<br><br>
+<%}%>
+
+  <!-- list all reviews given -->
+<br>
+<br>
+<h2> Reviews got/h2>
+<%if(got!=null){%>
+<table class="reference" style="width:100%">
+<tbody><tr>
+	<th>Rating</th>
+	<th>Comment</th>
+</tr>
+
+ <%for(var i=0;i<got.length;i++){%>
+<tr>
+	<td><%=got[i].rating %></td>
+	<td><%=got[i].comment %></td>
+</tr>
+<%}%>
+
+</tbody></table> 
+<%}else {%>
+<p>No reviews got
+<%}%> 
+
 </body>
 </html>

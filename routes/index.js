@@ -378,28 +378,28 @@ exports.profile = function(req, res) {
 			var jsonParse4;
 			console.log("User info fetched");
 			customMysql.get_products_bought(req.session.membershipNo,function(err,results1){
-				if(results1.length==0){
+				if(results1===null){
 					jsonParse1==null;
 					console.log('no products bought');
 				}else{
 				jsonParse1=JSON.parse(JSON.stringify(results1));
 				}
 				customMysql.get_reviews_given(req.session.membershipNo,function(err,results2){
-					if(results2.length==0){
+					if(results2===null){
 						jsonParse2==null;
 						console.log('no reviews given');
 					}else{
 					jsonParse2=JSON.parse(JSON.stringify(results2));
 					}
 					customMysql.get_reviews_got(req.session.membershipNo,function(err,results3){
-						if(results3.length==0){
+						if(results3===null){
 							jsonParse3==null;
 							console.log('no reviews got');
 						}else{
 						jsonParse3=JSON.parse(JSON.stringify(results3));
 						}
 						customMysql.get_items_sold(req.session.membershipNo,function(err,results4){
-							if(results4.length==0){
+							if(results4===null){
 								jsonParse4==null;
 								console.log('no reviews got');
 							}else{
@@ -466,8 +466,10 @@ var productCatalogs;
 if(products.length > 0){
 jsonString = JSON.stringify(products);
 productCatalogs = JSON.parse(jsonString);
-if(req.session.name==null || req.session.name=="undefined")
+if(req.session.name==null){
 initializeSession(req);
+}
+
 ejs.renderFile('./views/auction.ejs',{session:req.session,productCatalog:productCatalogs},function(err, result){
 if (!err) {
 res.end(result);
@@ -478,8 +480,9 @@ console.log(err);
 }
 });
 }else{
-	if(req.session.name==null)
+	if(req.session.name===null){
 		initializeSession(req);
+	}
 ejs.renderFile('./views/index.ejs',{session:req.session,productCatalog:productCatalogs},function(err, result){
 if (!err) {
 res.end(result);
@@ -495,4 +498,4 @@ console.log(err);
 
 exports.index = index;
 exports.auction =auction;
-exports.initializeSession = initializeSession; 
+exports.initializeSession = initializeSession;

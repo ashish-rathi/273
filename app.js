@@ -10,7 +10,8 @@ var express = require('express')
   , url = require('url')
   , mysql = require('./routes/mysql')
   , path = require('path')
-  , categories = require('./routes/categories');
+  , categories = require('./routes/categories')
+  ,ejs = require("ejs");
 
 var app = express();
 
@@ -52,6 +53,18 @@ app.get('/getbid/:prodId',categories.getbid);
 app.post('/addbid/:prodId',categories.addbid);
 app.get('/getcart',user.getcart);
 app.get('/checkout',user.checkout);
+app.get('*', function(req, res){
+	ejs.renderFile('./views/error.ejs', function(err, result){
+		  if (!err) {
+	          res.end(result);
+	      }
+	      else {
+	          res.end('An error occurred');
+	          console.log(err);
+	      }
+	  });
+	});
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

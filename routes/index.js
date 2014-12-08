@@ -12,7 +12,7 @@ var appDir = path.dirname(require.main.filename);
  */
 
 exports.signin = function(req, res){
-	ejs.renderFile('./views/signin.ejs',{error:req.session.error,message:req.session.message},function(err, result){
+	ejs.renderFile('./views/signin.ejs',{error:'',message:''},function(err, result){
 		  if (!err) {
 	          res.end(result);
 	      }
@@ -20,18 +20,55 @@ exports.signin = function(req, res){
 	          res.end('An error occurred');
 	          console.log(err);
 	      }
-		  req.session.error='';
-		  req.session.message='';
 	  });
-	
 };
+
+exports.addreview=function(req,res){
+	var data={
+			buyermembershipno:req.session.userid,
+			sellermembershipNo:req.body.sellerid,
+			rating:req.body.rating,
+			comment:req.body.comment
+	};
+	customMysql.addreview(data,function(err,result){
+		if(err){
+			console.log('error in adding review');
+			res.redirect('/');
+		}else{
+			console.log('successfully added review');
+			res.direct('/');
+		}
+	})
+}
+
+exports.deletereview=function(req,res){
+	customMysql.deletereview(req.body.idrating,function(err,result){
+		if(err){
+			console.log("error in deleting the review");
+			res.redirect('/');
+		}
+		else{
+			console.log('successfully delete review');
+			res.redirect('/profile');
+		}
+	})	
+}
+
 
 /*
  * Log's out and destroy user session
  */
 exports.logout = function(req, res){
-	reInitializeSession(req);
-	index(req,res);
+	req.session.destroy();
+	ejs.renderFile('./views/logout.ejs',function(err, result){
+		  if (!err) {
+	          res.end(result);
+	      }
+	      else {
+	          res.end('An error occurred');
+	          console.log(err);
+	      }
+	  });
 };
 
 /*
@@ -75,7 +112,7 @@ function index(req, res){
  */
 
 exports.signup = function(req,res){ 
-	ejs.renderFile('./views/signup.ejs',{error:req.session.error},function(err, result) {
+	ejs.renderFile('./views/signup.ejs',{error:''},function(err, result) {
         // render on success
         if (!err) {
             res.end(result);
@@ -90,7 +127,7 @@ exports.signup = function(req,res){
 
 
 exports.addproduct=function(req,res){
-	ejs.renderFile('./views/addproduct.ejs',{error:req.session.error},function(err, result) {
+	ejs.renderFile('./views/addproduct.ejs',{error:''},function(err, result) {
         // render on success
         if (!err) {
             res.end(result);
@@ -105,9 +142,9 @@ exports.addproduct=function(req,res){
 
 exports.addproducts=function(req,res){
 	var productid;
-	if(!req.session.loggedin){
-		req.session.lastpage='/add_products';
-		routes.login(req,res);
+	if(req.session.membershipNo==null){
+		req.session.url='/add_products';
+		res.redirect('/signin');
 	}
 	else{
 	console.log("accept: "+req.body.accept);
@@ -147,7 +184,7 @@ exports.addproducts=function(req,res){
 				quantity:req.body.txtqty,
 			    endDateOfSale:new Date(+2),
 				sellType:req.body.group2,
-				sellerId:1,
+				sellerId:req.session.membershipNo,
 				productImage:path
 		};
 		console.log(productdata);
@@ -166,6 +203,33 @@ exports.addproducts=function(req,res){
 	}
 }
 
+exports.editprofile=function(req,res){
+	var editData = {
+			email : req.body.txtemail,
+			password : req.body.txtpwd,
+			firstName : req.body.txtfname,
+			lastName : req.body.txtlname,
+			addressMain : req.body.txtmaddress,
+			city : req.body.txtcity,
+			state : req.body.txtstate,
+			zip : req.body.txtzip
+			//isSeller : false
+		};
+		console.log(editData);
+		customMysql.edit_user_profile(req.session.membershipNo,editData, function(err, result) {
+			// render on success
+			var errorType;
+			if (err) {
+				console.log("User update modification failed");
+				res.redirect('/profile');
+			} 
+			else if(result.affectedRows > 0){
+					console.log("modification successful");
+					res.redirect('/profile');
+			}
+		}); 
+}
+
 
 /*Register
  *  Makes call to myql.signup to insert User into the databse.
@@ -180,25 +244,24 @@ exports.register = function(req, res) {
 		addressMain : req.body.txtmaddress,
 		city : req.body.txtcity,
 		state : req.body.txtstate,
-		zip : req.body.txtzip,
-		//isSeller : false
+		zip : req.body.txtzip
 	};
 	console.log(signupData);
 	customMysql.signup(signupData, function(err, result) {
 		// render on success
+		var errorType;
 		if (err) {
 			if(err.toString().search("ER_DUdP_ENTRY"))
 				{
 					console.log("error message "+err.toString());
 					console.log("message "+err.message);
 					console.log("name "+err.name);
-					req.session.error = "User with email id already exist";
+					errorType = "User with email id already exist";
 				}
-			ejs.renderFile('./views/signup.ejs',{error:req.session.error,message:req.session.message}, function(err, result) {
+			ejs.renderFile('./views/signup.ejs',{error:errorType,message:''}, function(err, result) {
 				// render on success
 				if (!err) {
 		            res.end(result);
-		            req.session.error='';
 				}
 				// render or error
 				else {
@@ -209,13 +272,11 @@ exports.register = function(req, res) {
 		} 
 		else if(result.affectedRows > 0){
 				console.log("signup successful");
-				req.session.message ="You have successfully registered";
-				ejs.renderFile('./views/signin.ejs',{error:req.session.error,message:req.session.message},function(err, result) {
+				var msg="You have successfully registered";
+				ejs.renderFile('./views/signin.ejs',{error:'',message:msg},function(err, result) {
 					// render on success
 					if (!err) {
 			            res.end(result);
-			            req.session.message = '';
-			            req.session.error='';
 					}
 					// render or error
 					else {
@@ -233,65 +294,67 @@ exports.register = function(req, res) {
  *  Renders the index page after User session object is instantiated.
  */
 exports.login = function(req, res) {
-	  var signinData = {
-	    email : req.body.txtemail,
-	    password : req.body.txtpwd,
-	    };
-	   console.log(signinData);
-	  customMysql.signin(signinData, function(err, result) {
-	    // render on success
-	    if (err) {
-	      res.end(err.toString());
-	    } 
-	    else if(result.length > 0){
-	        console.log("Login successful"+result);
-	        var rows = result;
-	        var jsonString = JSON.stringify(result);
-	        console.log(jsonString);
-	        var jsonParse = JSON.parse(jsonString);
-	        setupSession(req,result);
-	        res.redirect(req.session.lasturl);
-	    }
-	    else{
-	    	var errorType="Invalid userName/password";
-		ejs.renderFile('./views/signin.ejs',{error:errorType,message:''},function(err, result) {
-			// render on success
-			if (!err) {
-				//req.session.name = signupData.firstName;
-	            res.end(result);
-			}
-			// render or error
-			else {
-				res.end('There is some error');
-				console.log(err);
-			}
-		});
+  var signinData = {
+    email : req.body.txtemail,
+    password : req.body.txtpwd,
+    };
+   console.log(signinData);
+  customMysql.signin(signinData, function(err, result) {
+    // render on success
+    if (err) {
+      res.end(err.toString());
+    } 
+    else if(result.length > 0){
+        console.log("Login successful"+result);
+        var rows = result;
+        var jsonString = JSON.stringify(result);
+        console.log(jsonString);
+        var jsonParse = JSON.parse(jsonString);
+        setupSession(req,result);
+        index(req,res);
+    }
+    else{
+    	var errorType="Invalid userName/password";
+	ejs.renderFile('./views/signin.ejs',{error:errorType,message:''},function(err, result) {
+		// render on success
+		if (!err) {
+			//req.session.name = signupData.firstName;
+            res.end(result);
+		}
+		// render or error
+		else {
+			res.end('There is some error');
+			console.log(err);
+		}
+	});
 
-	    	
-	    }
-	  });
-	}
+    	
+    }
+  });
+}
 
 
 //get the user profile
 exports.profile = function(req, res) {
 	var userId= req.session.membershipNo;
+	console.log(userId);
 	console.log(req.session.membershipNo);
 	customMysql.user_profile(userId, function(err, result) {
 		// render on success
+		console.log("back from user_profile");
+		var errorType;
 		if (err) {
 			if(err.toString().search("ER_DUP_ENTRY"))
 				{
 					console.log("error message "+err.toString());
 					console.log("message "+err.message);
 					console.log("name "+err.name);
-					req.session.error = "MembershipNo does not exist";
+					errorType = "MembershipNo does not exist";
 				}
-			ejs.renderFile('./views/index.ejs',{error:req.session.error,message:req.session.message,session:req.session}, function(err, result) {
+			ejs.renderFile('./views/index.ejs',{error:errorType,message:'',session:req.session}, function(err, result) {
 				// render on success
 				if (!err) {
 		            res.end(result);
-		            req.session.error = '';
 				}
 				// render or error
 				else {
@@ -304,23 +367,59 @@ exports.profile = function(req, res) {
 			var rows = result;
 			var jsonString = JSON.stringify(result);
 			var jsonParse = JSON.parse(jsonString);
-			console.log("Results Type: "+(typeof results));
+			console.log("Results Type in profile: "+(typeof result));
 			console.log("Result Element Type:"+(typeof rows[0].firstName));
 			console.log(rows[0].element);
 			console.log("User info fetched");
-			req.session.message="User information successfully fetched";
-			ejs.renderFile('./views/profile.ejs',{error:req.session.error,message:req.session.message,session:req.session,data:jsonParse},function(err, result) {
-					// render on success
-					if (!err) {
-			            res.end(result);
-			            req.session.message ='';
+			var msg="User information successfully fetched";
+			var jsonParse1;
+			var jsonParse2;
+			var jsonParse3;
+			var jsonParse4;
+			console.log("User info fetched");
+			customMysql.get_products_bought(req.session.membershipNo,function(err,results1){
+				if(results1.length==0){
+					jsonParse1==null;
+					console.log('no products bought');
+				}else{
+				jsonParse1=JSON.parse(JSON.stringify(results1));
+				}
+				customMysql.get_reviews_given(req.session.membershipNo,function(err,results2){
+					if(results2.length==0){
+						jsonParse2==null;
+						console.log('no reviews given');
+					}else{
+					jsonParse2=JSON.parse(JSON.stringify(results2));
 					}
-					// render or error
-					else {
-						res.end('There is some error');
-						console.log(err);
-					}
-			});
+					customMysql.get_reviews_got(req.session.membershipNo,function(err,results3){
+						if(results3.length==0){
+							jsonParse3==null;
+							console.log('no reviews got');
+						}else{
+						jsonParse3=JSON.parse(JSON.stringify(results3));
+						}
+						customMysql.get_items_sold(req.session.membershipNo,function(err,results4){
+							if(results4.length==0){
+								jsonParse4==null;
+								console.log('no reviews got');
+							}else{
+							jsonParse4=JSON.parse(JSON.stringify(results4));
+							}
+							ejs.renderFile('./views/profile.ejs',{error:'',message:msg,session:req.session,data:jsonParse,bought:jsonParse1,given:jsonParse2,got:jsonParse3,sold:jsonParse4},function(err, result) {
+								// render on success
+								if (!err) {
+						            res.end(result);
+								}
+								// render or error
+								else {
+									res.end('There is some error');
+									console.log(err);
+								}
+						});			
+						});		
+					});	
+				});
+			});			
 		}
 	});
 }
@@ -328,22 +427,8 @@ exports.profile = function(req, res) {
 
 function initializeSession(request){
 	request.session.name = 'Guest';
-	request.session.error = '';
-	request.session.message = '';
-	request.session.lasturl = '/';
 }
 
-
-function reInitializeSession(request){
-	request.session.name = 'Guest';
-	request.session.error = '';
-	request.session.message = '';
-	request.session.lasturl = '/';
-	request.session.membershipNo = '';
-	request.session.lastlogin= '';
-	request.session.email= '';
-	
-}
 /*
 function setupSessionSignIn(request, userResult){
 	var date = new Date();
@@ -373,12 +458,14 @@ function setupSession(request, userResult){
 * GET All Auction page.
 */
 
-function auction(req, res){
+var auction=function (req, res){
 console.log("In auction ");
 customMysql.get_products_for_auction("auction", function(err, products) {
+var jsonString;
+var productCatalogs;
 if(products.length > 0){
-var jsonString = JSON.stringify(products);
-var productCatalogs = JSON.parse(jsonString);
+jsonString = JSON.stringify(products);
+productCatalogs = JSON.parse(jsonString);
 if(req.session.name==null || req.session.name=="undefined")
 initializeSession(req);
 ejs.renderFile('./views/auction.ejs',{session:req.session,productCatalog:productCatalogs},function(err, result){
@@ -391,8 +478,8 @@ console.log(err);
 }
 });
 }else{
-if(req.session.name==null || req.session.name=="undefined")
-initializeSession(req);
+	if(req.session.name==null)
+		initializeSession(req);
 ejs.renderFile('./views/index.ejs',{session:req.session,productCatalog:productCatalogs},function(err, result){
 if (!err) {
 res.end(result);
@@ -404,7 +491,7 @@ console.log(err);
 });
 }
 });
-}
+};
 
 exports.index = index;
 exports.auction =auction;

@@ -68,8 +68,10 @@ exports.signin = function(signinData, callback){
  */
 exports.user_profile = function(user_id, callback){
 	pool.getConnection(function(err, connection) {
+		console.log('here user');
 		connection.query('SELECT * FROM User WHERE membershipNo = ? limit 1',[user_id],function(err, user){
 			connection.release();
+			console.log('here user');
 			callback(err, user);
 		});
 	});
@@ -333,6 +335,44 @@ exports.get_productid=function(callback){
 	});
 }
 
+exports.addreview=function(data,callback){
+	console.log("Inside add review");
+	pool.getConnection(function(err,connection){
+		if(err){
+			console.log("connection error");
+		}else{
+		connection.query('insert into rating (buyermembershipno,sellermembershipno,rating,comment) values (?,?,?,?) ',[data.buyermembershipno,data.sellermembershipno,data.rating,data.comment],function(err,result){
+			if(err){
+			 console.log(err);
+			 console.log('insert failed');
+			}else{
+			console.log(result);
+			callback(err,result);
+			}
+		});
+		}
+		});
+}
+
+exports.deletereview=function(data,callback){
+	console.log("Inside delete review");
+	pool.getConnection(function(err,connection){
+		if(err){
+			console.log("connection error");
+		}else{
+		connection.query('delete from rating where idrating= ?',[data],function(err,result){
+			if(err){
+			 console.log(err);
+			 console.log('delete failed');
+			}else{
+			console.log(result);
+			callback(err,result);
+			}
+		});
+		}
+		});
+}
+
 /* 
 * API GET - /auction
 */
@@ -352,37 +392,72 @@ callback(err, null);
 });
 };
 
-/*
- * API DELETE - /:product_id
- */
-exports.delete_product = function(idProduct, callback){
-	var sqlQueryString = 'DELETE FROM Product WHERE idProduct= ?';
-	var inserts = [idProduct];
-	sqlQueryString = mysql.format(sqlQueryString, inserts);
-	
+exports.get_products_bought = function(userid, callback){
 	pool.getConnection(function(err, connection) {
-		connection.query(sqlQueryString,function(err, result){
-			connection.release();
-			callback(err, result);
-		});
+	console.log("In mysql get_products_bought");
+	connection.query('SELECT productName,productCondition,productDesc,amount FROM Product WHERE idproduct = ( select idproduct from buyercart where membershipno = ? )',[userid],function(err, result){
+	connection.release();
+	if(result){
+	err=null;
+	callback(err, result);
+	}else{
+	err="No Products available";
+	callback(err, null);
+	}
 	});
-};
+	});
+	};
 
-/*
- * API DELETE - /checkout
- */
-exports.checkout = function checkout(membershipNo, callback){
-	var sqlQueryString = 'UPDATE BuyerCart SET isPurchased = ? WHERE membershipNo = ?';
-	var inserts = [true, membershipNo];
-	sqlQueryString = mysql.format(sqlQueryString, inserts);
-	
-	pool.getConnection(function(err, connection) {
-		connection.query(sqlQueryString,function(err, result){
-			connection.release();
-			callback(err, result);
+	exports.get_reviews_given = function(userid, callback){
+		pool.getConnection(function(err, connection) {
+		console.log("In mysql get_products_bought");
+		connection.query('SELECT * FROM Rating WHERE buyermembeshipNo = ? ',[userid],function(err, result){
+		connection.release();
+		if(result){
+		err=null;
+		callback(err, result);
+		}else{
+		err="No Products available";
+		callback(err, null);
+		}
 		});
-	});
-}
+		});
+		};
+
+		
+		exports.get_reviews_got= function(userid, callback){
+			pool.getConnection(function(err, connection) {
+			console.log("In mysql get_products_bought");
+			connection.query('SELECT * FROM Rating WHERE sellermembeshipNo = ? ',[userid],function(err, result){
+			connection.release();
+			if(result){
+			err=null;
+			callback(err, result);
+			}else{
+			err="No Products available";
+			callback(err, null);
+			}
+			});
+			});
+			};
+		
+		
+		exports.get_items_sold= function(userid, callback){
+			pool.getConnection(function(err, connection) {
+			console.log("In mysql get_products_bought");
+			connection.query('SELECT productName,productCondition,productDesc,amount FROM Product WHERE sellerid= ? ',[userid],function(err, result){
+			connection.release();
+			if(result){
+			err=null;
+			callback(err, result);
+			}else{
+			err="No Products available";
+			callback(err, null);
+			}
+			});
+			});
+			};
+
 
 /* 
  * API PUT - /user/:user_id

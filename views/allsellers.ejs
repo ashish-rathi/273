@@ -152,7 +152,7 @@ function show_menu() {
 
  <%for(var i=0;i<sellersList.length;i++){%>
 <tr>
-	<td><%=sellersList[i].firstName + " " + sellersList[i].lastName %></td>
+	<td><a href="/seller/<%=sellersList[i].membershipNo%>"><%=sellersList[i].firstName + " " + sellersList[i].lastName %></td>
 	<td><%=sellersList[i].email %></td>
 	<td><%=sellersList[i].city %></td>		
 	<td><%=sellersList[i].zip %></td>

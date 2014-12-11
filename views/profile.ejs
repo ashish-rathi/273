@@ -112,9 +112,9 @@
 
 					</li>
 					<li id="gh-cart" class="gh-eb-li rt"><a class="gh-eb-li-a"
-						alt="Your shopping cart is empty"
-						href="http://cart.payments.ebay.com/sc/view"
-						title="Your shopping cart is empty"> <i id="gh-cart-i"
+						alt="Your shopping cart"
+						href="/getcart"
+						title="Your shopping cart"> <i id="gh-cart-i"
 							class="gh-sprRetina"></i>
 					</a></li>
 				</ul>
@@ -146,7 +146,8 @@
   <tbody>
   
     <tr>
-      <td width="50%"><img src="images/blankimg.bmp" alt=""/></td>
+ 
+      <td width="50%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/user/<%=data[i].userImage%>" alt="" width=350 height=200/></td>
       <td><table width="100%" cellpadding="10">
         <tbody> 
           <tr>
@@ -170,7 +171,7 @@
           <tr>
             <td>&nbsp;&nbsp;Zipcode</td>
             <td>
-            <input type="text" value="<%=data[i].zipcode%>" class="txtboxes required" name="txtzip" id="txtzip" disabled>
+            <input type="text" value="<%=data[i].zip%>" class="txtboxes required" name="txtzip" id="txtzip" disabled>
             </td>
           </tr>
           <tr>
@@ -189,17 +190,17 @@
     <tr>
       <td><table width="100%" cellpadding="10">
         <tbody>
-          <tr>
-            <td >&nbsp;&nbsp;Membership No</td>
-            <td><input type="text" value="<%=data[i].membershipNo%>" class="txtboxes required" disabled></td>
-          </tr>
+<!--           <tr> -->
+<!--             <td >&nbsp;&nbsp;Membership No</td> -->
+<!--             <td><input type="text" value="<%=data[i].membershipNo%>" class="txtboxes required" disabled></td> -->
+<!--           </tr> -->
           <tr>
             <td >&nbsp;&nbsp;First Name</td>
-            <td><input type="text" value="<%=data[i].membershipNo%>" class="txtboxes required" name="txtfname" id="txtfname" disabled></td>
+            <td><input type="text" value="<%=data[i].firstName%>" class="txtboxes required" name="txtfname" id="txtfname" disabled></td>
           </tr>
           <tr>
-            <td width="93%">&nbsp;&nbsp;Last Name</td>
-            <td width="7%">
+            <td width="48%">&nbsp;&nbsp;Last Name</td>
+            <td width="52%">
             <input type="text" value="<%=data[i].lastName%>" class="txtboxes required" name="txtlname" id="txtlname" disabled>
             </td>
           </tr>
@@ -278,8 +279,8 @@
   <!-- list all products bought -->
 <br>
 <br>
+<div padding-top: 10px;  padding-right: 0px;  padding-bottom: 0.25in;  padding-left: 5em;  >
 <h2> Bought Products </h2>
-<%if(bought!=null){%>
 <table class="reference" style="width:100%">
 <tbody><tr>
 	<th>Name</th>
@@ -287,28 +288,24 @@
 	<th>Description</th>		
 	<th>Amount</th>
 </tr>
-
- <%for(var i=0;i<bought.length;i++){%>
+<%if(bought != null){
+for(var i=0;i<bought.length;i++){%>
 <tr>
 	<td><%=bought[i].productName %></td>
 	<td><%=bought[i].productCondition %></td>
 	<td><%=bought[i].productDesc %></td>		
 	<td><%=bought[i].amount %></td>
 </tr>
+<%}}else{%>
+<h3>You did not buy anything!!</h3>
 <%}%>
-
 </tbody></table>
-<%}else {%>
-
-<p>No items bought<br><br>
-<%}%>
  
   
   <!-- list all products sold -->
 <br>
 <br>
 <h2> Sold Products </h2>
-<%if(sold!=null){%>
 <table class="reference" style="width:100%">
 <tbody><tr>
 	<th>Name</th>
@@ -327,25 +324,20 @@
 <%}%>
 
 </tbody></table> 
-<%}else {%>
-
-<p>No items Sold<br><br>
-<%}%>
-
+ 
  
   <!-- list all reviews given -->
 <br>
 <br>
-<h2> Reviews given/h2>
-<%if(given!=null){%>
+<h2> Reviews given</h2>
 <table class="reference" style="width:100%">
 <tbody><tr>
 	<th>Rating</th>
 	<th>Comment</th>
 	<th>Action</th>
 </tr>
-
- <%for(var i=0;i<given.length;i++){%>
+<%if(given != null){
+ for(var i=0;i<given.length;i++){%>
 <tr>
 <form action="" method="post">
 	<td><%=given[i].rating %></td>
@@ -354,19 +346,17 @@
 </form>
 	
 </tr>
+<%}}else{%>
+<h3>No review found</h3>
 <%}%>
 
 </tbody></table>
-<%}else {%>
-
-<p>No reviews given<br><br>
-<%}%>
 
   <!-- list all reviews given -->
 <br>
 <br>
-<h2> Reviews got/h2>
-<%if(got!=null){%>
+<h2> Reviews given</h2>
+<%if(got>0){%>
 <table class="reference" style="width:100%">
 <tbody><tr>
 	<th>Rating</th>
@@ -378,12 +368,12 @@
 	<td><%=got[i].rating %></td>
 	<td><%=got[i].comment %></td>
 </tr>
+<%}}else{%>
+<h5>No Reviews by you</h5>
 <%}%>
 
-</tbody></table> 
-<%}else {%>
-<p>No reviews got
-<%}%> 
+</tbody></table>
+</div> 
 
 </body>
 </html>

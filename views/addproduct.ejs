@@ -4,27 +4,29 @@
 <link href="styles/customstyle.css" rel="stylesheet" type="text/css" >
 <link href="styles/style.css" type="text/css" rel="stylesheet">
 
-<script>
-function show_menu()
-{
-if(document.getElementById('gh-eb-My-o').style.display=="none")
-document.getElementById('gh-eb-My-o').style.display="block";
-else
-document.getElementById('gh-eb-My-o').style.display="none";
-}
-</script>
+<script src="/jscript/common.js"></script>
 <meta charset="utf-8">
 <title>Add Product</title>
+<style>
+.clickMe {
+    -moz-appearance: button;
+    -ms-appearance: button;
+    -o-appearance: button;
+    -webkit-appearance: button;
+    appearance: button;
+    text-decoration: none;
+    color: #000;
+    padding: 0.2em 0.4em;
+}​
+</style>
 </head>
 
-<body>
-<<<<<<< HEAD
-<table width="100%" border="0">
-<form id="form1" name="form1" method="post" >
-=======
 
-<form action="/add_products", method="post", enctype="multipart/form-data">
->>>>>>> origin/master
+<body>
+<div>
+<table width="100%" border="0">
+<form action="/add_product", method="post", enctype="multipart/form-data">
+
   <tbody>
     <tr>
       <td width="62%">
@@ -81,12 +83,12 @@ document.getElementById('gh-eb-My-o').style.display="none";
       
         <td>
         Condition<br>
-            <input type="radio" name="txtcond" value="new" class="txtboxes" checked> New
+            <input type="radio" name="group1" value="new" class="txtboxes" checked> New
   <input type="radio" name="group1" value="used"> Used<br><br>
             
             Type<br>
-            <input type="radio" name="group2" value="fixedprice" class="txtboxes" checked> Fixed Price
-  <input type="radio" name="group2" value="bid"> Bid<br><br>
+            <input type="radio" name="group2" value="DirectBuy" class="txtboxes" checked> Fixed Price
+  <input type="radio" name="group2" value="Bid"> Bid<br><br>
   </div>
         </td>
         <td><div class="txtboxes">
@@ -100,15 +102,19 @@ document.getElementById('gh-eb-My-o').style.display="none";
       <td colspan="2">
       <div align="center">
       <br>
-      <input type="submit" name="submit">Add Product</td>
+      <input type="submit" name="Add Product"></td>
+      <td></td>
+      <br>
+      <br>
+     
       </div>
-    </tr>
-    
-    
-  
- </form>
-    
+    </tr> 
     </tbody>
     </form>
+    </table>
+    </div>
+    <div style="position:absolute;right:20%;top:180px;">
+     <button  class="ButtonBuss" onclick="window.location='/'"><font size=5>Cancel</font></button>
+	</div>
 </body>
 </html>

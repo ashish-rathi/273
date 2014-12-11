@@ -7,16 +7,10 @@
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
 
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <link href="/styles/style.css" type="text/css" rel="stylesheet">
-<script>
-function show_menu() {
-	if (document.getElementById('gh-eb-My-o').style.display == "none")
-		document.getElementById('gh-eb-My-o').style.display = "block";
-	else
-		document.getElementById('gh-eb-My-o').style.display = "none";
-}
-</script>
-
+<script src="/jscript/common.js"></script>
 <!-- style for home page products -->
 <link href="http://ir.ebaystatic.com/rs/v/jjyrcn3jf25kbh4surkixuwjaan.css" type="text/css" rel="stylesheet">
  
@@ -120,9 +114,9 @@ function show_menu() {
 
 					</li>
 					<li id="gh-cart" class="gh-eb-li rt"><a class="gh-eb-li-a"
-						alt="Your shopping cart is empty"
-						href="http://cart.payments.ebay.com/sc/view"
-						title="Your shopping cart is empty"> <i id="gh-cart-i"
+						alt="Your shopping cart"
+						href="/getcart"
+						title="Your shopping cart"> <i id="gh-cart-i"
 							class="gh-sprRetina"></i>
 					</a></li>
 				</ul>
@@ -156,7 +150,7 @@ for(var i=0;i<productCatalog.length;i+=4){%>
 <%if(i<productCatalog.length){%>
 <div class="widget-wrapper">
 	<div class="widget item-widget">
-		<a href="/categories/<%=productCatalog[i].idCategory%>/<%=productCatalog[i].idProduct%>">
+		<a href="/product/<%=productCatalog[i].idProduct%>">
 		<div class="image">
 			<img class="absolute-center" src="<%=productCatalog[i].productImage%>" alt="<%=productCatalog[i].productName%>" >
 		</div>
@@ -175,7 +169,7 @@ for(var i=0;i<productCatalog.length;i+=4){%>
 if(i<productCatalog.length-1){%>
 <div class="widget-wrapper">
 	<div class="widget item-widget">
-		<a href="/categories/<%=productCatalog[i].idCategory%>/<%=productCatalog[i+1].idProduct%>">
+		<a href="/product/<%=productCatalog[i+1].idProduct%>">
 		<div class="image">
 			<img class="absolute-center" src="<%=productCatalog[i+1].productImage%>" alt="<%=productCatalog[i+1].productName%>">
 		</div>
@@ -194,7 +188,7 @@ if(i<productCatalog.length-1){%>
 if(i<productCatalog.length-2){%>
 <div class="widget-wrapper">
 	<div class="widget item-widget">
-		<a href="/categories/<%=productCatalog[i].idCategory%>/<%=productCatalog[i+2].idProduct%>">
+		<a href="/product/<%=productCatalog[i+2].idProduct%>">
 		<div class="image">
 			<img class="absolute-center" src="<%=productCatalog[i+2].productImage%>" alt="Lenovo ThinkCentre E73 10AS002JUS, Intel Core i3-4130, 4GB, 500GB, Win7 Pro">
 		</div>
@@ -213,7 +207,7 @@ if(i<productCatalog.length-2){%>
 if(i<productCatalog.length-3){%>
 <div class="widget-wrapper">
 	<div class="widget item-widget">
-		<a href="/categories/<%=productCatalog[i].idCategory%>/<%=productCatalog[i+3].idProduct%>">
+		<a href="/product/<%=productCatalog[i+3].idProduct%>">
 		<div class="image">
 			<img class="absolute-center" src="<%=productCatalog[i+3].productImage%>" alt="LG - 29" ips="" led="" hd="" 21:9="" ultrawide="" monitor"="">
 		</div>

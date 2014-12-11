@@ -7,9 +7,9 @@ var mysql = require('mysql');
 var pool  = mysql.createPool({
 	host     : 'localhost',
 	user     : 'root',
-	password : '',
+	password : 'password',
 	port: '3306',
-	database: 'ebay'
+	database: 'Ebay'
 });
 
 //TODO:Error handling module for various errors
@@ -156,7 +156,8 @@ exports.get_cart_for_user = function(membershipNo, callback){
 exports.add_to_cart = function(membershipNo, idProduct, callback){
 	var cart_product = {
 			membershipNo:membershipNo,
-			idProduct:idProduct
+			idProduct:idProduct,
+			isPurchased:'false'
 	};
 	pool.getConnection(function(err, connection) {
 		connection.query('INSERT INTO BuyerCart SET ?',cart_product,function(err, result){
@@ -183,8 +184,10 @@ exports.delete_from_cart = function(membershipNo, idProduct, callback){
  */
 exports.search_products = function(search_string, callback){
 	pool.getConnection(function(err, connection) {
-		connection.query('SELECT * FROM Product WHERE productName LIKE ? OR productDesc LIKE ?',['%'+search_string+'%','%'+search_string+'%'],function(err, result){
+		connection.query('SELECT * FROM Product WHERE productName LIKE ? OR productDesc LIKE ? UNION SELECT * from Product WHERE SELLERID IN (select membershipno from User where firstName like ? or lastName like ? or email like ?)',['%'+search_string+'%','%'+search_string+'%','%'+search_string+'%','%'+search_string+'%','%'+search_string+'%'],function(err, result){
 			connection.release();
+			console.log(err);
+			console.log(result);
 			callback(err, result);
 		});
 	});

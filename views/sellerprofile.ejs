@@ -1,0 +1,260 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+<link href="/styles/customstyle.css" rel="stylesheet" type="text/css" >
+<link href="/styles/style.css" type="text/css" rel="stylesheet">
+<script src="/jscript/common.js"></script>
+<script src="/jquery-ui-1.11.1/external/jquery/jquery.js"></script>
+<script src="/jquery-ui-1.11.1/jquery-ui.js"></script>
+<script src="/validator/jquery.validate.js"></script>
+<script>
+$(document).ready(function(){
+	var x = $("#message").html();
+	var x1 = $("#error").html();
+    if(x1!='')
+    {
+            $('#notification').slideToggle(500).delay(2000).slideToggle(500);
+    }
+    if(x!='')
+    {
+            $('#notification1').slideToggle(500).delay(2000).slideToggle(500);
+    }
+   $("#frmlogin").validate()
+})
+
+</script>
+<style>
+.error{color:red}
+</style>
+
+<!-- style for products -->
+<link href="http://ir.ebaystatic.com/rs/v/jjyrcn3jf25kbh4surkixuwjaan.css" type="text/css" rel="stylesheet">
+ 
+</head>
+<body class="sz1200">
+<div id="notification">
+       <div id="error"><%=error%></div>
+</div>
+ <div id="notification1">
+       <div id="message"><%=message%></div>
+</div>
+
+<div id="gh-gb" tabindex="-1"></div>
+	<div class="header">
+	  <div id="gh" class="gh-w gh-simpleH no-touch gh-flex">
+			<table class="gh-tbl">
+				<tbody>
+					<tr>
+						<td class="gh-td">
+							<h1 id="gh-l-h1">
+								<a id="gh-la" class="iclg" href="/"> eWay <img
+									id="gh-logo" width="250" height="200"
+									style="clip: rect(47px, 118px, 95px, 0px); position: absolute; top: -47px; left: 0"
+									alt="" src="/images/logo.png">
+								</a>
+							</h1>
+						</td>
+						<td class="gh-td-s">
+							<form id="gh-f" method="get" action="search">
+								<table class="gh-tbl2">
+									<tbody>
+										<tr>
+											<td class="gh-td-s">
+												<div id="gh-ac-box" class="">
+													<div id="gh-ac-box2">
+														<input id="gh-ac" class="gh-tb ui-autocomplete-input"
+															type="text" aria-haspopup="false" size="50"
+															maxlength="300" placeholder="Search..." name="_nkw"
+															autocapitalize="off" autocorrect="off" spellcheck="false"
+															autocomplete="off"> <span
+															class="ui-helper-hidden-accessible" aria-live="polite"
+															role="status"></span>
+													</div>
+												</div>
+												<div id="gAC">
+													<ul id="ui-id-1"
+														class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content ui-corner-all"
+														style="display: none; width: 796px;" tabindex="-1"></ul>
+												</div>
+											</td>
+											<td id="gh-cat-td" class="gh-td">
+												<div id="gh-cat-box">
+													<select id="gh-cat" class="gh-sb gh-sprRetina"
+														title="Select a category for search" size="1">
+														<option selected="selected" value="0">All
+															Categories</option>
+														<option value="mobiles">Mobiles</option>
+														<option value="laptops">Laptops</option>
+														<option value="accessories">Accessories</option>
+														<option value="cameras">Camera</option>
+														<option value="tablets">Tablets</option>
+														<option value="tv">TV</option>
+														<option value="video_games">Video Games</option>
+													</select>
+												</div>
+											</td>
+											<td class="gh-td"><input id="gh-btn"
+												class="btn btn-prim gh-spr" type="submit" value="Search">
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</form>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div id="gh-top">
+				<ul id="gh-topl">
+					<li id="gh-eb-u" class="gh-t gh-spr"><span id="gh-ug"
+						class="gh-ug-guest">Hi <%=session.name%></span></li>
+					<li id="gh-p-1" class="gh-t gh-spr "><a class="gh-p"
+						href="sellers">View Sellers</a></li>
+					<li id="gh-p-2" class="gh-t gh-spr "><a class="gh-p"
+						href="add_product">Sell</a></li>
+					<li id="gh-p-3" class="gh-t gh-spr "><a class="gh-p"
+						href="contact">Help & Contact</a></li>
+				</ul>
+				<ul id="gh-eb">
+					<li id="gh-eb-My" class="gh-eb-li gh-dd" data-imp="10">
+						<div class="gh-menu" onMouseOver="show_menu()"
+							onMouseOut="show_menu()">
+							<a class="gh-eb-li-a" href="">My eWay</a>
+						</div>
+						<div id="gh-eb-My-o" class="gh-submenu gh-eb-o"
+							style="display: none;" onMouseOver="show_menu()"
+							onMouseOut="show_menu()">
+							<ul role="navigation">
+							<%if(session.name=='Guest'){%>
+								<li><a class="gh-eb-oa thrd" href="/signin">Sign in</a></li>
+								<li><a class="gh-eb-oa thrd" href="/signup">Sign up</a></li>
+							<%}else{%>
+								<li><a class="gh-eb-oa thrd" href="/profile">Profile</a></li>
+								<li><a class="gh-eb-oa thrd" href="/logout">Logout</a></li>
+							<%}%>
+							</ul>
+						</div>
+
+					</li>
+					<li id="gh-cart" class="gh-eb-li rt"><a class="gh-eb-li-a"
+						alt="Your shopping cart"
+						href="/getcart"
+						title="Your shopping cart"> <i id="gh-cart-i"
+							class="gh-sprRetina"></i>
+					</a></li>
+				</ul>
+			</div>
+	  </div>
+	</div>
+
+	<div class="horizontal headerlinks" align="center"
+		style="background-color: #98BF21;">
+
+		<ul>
+			<li><a href="/categories/324">Mobiles/Tablets</a></li>
+			<li><a href="/categories/325">Computers/Laptops</a></li>
+			<li><a href="/categories/326">TV</a></li>
+			<li><a href="/categories/327">Cameras</a></li>
+			<li><a href="/categories/328">CDs/DVDs</a></li>
+			<li><a href="/categories/329">Accessories</a></li>
+		</ul>
+	</div>
+	<br><br><br>
+	
+	
+	
+<!-- list user details -->
+<br>
+<br>
+<h2> Seller details</h2>
+<table class="reference" style="width:100%">
+<tbody><tr>
+	<th>First Name</th>
+	<th>Last Name</th>
+	<th>Email Id</th>
+	<th>Address</th>
+	<th>City</th>
+	<th>State</th>
+	<th>ZIP</th>
+	<th>Rating</th>
+</tr>
+
+<% for(var i in data) { %>
+<tr>
+	<td><%=data[i].firstName %></td>
+	<td><%=data[i].lastName %></td>
+	<td><%=data[i].email %></td>		
+	<td><%=data[i].addressMain %></td>
+	<td><%=data[i].city %></td>
+	<td><%=data[i].state %></td>
+	<td><%=data[i].zip %></td>
+	<td><%=data[i].sellerRating %></td>
+</tr>
+<%}%>
+
+</tbody>
+</table>
+
+<!-- list all products sold -->
+<br>
+<br>
+<h2> Sold Products </h2>
+<table class="reference" style="width:100%">
+<tbody><tr>
+	<th>Name</th>
+	<th>Condition</th>
+	<th>Description</th>		
+	<th>Amount</th>
+</tr>
+
+ <%for(var i=0;i<sold.length;i++){%>
+<tr>
+	<td><%=sold[i].productName %></td>
+	<td><%=sold[i].productCondition %></td>
+	<td><%=sold[i].productDesc %></td>		
+	<td><%=sold[i].amount %></td>
+</tr>
+<%}%>
+
+</tbody></table> 
+
+
+ <!-- list all reviews got -->
+<br>
+<br>
+<h2> Reviews</h2>
+<%if(reviews !=null){%>
+<table class="reference" style="width:100%">
+<tbody><tr>
+	<th>Rating</th>
+	<th>Comment</th>
+</tr>
+
+ <%for(var i=0;i<reviews.length;i++){%>
+<tr>
+	<td><%=reviews[i].rating %></td>
+	<td><%=reviews[i].comment %></td>
+</tr>
+<%}%>
+
+</tbody></table> 
+<%}else{%>
+<h1>No reviews for you</h1>
+<%}%> 
+<br><br>
+<h1><span class='color_h1'>Add review</span></h1>
+<form id="add-review" method="post" action="/addreview/<%=data[0].membershipNo%>">
+<table class="form-table">
+	<tr><td>Rating </td><td>1<input type="radio" name="rating" value=1>
+	2<input type="radio" name="rating" value=2>
+	3<input type="radio" name="rating" value=3>
+	4<input type="radio" name="rating" value=4>
+	5<input type="radio" name="rating" value=5></td></tr>
+	<tr><td>Review </td><td><textarea name="comment" id="comment"></textarea></td></tr>
+	<tr><td></td><td><input class="btn" type="submit" value="submit"></td></tr>
+</table>
+</form> 
+  
+ 
+</body>
+</html>

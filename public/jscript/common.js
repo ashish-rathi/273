@@ -52,3 +52,21 @@ function show_all() {
 	for(var j=0; j<x.length; j++)
 	x[j].style.display = "block";
 }
+
+
+function show_editable() {
+	document.getElementById('txtemail').disabled=false;
+	document.getElementById('txtpwd').disabled=false;
+	document.getElementById('txtpwd2').disabled=false;
+	document.getElementById('txtfname').disabled=true;
+	document.getElementById('txtlname').disabled=true;
+	document.getElementById('txtmaddress').disabled=false;
+	document.getElementById('txtcity').disabled=false;
+	document.getElementById('txtstate').disabled=false;
+	document.getElementById('txtzip').disabled=false;
+	
+	document.getElementById('update').style.display="block";
+	document.getElementById('edit').style.display="none";
+	
+	
+}

@@ -313,6 +313,7 @@ $.extend( $.validator, {
 		required: "This field is required.",
 		remote: "Please fix this field.",
 		email: "Please enter a valid email address.",
+		ssn : "Please enter a valid ssn",
 		url: "Please enter a valid URL.",
 		date: "Please enter a valid date.",
 		dateISO: "Please enter a valid date ( ISO ).",
@@ -369,7 +370,7 @@ $.extend( $.validator, {
 			$( this.currentForm )
 				.validateDelegate( ":text, [type='password'], [type='file'], select, textarea, " +
 					"[type='number'], [type='search'] ,[type='tel'], [type='url'], " +
-					"[type='email'], [type='datetime'], [type='date'], [type='month'], " +
+					"[type='email'],[type='ssn'], [type='datetime'], [type='date'], [type='month'], " +
 					"[type='week'], [type='time'], [type='datetime-local'], " +
 					"[type='range'], [type='color'], [type='radio'], [type='checkbox']",
 					"focusin focusout keyup", delegate)
@@ -925,6 +926,7 @@ $.extend( $.validator, {
 	classRuleSettings: {
 		required: { required: true },
 		email: { email: true },
+		ssn: {ssn: true},
 		url: { url: true },
 		date: { date: true },
 		dateISO: { dateISO: true },
@@ -1135,6 +1137,14 @@ $.extend( $.validator, {
 			// If you have a problem with this implementation, report a bug against the above spec
 			// Or use custom methods to implement your own email validation
 			return this.optional( element ) || /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test( value );
+		},
+		
+		ssn: function( value, element ) {
+			// From http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#e-mail-state-%28type=email%29
+			// Retrieved 2014-01-14
+			// If you have a problem with this implementation, report a bug against the above spec
+			// Or use custom methods to implement your own email validation
+			return this.optional( element ) || /^[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]$/.test( value );
 		},
 
 		// http://jqueryvalidation.org/url-method/

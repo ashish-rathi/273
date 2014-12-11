@@ -122,9 +122,9 @@ function show_menu() {
 
 					</li>
 					<li id="gh-cart" class="gh-eb-li rt"><a class="gh-eb-li-a"
-						alt="Your shopping cart is empty"
+						alt="Your shopping cart"
 						href="/getcart"
-						title="Your shopping cart is empty"> <i id="gh-cart-i"
+						title="Your shopping cart"> <i id="gh-cart-i"
 							class="gh-sprRetina"></i>
 					</a></li>
 				</ul>
@@ -161,6 +161,7 @@ function show_menu() {
 	<td><%=cartItem[i].productName%></td>
 	<td><%=cartItem[i].productDesc%></td>		
 	<td><%=cartItem[i].amount %></td>
+	<td><form action="/deletefromcart"><input type="hidden" name="idproduct" value="<%=cartItem[i].idProduct%>"><input type="submit" value="delete" ></form></td>
 </tr>
 <%}%>
 

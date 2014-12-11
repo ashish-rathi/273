@@ -108,9 +108,9 @@
 
 					</li>
 					<li id="gh-cart" class="gh-eb-li rt"><a class="gh-eb-li-a"
-						alt="Your shopping cart is empty"
+						alt="Your shopping cart"
 						href="/getcart"
-						title="Your shopping cart is empty"> <i id="gh-cart-i"
+						title="Your shopping cart"> <i id="gh-cart-i"
 							class="gh-sprRetina"></i>
 					</a></li>
 				</ul>
@@ -171,7 +171,8 @@
 <ul id="ListViewInner">
 
 <%
-if(productCatalog !=null){ 
+if(productCatalog !=null){
+	if(productCatalog.length>0){ 
 for(var i=0;i<productCatalog.length;i++){%>
 <li name="<%=productCatalog[i].sellType%>" class="sresult lvresult clearfix li" r="1">
 	
@@ -202,6 +203,8 @@ for(var i=0;i<productCatalog.length;i++){%>
     </ul>
 	</li>
 <% }} else {%>
+No Products Available
+<%}}else{%>
 No Products Available
 <%}%>
 </ul>

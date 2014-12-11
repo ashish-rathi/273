@@ -13,6 +13,7 @@ exports.product = function(req,res)
 		if(products.length > 0){
 			var jsonString = JSON.stringify(products);
 			var productCatalogs = JSON.parse(jsonString);
+			console.log(req.session.message);
 			ejs.renderFile('./views/product.ejs',{error:req.session.error,message:req.session.message,session:req.session,category:categoryType,productCatalog:productCatalogs},function(err, result){
 			if (!err) {
 	          res.end(result);
@@ -21,7 +22,6 @@ exports.product = function(req,res)
 	          res.end('An error occurred');
 	          console.log(err);
 			}
-			console.log('after page rensered');
 			req.session.lasturl = '/product/'+prodId;
 			req.session.error = '';
 			req.session.message = '';
@@ -143,6 +143,12 @@ exports.getbid = function(req,res){
 				data = 'Enter US $'+amount+' or more';
 				res.end(data);
 			}
+			else
+			{
+				amount = 2;
+				data = 'Enter US $'+amount+' or more';
+				res.end(data);
+			}
 		}
 	});
 }
@@ -167,7 +173,9 @@ exports.addbid = function(req,res)
 					if(results.affectedRows > 0){
 						req.session.error = '';
 						req.session.message ='Bid successfull';
+						console.log('last url'+req.session.lasturl);
 						res.redirect(req.session.lasturl);
+						//res.redirect('/');
 					}
 				}
 			});
@@ -176,14 +184,11 @@ exports.addbid = function(req,res)
 		req.session.lasturl='/product/'+req.params.prodId;
 		req.session.error='Please login before bidding';
 		res.redirect('/signin');
-		
 	}
 
-	
-	
-	res.end("bid added");	
-
 }
+
+
 function getCategoryType(id)
 {
 	

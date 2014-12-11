@@ -1,9 +1,15 @@
 <html lang="en">
 <head>
+<link rel="stylesheet" type="text/css" href="/css/jquery.countdown.css">
 <link href="/styles/customstyle.css" rel="stylesheet" type="text/css" >
+<link href="/styles/style.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> 
 <script src="/jquery-ui-1.11.1/external/jquery/jquery.js"></script>
 <script src="/jquery-ui-1.11.1/jquery-ui.js"></script>
-<link href="/styles/style.css" type="text/css" rel="stylesheet">
+
+<script type="text/javascript" src="/js/jquery.plugin.js"></script> 
+<script type="text/javascript" src="/js/jquery.countdown.js"></script>
+
 <!-- style for single product -->
 
 <link href="http://ir.ebaystatic.com/rs/v/cakcqsm3fe1djpkblj5vzypxuml.css" type="text/css" rel="stylesheet">
@@ -20,7 +26,6 @@ function show_menu() {
 
 function vallidate()
 {
-	alert('function called');
 	var data = document.getElementById("bidvalue").innerHTML.toString();
 	var amount= data.slice(10,13);
 	var bid = 0;
@@ -29,11 +34,23 @@ function vallidate()
 	{
 		return true;
 	}
-	//	alert('Enter bid value greater than existing bid');
+		alert('Enter bid value greater than existing bid');
 	return false;
 }
 	
 $(document).ready(function(){
+	//alert('function called');
+	
+	var newYear = new Date("<%=productCatalog[0].endDateOfSale%>");
+	//alert(newYear);
+	//alert(newYear.getFullYear());
+	//alert(newYear.getMonth());
+	//alert(newYear.getDay());
+	newYear = new Date(newYear.getFullYear(), newYear.getMonth(), newYear.getDay()+7); 
+	//alert(newYear);
+	$('#timer').countdown({until: newYear, format: 'HMS'});
+	
+	
 	var sellType = "<%=productCatalog[0].sellType%>";
 	var bidurl = "/getbid/"+<%=productCatalog[0].idProduct%>;
 	console.log(sellType);
@@ -50,7 +67,7 @@ $(document).ready(function(){
 			    	{
 			      		$("#bidvalue").html(result);
 			      	}})
-			    }, 5000);
+			    }, 25000);
 	
 		}
 	
@@ -59,10 +76,12 @@ $(document).ready(function(){
 	
     if(x1!='')
     {
+    	alert(x);
             $('#notification').slideToggle(500).delay(2000).slideToggle(500);
     }
     if(x!='')
     {
+    	alert(x);
             $('#notification1').slideToggle(500).delay(2000).slideToggle(500);
     }
     
@@ -183,9 +202,9 @@ $(document).ready(function(){
 
 					</li>
 					<li id="gh-cart" class="gh-eb-li rt"><a class="gh-eb-li-a"
-						alt="Your shopping cart is empty"
+						alt="Your shopping cart"
 						href="/getcart"
-						title="Your shopping cart is empty"> <i id="gh-cart-i"
+						title="Your shopping cart"> <i id="gh-cart-i"
 							class="gh-sprRetina"></i>
 					</a></li>
 				</ul>
@@ -267,7 +286,7 @@ $(document).ready(function(){
 							Seller information</h2>
 				<div class="bdg-90">
 							<div class="mbg vi-VR-margBtm3">
-        <a href="http://www.ebay.com/usr/bidallies?_trksid=p2047675.l2559" aria-label="Member ID:&nbsp;bidallies"> <span class="mbg-nw">bidallies</span></a>
+        <a href="/seller/<%=productCatalog[0].sellerId%>" aria-label="Member ID:&nbsp;bidallies"> <span class="mbg-nw">I am the Seller</span></a>
         <span class="mbg-l">
             (
                     <span class="vi-mbgds3-bkImg vi-mbgds3-bigStar vi-mbgds3-fb100000-499999" alt="feedback score: 153978" title="feedback score: 153978"></span>)</span> 
@@ -343,8 +362,10 @@ $(document).ready(function(){
 <a id="isCartBtn_btn" class="btn btn-scnd vi-VR-btnWdth-XL" rel="nofollow" vib="vib" href="/addtocart/<%=productCatalog[0].idProduct%>" style="" _sp="p2047675.l1473" role="button"> Add to cart</a>
 <%}else if(productCatalog[0].sellType=='Bid'){%>
 <input type="submit" id="isCartBtn_btn" class="btn btn-scnd vi-VR-btnWdth-XL" onclick="return vallidate();" rel="nofollow" vib="vib" formaction="/addbid/<%=productCatalog[0].idProduct%>" style="" _sp="p2047675.l1473" role="button" value="Place Bid"/>
-<input id="MaxBidId" placeholder="" aria-labelledby="maxbidlabel" class="notranslate MaxBidClass" type="text" autocomplete="off" size="11" maxlength="10" name="maxbid" value="">
-<br><div id="bidvalue"></div> 
+<br><br><div id="prcIsum-lbl" class="vi-bbox-dspn u-flL lable binLable">Bid Amount:</div>
+<input id="MaxBidId" placeholder="" aria-labelledby="maxbidlabel" class="notranslate MaxBidClass" type="number" autocomplete="off" size="11" maxlength="10" name="maxbid" value="">
+<br><br><center><div id="bidvalue"></div></center><br><br>
+<div id="timer" style="color:red;"></label>  
 <%}%>
 </span>
 						
@@ -452,30 +473,30 @@ $(document).ready(function(){
 		</div>
 
 <div class="u-cb spcr"></div>
-			<div>
-   		<div id="coveragePlacementHolderId" class="u-flL lable vi-ebp2-lbl">Guarantee:</div>
-			<div class="u-flL  rpColWid ">
-        	<table class="vi-ebp2-logo-tbl" width="100%">
-        		<tbody><tr>
-        			<td class="vi-ebp2-logo-tbl-cell" colspan="2">
-<span id="vi-ebp2-logo" class="vi-ebp2-logo"><span class="hideforacc">Money Back Guarantee</span></span>
+<!-- 			<div> -->
+<!--    		<div id="coveragePlacementHolderId" class="u-flL lable vi-ebp2-lbl">Guarantee:</div> -->
+<!-- 			<div class="u-flL  rpColWid "> -->
+<!--         	<table class="vi-ebp2-logo-tbl" width="100%"> -->
+<!--         		<tbody><tr> -->
+<!--         			<td class="vi-ebp2-logo-tbl-cell" colspan="2"> -->
+<!-- <span id="vi-ebp2-logo" class="vi-ebp2-logo"><span class="hideforacc">Money Back Guarantee</span></span> -->
         				
-        					</td>
-        		</tr>
-        		<tr>
-		        			<td colspan="2" style="font-size:12px;">
-		        				Get the item you ordered or get your money back.</td>
-		        		</tr>  
-		        		<tr>
-			        			<td colspan="2" style="font-size:11px;">
-			        				Covers your purchase price and original shipping.</td> 
-			        		</tr>	
-		        		</tbody></table>
+<!--         					</td> -->
+<!--         		</tr> -->
+<!--         		<tr> -->
+<!-- 		        			<td colspan="2" style="font-size:12px;"> -->
+<!-- 		        				Get the item you ordered or get your money back.</td> -->
+<!-- 		        		</tr>   -->
+<!-- 		        		<tr> -->
+<!-- 			        			<td colspan="2" style="font-size:11px;"> -->
+<!-- 			        				Covers your purchase price and original shipping.</td>  -->
+<!-- 			        		</tr>	 -->
+<!-- 		        		</tbody></table> -->
         	
              
              
-        </div>
-    </div> </form>
+<!--         </div> -->
+<!--     </div> </form> -->
 	
 	</div>
 

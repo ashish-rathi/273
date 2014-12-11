@@ -12,7 +12,7 @@ var appDir = path.dirname(require.main.filename);
  */
 
 exports.signin = function(req, res){
-	ejs.renderFile('./views/signin.ejs',{error:'',message:''},function(err, result){
+	ejs.renderFile('./views/signin.ejs',{error:req.session.error,message:req.session.message},function(err, result){
 		  if (!err) {
 	          res.end(result);
 	      }
@@ -20,6 +20,8 @@ exports.signin = function(req, res){
 	          res.end('An error occurred');
 	          console.log(err);
 	      }
+		  req.session.error = '';
+		  req.session.message = '';
 	  });
 };
 
@@ -58,19 +60,21 @@ exports.deletereview=function(req,res){
 /*
  * Log's out and destroy user session
  */
+/*
+ * Log's out and destroy user session
+ */
 exports.logout = function(req, res){
 	req.session.destroy();
-	ejs.renderFile('./views/logout.ejs',function(err, result){
-		  if (!err) {
-	          res.end(result);
-	      }
-	      else {
-	          res.end('An error occurred');
-	          console.log(err);
-	      }
-	  });
+	res.redirect("/");
 };
 
+
+exports.deletefromcart = function(req,res){
+	console.log(req.body.idproduct);
+	customMysql.delete_from_cart(req.session.membershipNo,req.body.idproduct,function(err, products) {
+	res.redirect('/getcart');
+	});
+}
 /*
  * GET home page.
  */
@@ -177,7 +181,7 @@ exports.addproducts=function(req,res){
 			});
 		var productdata={
 				productName:req.body.txtpname,
-				productCondition:req.body.txtcond,
+				productCondition:req.body.group1,
 				productDesc:req.body.txtdesc,
 				amount:req.body.txtamt,
 				idCategory:req.body.txtcat,
@@ -210,8 +214,8 @@ exports.editprofile=function(req,res){
 			firstName : req.body.txtfname,
 			lastName : req.body.txtlname,
 			addressMain : req.body.txtmaddress,
-			city : req.body.txtcity,
 			state : req.body.txtstate,
+			city : req.body.txtcity,
 			zip : req.body.txtzip
 			//isSeller : false
 		};
@@ -311,7 +315,7 @@ exports.login = function(req, res) {
         console.log(jsonString);
         var jsonParse = JSON.parse(jsonString);
         setupSession(req,result);
-        index(req,res);
+        res.redirect(req.session.lasturl);
     }
     else{
     	var errorType="Invalid userName/password";
@@ -427,6 +431,9 @@ exports.profile = function(req, res) {
 
 function initializeSession(request){
 	request.session.name = 'Guest';
+	request.session.message = '';
+	request.session.error = '';
+	request.session.lasturl='/';
 }
 
 /*
